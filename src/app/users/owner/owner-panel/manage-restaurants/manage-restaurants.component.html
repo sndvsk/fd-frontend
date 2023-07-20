@@ -1,0 +1,101 @@
+<div class="container" *ngIf="restaurant && editMode">
+    <mat-card class="restaurant-form-card">
+      <mat-card-content>
+        <div fxLayout="row" fxLayoutGap="20px">
+            <form fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+                <!-- Restaurant Information -->
+                <h3>Restaurant Info</h3>
+
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="restaurant.name" name="name" id="name" placeholder="Restaurant name">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <input matInput type="text" [(ngModel)]="restaurant.description" name="description" id="description" placeholder="Restaurant description">
+                </mat-form-field>
+      
+                <mat-form-field>
+                    <mat-label>Theme</mat-label>
+                    <mat-select type="text" [(ngModel)]="restaurant.theme" name="theme" id="theme" placeholder="Restaurant theme">
+                        <mat-option *ngFor="let theme of restaurantThemes" [value]="theme">{{theme}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+      
+                <mat-form-field>
+                    <mat-label>Phone</mat-label>
+                    <input matInput type="text" [(ngModel)]="restaurant.phone" name="phone" id="phone" placeholder="Restaurant phone">
+                </mat-form-field>
+      
+                <mat-form-field>
+                    <mat-label>Image</mat-label>
+                    <input matInput type="text" [(ngModel)]="restaurant.image" name="image" id="image" placeholder="Restaurant image">
+                </mat-form-field>
+            </form>
+  
+            <form fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+            <!-- Restaurant Address -->
+            <h3>Address Info</h3>
+
+            <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput [(ngModel)]="restaurantAddress.country" name="country" id="country" placeholder="Country">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+            <mat-label>County</mat-label>
+            <input matInput [(ngModel)]="restaurantAddress.county" name="county" id="county" placeholder="County">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <input matInput [(ngModel)]="restaurantAddress.city" name="city" id="city" placeholder="City">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+            <mat-label>Zip Code</mat-label>
+            <input matInput type="number" [(ngModel)]="restaurantAddress.zip_code" name="zip_code" id="zip_code" placeholder="Zip Code">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+            <mat-label>Street</mat-label>
+            <input matInput type="text" [(ngModel)]="restaurantAddress.street" name="street" id="street" placeholder="Street">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+            <mat-label>House number</mat-label>
+            <input matInput type="text" [(ngModel)]="restaurantAddress.house_number" name="house_number" id="house_number" placeholder="House number">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+            <mat-label>Apartment number</mat-label>
+            <input matInput type="text" [(ngModel)]="restaurantAddress.apt_number" name="apt_number" id="apt_number" placeholder="Apartment number">
+            </mat-form-field>
+
+          </form>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="saveRestaurant()">Save</button>
+        <button mat-button (click)="cancelEdit()">Cancel</button>
+      </mat-card-actions>
+    </mat-card>
+</div>
+
+<div class="restaurant-section">
+    <h2>Restaurants</h2>
+
+    <button (click)="addRestaurant()">Add Restaurant</button>
+
+    <div *ngIf="restaurants.length > 0">
+        <div *ngFor="let restaurant of restaurants">
+            <h3>{{ restaurant.name }}</h3>
+            <button (click)="editRestaurant(restaurant)">Edit Restaurant</button>
+            <button (click)="deleteRestaurant(restaurant.restaurant_id)">Delete Restaurant</button>
+        </div>
+    </div>
+    <div *ngIf="restaurants.length === 0">
+        <p>No restaurants found.</p>
+      </div>
+</div>

@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
 
-const routes: Routes = [];
+const routes: Routes = [
+  //{ path: '**', redirectTo: '/not-found' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule) },
+  { path: '', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
+  { path: '', loadChildren: () => import('./core/core.module').then(m => m.CoreModule) }
+];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+export const AppRoutingModule: ModuleWithProviders<any> = RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' });

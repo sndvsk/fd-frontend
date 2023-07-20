@@ -1,0 +1,58 @@
+<header class="header">
+  <a routerLink="/" class="logo">Delive<span class="yellow">ry</span> App</a>
+
+  <nav class="navbar" id="navbarHeader" [class.showing]="navbarShow" (click)="closeNavbarOnLinkClick($event)">
+    <a routerLink="/home">Home</a>
+    <a href="#services">Services</a>
+    <a routerLink="/about-us">About Us</a>
+    <a routerLink="/contact">Contact Us</a>
+
+    <!-- Check if user is logged in -->
+    <div class="user-nav">
+      <!-- Check if user is logged in -->
+      <div class="user-dropdown" [class.show]="showDropdown">
+
+        <ng-container *ngIf="isLoggedIn()">
+            <a routerLink="/user-details">Profile Settings</a>
+          </ng-container>
+        <!-- Check user's role -->
+        <ng-container *ngIf="userRole === 'ADMIN'">
+          <!-- Admin options -->
+          <a routerLink="/admin/settings">Website Settings</a>
+          <a routerLink="/admin/panel">Admin Panel</a>
+        </ng-container>
+        
+        <ng-container *ngIf="userRole === 'OWNER'">
+          <!-- Owner options -->
+          <a routerLink="/owner/panel">Restaurant List</a>
+          <a routerLink="/owner/orders">Orders</a>
+        </ng-container>
+        
+        <ng-container *ngIf="userRole === 'CUSTOMER'">
+          <!-- Customer options -->
+          <a routerLink="/customer/cart">Cart</a>
+          <a routerLink="/customer/orders">Orders</a>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn()">
+          <a routerLink="/auth/logout">Logout</a>
+        </ng-container>
+      </div>
+
+      <ng-container *ngIf="isLoggedIn(); else signInOption">
+        <a class="user-name" (click)="toggleDropdown()" *ngIf="username">{{ username }}</a>
+      </ng-container>
+      
+      <ng-template #signInOption>
+        <a routerLink="/auth/login" class="btn">Sign in</a>
+      </ng-template>
+    </div>
+  </nav>
+
+  <!-- Hamburger -->
+  <button class="hamburger" type="button" (click)="toggleNavbar()" appHamburgerToggle>
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
+</header>
