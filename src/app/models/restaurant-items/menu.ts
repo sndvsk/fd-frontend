@@ -1,8 +1,9 @@
 import { Item } from './item';
 
 export interface Menu {
-  id?: number;
+  menu_id?: number;
   name?: string;
-  restaurantId?: number;
-  items?: Item[];  
+  restaurant_id?: number;
+  items?: Item[];
+  visibility?: string;
 }

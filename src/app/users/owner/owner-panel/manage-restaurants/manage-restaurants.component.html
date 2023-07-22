@@ -83,7 +83,7 @@
     </mat-card>
 </div>
 
-<div class="restaurant-section">
+<div class="restaurant-section" *ngIf="!editMode">
     <h2>Restaurants</h2>
 
     <button (click)="addRestaurant()">Add Restaurant</button>

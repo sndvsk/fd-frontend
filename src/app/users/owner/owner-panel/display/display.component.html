@@ -6,10 +6,11 @@
             <h4>Menus</h4>
             <div *ngFor="let menu of restaurant.menus">
                 <h5>{{ menu.name }}</h5>
+                <h6>visible to customers: {{ menu.visibility }}</h6>
                 <ul>
                     <li *ngFor="let item of menu.items">
                         <h4>{{ item.name }} - {{ item.price }}€</h4>
-                        <h6>{{ item.description }}</h6>
+                        <!-- <h6>{{ item.description }}</h6> -->
                     </li>
                 </ul>
             </div>

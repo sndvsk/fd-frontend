@@ -6,66 +6,70 @@ import { Menu } from 'src/app/models/restaurant-items/menu';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class MenuClient {
-    private baseUrl = environment.apiUrl + '/api/v2/menus';
+  private baseUrl = environment.apiUrl + '/api/v2/menus';
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    getAllMenus(): Observable<Menu[]> {
-        return this.http.get<Menu[]>(`${this.baseUrl}/all`);
-    }
+  getAllMenus(): Observable<Menu[]> {
+    return this.http.get<Menu[]>(`${this.baseUrl}/all`);
+  }
 
-    getMenu(menuId: number): Observable<Menu> {
-        return this.http.get<Menu>(`${this.baseUrl}/${menuId}`);
-    }
+  getMenusByOwnerId(ownerId: number): Observable<Menu[]> {
+    return this.http.get<Menu[]>(`${this.baseUrl}/owner/${ownerId}`);
+  }
 
-    getMenusOfRestaurant(restaurantId: number): Observable<Menu[]> {
-        return this.http.get<Menu[]>(`${this.baseUrl}/restaurant/${restaurantId}`);
-    }
+  getMenusOfRestaurant(restaurantId: number): Observable<Menu[]> {
+    return this.http.get<Menu[]>(`${this.baseUrl}/restaurant/${restaurantId}`);
+  }
 
-    addMenu(ownerId: number, menuName: string): Observable<Menu> {
-        return this.http.post<Menu>(`${this.baseUrl}/${ownerId}`, null, {
-            params: { menuName },
-        });
-    }
+  getMenu(menuId: number): Observable<Menu> {
+    return this.http.get<Menu>(`${this.baseUrl}/${menuId}`);
+  }
 
-    addItemToMenu(menuId: number, restaurantId: number, itemId: number, ownerId: number): Observable<Item> {
-        return this.http.post<Item>(`${this.baseUrl}/restaurant/${restaurantId}/${menuId}`, null, {
-            params: { itemId: String(itemId), ownerId: String(ownerId) },
-        });
-    }
+  addMenu(ownerId: number, menuName: string): Observable<Menu> {
+    return this.http.post<Menu>(`${this.baseUrl}/${ownerId}`, null, {
+      params: { menuName },
+    });
+  }
 
-    addMenuToRestaurant(restaurantId: number, menuId: number, ownerId: number): Observable<Menu> {
-        return this.http.post<Menu>(`${this.baseUrl}/restaurant/${restaurantId}`, null, {
-            params: { menuId: String(menuId), ownerId: String(ownerId) },
-        });
-    }
+  addItemToMenu(menuId: number, restaurantId: number, itemId: number, ownerId: number): Observable<Item> {
+    return this.http.post<Item>(`${this.baseUrl}/restaurant/${restaurantId}/${menuId}`, null, {
+      params: { itemId: String(itemId), ownerId: String(ownerId) },
+    });
+  }
 
-    makeMenuVisible(menuId: number, ownerId: number): Observable<Menu> {
-        return this.http.patch<Menu>(`${this.baseUrl}/${menuId}`, null, {
-            params: { ownerId: String(ownerId) },
-        });
-    }
+  addMenuToRestaurant(restaurantId: number, menuId: number, ownerId: number): Observable<Menu> {
+    return this.http.post<Menu>(`${this.baseUrl}/restaurant/${restaurantId}`, null, {
+      params: { menuId: String(menuId), ownerId: String(ownerId) },
+    });
+  }
 
-    patchMenuInRestaurant(menuId: number, menuName: string, restaurantId: number, ownerId: number): Observable<Menu> {
-        return this.http.patch<Menu>(`${this.baseUrl}/restaurant/${restaurantId}/${menuId}`, null, {
-            params: { menuName, ownerId: String(ownerId) },
-        });
-    }
+  toggleMenuVisibility(menuId: number, ownerId: number): Observable<Menu> {
+    return this.http.patch<Menu>(`${this.baseUrl}/visibility/${menuId}`, null, {
+      params: { ownerId: String(ownerId) },
+    });
+  }
 
-    deleteMenuFromRestaurant(menuId: number, restaurantId: number, ownerId: number): Observable<string> {
-        return this.http.delete(`${this.baseUrl}/restaurant/${restaurantId}/menu/${menuId}`, {
-            params: { ownerId: String(ownerId) },
-            responseType: 'text',
-        });
-    }
+  patchMenu(menuId: number, menuName: string, ownerId: number): Observable<Menu> {
+    return this.http.patch<Menu>(`${this.baseUrl}/${menuId}`, null, {
+      params: { menuName, ownerId: String(ownerId) },
+    });
+  }
 
-    deleteMenu(menuId: number, ownerId: number): Observable<string> {
-        return this.http.delete(`${this.baseUrl}/${menuId}`, {
-            params: { ownerId: String(ownerId) },
-            responseType: 'text',
-        });
-    }
+  deleteMenuFromRestaurant(menuId: number, restaurantId: number, ownerId: number): Observable<string> {
+    return this.http.delete(`${this.baseUrl}/restaurant/${restaurantId}/menu/${menuId}`, {
+      params: { ownerId: String(ownerId) },
+      responseType: 'text',
+    });
+  }
+
+  deleteMenu(menuId: number, ownerId: number): Observable<string> {
+    return this.http.delete(`${this.baseUrl}/${menuId}`, {
+      params: { ownerId: String(ownerId) },
+      responseType: 'text',
+    });
+  }
 }

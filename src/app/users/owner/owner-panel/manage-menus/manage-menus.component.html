@@ -1,1 +1,45 @@
-<p>manage-menus works!</p>
+<div class="container" *ngIf="menu && editMode">
+    <mat-card class="menu-form-card">
+        <mat-card-content>
+            <form fxLayout="column" fxLayoutAlign="start stretch">
+                <h3>Menu Info</h3>
+
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="menu.name" name="name" id="name" placeholder="Menu name">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Visibility</mat-label>
+                    <input matInput type="text" [(ngModel)]="menu.visibility" name="visibility" id="visibility" placeholder="Visibility to customers" [disabled]="true">
+                    <mat-hint>{{ menu.visibility === 'true' ? 'The menu is visible to customers' : 'The menu is not visible to customers' }}</mat-hint>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="saveMenu()">Save</button>
+            <button mat-button (click)="cancelEdit()">Cancel</button>
+            <button (click)="toggleMenuVisibility(menu.menu_id)">
+                {{ menu.visibility === 'true' ? 'Hide menu from customers' : 'Show menu to customers'}}
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<div class="menu-section" *ngIf="!editMode">
+    <h2>Menus</h2>
+
+    <button (click)="addMenu()">Add Menu</button>
+
+    <div *ngIf="menus.length > 0">
+        <div *ngFor="let menu of menus">
+            <h3>{{ menu.name }}</h3>
+            <button (click)="editMenu(menu)">Edit Menu</button>
+            <button (click)="deleteMenu(menu.menu_id)">Delete Menu</button>
+            <button *ngIf="!menu.restaurant_id" (click)="openAssignRestaurantDialog(menu)">Assign Restaurant</button>
+        </div>
+    </div>
+    <div *ngIf="menus.length === 0">
+        <p>No menus found.</p>
+    </div>
+</div>

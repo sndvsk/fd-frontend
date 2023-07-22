@@ -20,33 +20,39 @@ import { ManageRestaurantsComponent } from './owner/owner-panel/manage-restauran
 import { ManageMenusComponent } from './owner/owner-panel/manage-menus/manage-menus.component';
 import { ManageItemsComponent } from './owner/owner-panel/manage-items/manage-items.component';
 import { DisplayComponent } from './owner/owner-panel/display/display.component';
+import { AssignRestaurantDialogComponent } from './owner/owner-panel/manage-menus/assign-restaurant-dialog/assign-restaurant-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AssignMenuDialogComponent } from './owner/owner-panel/manage-items/assing-menu-dialog/assing-menu-dialog.component';
 
 @NgModule({
-    declarations: [
-        AdminPanelComponent,
-        SettingsComponent,
-        OwnerPanelComponent,
-        OwnerOrdersComponent,
-        CustomerOrdersComponent,
-        CartComponent,
-        UserDetailsComponent,
-        ManageRestaurantsComponent,
-        ManageMenusComponent,
-        ManageItemsComponent,
-        DisplayComponent,
-    ],
-    imports: [
-        CommonModule,
-        UsersRoutingModule,
-        FormsModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatIconModule,
-        ReactiveFormsModule,
-        FlexLayoutModule,
-    ],
-    exports: [UserDetailsComponent],
+  declarations: [
+    AdminPanelComponent,
+    SettingsComponent,
+    OwnerPanelComponent,
+    OwnerOrdersComponent,
+    CustomerOrdersComponent,
+    CartComponent,
+    UserDetailsComponent,
+    ManageRestaurantsComponent,
+    ManageMenusComponent,
+    ManageItemsComponent,
+    DisplayComponent,
+    AssignRestaurantDialogComponent,
+    AssignMenuDialogComponent,
+  ],
+  imports: [
+    CommonModule,
+    UsersRoutingModule,
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MatDialogModule,
+  ],
+  exports: [UserDetailsComponent],
 })
 export class UsersModule {}

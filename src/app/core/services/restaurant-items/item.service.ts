@@ -1,57 +1,93 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Item } from 'src/app/models/restaurant-items/item';
 import { ItemClient } from '../../clients/restaurant-items/item.client';
 import { ErrorHandlerService } from '../error-handler/error-handler.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
-	providedIn: 'root',
+  providedIn: 'root',
 })
 export class ItemService {
-	constructor(
-		private errorHandler: ErrorHandlerService,
-		private itemClient: ItemClient
-	) {}
+  constructor(private errorHandler: ErrorHandlerService, private itemClient: ItemClient) {}
 
-	getAllItemsForAllRestaurants() {
-		return this.itemClient
-			.getAllItemsForAllRestaurants()
-			.pipe(catchError(this.errorHandler.handleError));
-	}
+  getAllItemsForAllRestaurants() {
+    return this.itemClient.getAllItemsForAllRestaurants().pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`All items for all restaurants were fetched.`);
+      })
+    );
+  }
 
-	getItemsFromRestaurantMenu(restaurantMenuId: number) {
-		return this.itemClient
-			.getItemsFromRestaurantMenu(restaurantMenuId)
-			.pipe(catchError(this.errorHandler.handleError));
-	}
+  getItemsByOwnerId(ownerId: number) {
+    return this.itemClient.getItemsByOwnerId(ownerId).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`All items for owner: ${ownerId} were fetched.`);
+      })
+    );
+  }
 
-	getItem(itemId: number) {
-		return this.itemClient
-			.getItem(itemId)
-			.pipe(catchError(this.errorHandler.handleError));
-	}
+  getItemsFromRestaurantMenu(restaurantMenuId: number) {
+    return this.itemClient.getItemsFromRestaurantMenu(restaurantMenuId).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`All items for restaurant menu: ${restaurantMenuId} were fetched.`);
+      })
+    );
+  }
 
-	addItemToRestaurantMenu(restaurantId: number, ownerId: number, item: Item) {
-		return this.itemClient
-			.addItem(restaurantId, ownerId, item)
-			.pipe(catchError(this.errorHandler.handleError));
-	}
+  getItem(itemId: number) {
+    return this.itemClient.getItem(itemId).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`Item: ${itemId} was fetched.`);
+      })
+    );
+  }
 
-	patchItemInRestaurantMenu(
-		itemId: number,
-		restaurantId: number,
-		ownerId: number,
-		item: Item
-	) {
-		return this.itemClient
-			.patchItem(itemId, restaurantId, ownerId, item)
-			.pipe(catchError(this.errorHandler.handleError));
-	}
+  addItem(ownerId: number, item: Item) {
+    return this.itemClient.addItem(ownerId, item).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`Item was added by owner: ${ownerId}.`);
+      })
+    );
+  }
 
-	deleteItemFromRestaurantMenu(itemId: number, ownerId: number) {
-		return this.itemClient
-			.deleteItem(itemId, ownerId)
-			.pipe(catchError(this.errorHandler.handleError));
-	}
+  addItemToMenu(menuId: number, ownerId: number, itemId: number) {
+    return this.itemClient.addItemToMenu(menuId, ownerId, itemId).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`Item: ${itemId} was added to menu: ${menuId} by owner: ${ownerId}.`);
+      })
+    );
+  }
+
+  addItemToRestaurant(restaurantId: number, ownerId: number, itemId: number) {
+    return this.itemClient.addItemToRestaurant(restaurantId, ownerId, itemId).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`Item: ${itemId} was added to restaurant: ${restaurantId} by owner: ${ownerId}.`);
+      })
+    );
+  }
+
+  patchItemInRestaurantMenu(itemId: number, restaurantId: number, ownerId: number, item: Item) {
+    return this.itemClient.patchItem(itemId, restaurantId, ownerId, item).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`Item: ${itemId} was updated in restaurant: ${restaurantId}.`);
+      })
+    );
+  }
+
+  deleteItemFromRestaurantMenu(itemId: number, ownerId: number) {
+    return this.itemClient.deleteItem(itemId, ownerId).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`Item: ${itemId} was deleted from restaurant menu.`);
+      })
+    );
+  }
 }
