@@ -6,6 +6,6 @@ export interface Item {
   image?: string;
   ingredients?: string[];
   allergens?: string[];
-  menu_id?: number;
-  restaurant_id?: number;
+  menu_id?: number | null;
+  restaurant_id?: number | null;
 }

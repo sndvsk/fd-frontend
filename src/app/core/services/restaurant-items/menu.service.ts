@@ -97,8 +97,8 @@ export class MenuService {
     );
   }
 
-  deleteMenuFromRestaurant(menuId: number, restaurantId: number, ownerId: number): Observable<string> {
-    return this.menuClient.deleteMenuFromRestaurant(menuId, restaurantId, ownerId).pipe(
+  removeMenuFromRestaurant(menuId: number, ownerId: number, restaurantId: number): Observable<Menu> {
+    return this.menuClient.removeMenuFromRestaurant(menuId, ownerId, restaurantId).pipe(
       catchError(this.errorHandler.handleError),
       tap((response) => {
         console.log(response);

@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemService } from 'src/app/core/services/restaurant-items/item.service';
 import { Item } from 'src/app/models/restaurant-items/item';
-import { AssignRestaurantDialogComponent } from '../manage-menus/assign-restaurant-dialog/assign-restaurant-dialog.component';
-import { AssignMenuDialogComponent } from './assing-menu-dialog/assing-menu-dialog.component';
+import { AssignRestaurantDialogComponent } from '../dialogs/assign-restaurant-dialog/assign-restaurant-dialog.component';
+import { AssignMenuDialogComponent } from '../dialogs/assing-menu-dialog/assign-menu-dialog.component';
 
 @Component({
   selector: 'app-manage-items',
@@ -90,9 +90,25 @@ export class ManageItemsComponent implements OnInit {
     this.editMode = false;
   }
 
+  removeFromMenu(item: Item) {
+    if (item.menu_id && this.ownerId && item.item_id && item.restaurant_id) {
+      this.itemService.removeItemFromMenu(item.item_id, this.ownerId, item.restaurant_id, item.menu_id).subscribe(() => {
+        item.menu_id = null;
+      });
+    }
+  }
+
+  removeFromRestaurant(item: Item) {
+    if (item.restaurant_id && this.ownerId && item.item_id && item.restaurant_id) {
+      this.itemService.removeItemFromRestaurant(item.item_id, this.ownerId, item.restaurant_id).subscribe(() => {
+        item.restaurant_id = null;
+      });
+    }
+  }
+
   deleteItem(itemId?: number) {
     if (itemId && this.ownerId) {
-      this.itemService.deleteItemFromRestaurantMenu(itemId, this.ownerId).subscribe(() => {
+      this.itemService.deleteItem(itemId, this.ownerId).subscribe(() => {
         this.items = this.items.filter((i) => i.item_id !== itemId);
       });
     }

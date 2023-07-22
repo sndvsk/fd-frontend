@@ -20,9 +20,9 @@ import { ManageRestaurantsComponent } from './owner/owner-panel/manage-restauran
 import { ManageMenusComponent } from './owner/owner-panel/manage-menus/manage-menus.component';
 import { ManageItemsComponent } from './owner/owner-panel/manage-items/manage-items.component';
 import { DisplayComponent } from './owner/owner-panel/display/display.component';
-import { AssignRestaurantDialogComponent } from './owner/owner-panel/manage-menus/assign-restaurant-dialog/assign-restaurant-dialog.component';
+import { AssignRestaurantDialogComponent } from './owner/owner-panel/dialogs/assign-restaurant-dialog/assign-restaurant-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AssignMenuDialogComponent } from './owner/owner-panel/manage-items/assing-menu-dialog/assing-menu-dialog.component';
+import { AssignMenuDialogComponent } from './owner/owner-panel/dialogs/assing-menu-dialog/assign-menu-dialog.component';
 
 @NgModule({
   declarations: [

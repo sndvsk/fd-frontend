@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from 'src/app/core/services/restaurant-items/menu.service';
 import { Menu } from 'src/app/models/restaurant-items/menu';
-import { AssignRestaurantDialogComponent } from './assign-restaurant-dialog/assign-restaurant-dialog.component';
+import { AssignRestaurantDialogComponent } from '../dialogs/assign-restaurant-dialog/assign-restaurant-dialog.component';
 
 @Component({
   selector: 'app-manage-menus',
@@ -93,6 +93,15 @@ export class ManageMenusComponent implements OnInit {
     this.editMode = false;
   }
 
+  removeMenuFromRestaurant(menu: Menu) {
+    if (menu.menu_id && this.ownerId && menu.restaurant_id) {
+      this.menuService.removeMenuFromRestaurant(menu.menu_id, this.ownerId, menu.restaurant_id).subscribe(() => {
+        // Update the menu's restaurant_id with null
+        menu.restaurant_id = null;
+      });
+    }
+  }
+
   deleteMenu(menuId?: number) {
     if (menuId && this.ownerId) {
       this.menuService.deleteMenu(menuId, this.ownerId).subscribe(() => {
@@ -112,6 +121,7 @@ export class ManageMenusComponent implements OnInit {
       if (result) {
         // Update the menu's restaurant_id with the selected restaurant id
         menu.restaurant_id = result;
+        menu.visibility = result.visibility;
       }
     });
   }

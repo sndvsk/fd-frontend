@@ -1,16 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AssingMenuDialogComponent } from './assing-menu-dialog.component';
+import { AssignMenuDialogComponent } from './assign-menu-dialog.component';
 
 describe('AssingMenuDialogComponent', () => {
-  let component: AssingMenuDialogComponent;
-  let fixture: ComponentFixture<AssingMenuDialogComponent>;
+  let component: AssignMenuDialogComponent;
+  let fixture: ComponentFixture<AssignMenuDialogComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AssingMenuDialogComponent]
+      declarations: [AssignMenuDialogComponent],
     });
-    fixture = TestBed.createComponent(AssingMenuDialogComponent);
+    fixture = TestBed.createComponent(AssignMenuDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

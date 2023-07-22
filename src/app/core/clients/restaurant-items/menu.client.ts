@@ -59,10 +59,9 @@ export class MenuClient {
     });
   }
 
-  deleteMenuFromRestaurant(menuId: number, restaurantId: number, ownerId: number): Observable<string> {
-    return this.http.delete(`${this.baseUrl}/restaurant/${restaurantId}/menu/${menuId}`, {
+  removeMenuFromRestaurant(menuId: number, ownerId: number, restaurantId: number): Observable<Menu> {
+    return this.http.patch<Menu>(`${this.baseUrl}/restaurant/${restaurantId}/menu/${menuId}`, null, {
       params: { ownerId: String(ownerId) },
-      responseType: 'text',
     });
   }
 

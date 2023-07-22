@@ -59,7 +59,10 @@
             <button (click)="editItem(item)">Edit Item</button>
             <button (click)="deleteItem(item.item_id)">Delete Item</button>
             <button *ngIf="!item.menu_id" (click)="assignToMenu(item)">Assign to Menu</button>
+            <button *ngIf="item.menu_id" (click)="removeFromMenu(item)">Remove from Menu</button>
             <button *ngIf="!item.restaurant_id" (click)="assignToRestaurant(item)">Assign to Restaurant</button>
+            <button *ngIf="item.restaurant_id" (click)="removeFromRestaurant(item)">Remove from Restaurant</button>
+
         </div>
     </div>
     <div *ngIf="items.length === 0">

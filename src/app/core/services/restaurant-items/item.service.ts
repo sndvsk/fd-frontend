@@ -82,7 +82,25 @@ export class ItemService {
     );
   }
 
-  deleteItemFromRestaurantMenu(itemId: number, ownerId: number) {
+  removeItemFromMenu(itemId: number, ownerId: number, restaurantId: number, menuId: number) {
+    return this.itemClient.removeItemFromMenu(itemId, ownerId, restaurantId, menuId).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`Item: ${itemId} was removed from menu: ${menuId}.`);
+      })
+    );
+  }
+
+  removeItemFromRestaurant(itemId: number, ownerId: number, restaurantId: number) {
+    return this.itemClient.removeItemFromRestaurant(itemId, ownerId, restaurantId).pipe(
+      catchError(this.errorHandler.handleError),
+      tap(() => {
+        console.log(`Item: ${itemId} was removed from restaurant: ${restaurantId}.`);
+      })
+    );
+  }
+
+  deleteItem(itemId: number, ownerId: number) {
     return this.itemClient.deleteItem(itemId, ownerId).pipe(
       catchError(this.errorHandler.handleError),
       tap(() => {

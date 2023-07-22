@@ -47,6 +47,19 @@ export class ItemClient {
     return this.http.patch<Item>(`${this.baseUrl}/patch/${itemId}`, item, { params: params });
   }
 
+  removeItemFromMenu(itemId: number, ownerId: number, restaurantId: number, menuId: number): Observable<Item> {
+    const params = new HttpParams()
+      .set('itemId', itemId.toString())
+      .set('ownerId', ownerId.toString())
+      .set('restaurantId', restaurantId.toString());
+    return this.http.patch<Item>(`${this.baseUrl}/remove/menu/${menuId}`, null, { params: params });
+  }
+
+  removeItemFromRestaurant(itemId: number, ownerId: number, restaurantId: number): Observable<Item> {
+    const params = new HttpParams().set('itemId', itemId.toString()).set('ownerId', ownerId.toString());
+    return this.http.patch<Item>(`${this.baseUrl}/remove/restaurant/${restaurantId}`, null, { params: params });
+  }
+
   deleteItem(itemId: number, ownerId: number): Observable<string> {
     const params = new HttpParams().set('ownerId', ownerId.toString());
     return this.http.delete<string>(`${this.baseUrl}/${itemId}`, {

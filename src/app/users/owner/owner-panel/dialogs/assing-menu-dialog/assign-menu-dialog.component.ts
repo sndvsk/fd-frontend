@@ -12,7 +12,7 @@ interface DialogData {
 
 @Component({
   selector: 'app-assign-menu-dialog',
-  templateUrl: './assing-menu-dialog.component.html',
+  templateUrl: './assign-menu-dialog.component.html',
 })
 export class AssignMenuDialogComponent {
   menus: Menu[] = [];
