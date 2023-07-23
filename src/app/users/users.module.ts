@@ -11,7 +11,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomerOrdersComponent } from './customer/customer-orders/customer-orders.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
-import { CartComponent } from './customer/cart/cart.component';
 import { OwnerPanelComponent } from './owner/owner-panel/owner-panel.component';
 import { OwnerOrdersComponent } from './owner/owner-orders/owner-orders.component';
 import { SettingsComponent } from './admin/settings/settings.component';
@@ -23,6 +22,9 @@ import { DisplayComponent } from './owner/owner-panel/display/display.component'
 import { AssignRestaurantDialogComponent } from './owner/owner-panel/dialogs/assign-restaurant-dialog/assign-restaurant-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AssignMenuDialogComponent } from './owner/owner-panel/dialogs/assing-menu-dialog/assign-menu-dialog.component';
+import { RestaurantListComponent } from './customer/restaurant-list/restaurant-list.component';
+import { RestaurantDetailComponent } from './customer/restaurant-detail/restaurant-detail.component';
+import { CheckoutComponent } from './customer/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,6 @@ import { AssignMenuDialogComponent } from './owner/owner-panel/dialogs/assing-me
     OwnerPanelComponent,
     OwnerOrdersComponent,
     CustomerOrdersComponent,
-    CartComponent,
     UserDetailsComponent,
     ManageRestaurantsComponent,
     ManageMenusComponent,
@@ -39,6 +40,9 @@ import { AssignMenuDialogComponent } from './owner/owner-panel/dialogs/assing-me
     DisplayComponent,
     AssignRestaurantDialogComponent,
     AssignMenuDialogComponent,
+    RestaurantListComponent,
+    RestaurantDetailComponent,
+    CheckoutComponent,
   ],
   imports: [
     CommonModule,

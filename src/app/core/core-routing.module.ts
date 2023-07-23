@@ -13,17 +13,17 @@ const routes: Routes = [
   {
     path: 'auth',
     children: [
-        { path: 'login', component: LoginComponent, canActivate: [RoutingGuard] },
-        { path: 'register', component: RegisterComponent },
-        { path: 'logout', component: LogoutComponent, canActivate: [RoutingGuard] },
+      { path: 'login', component: LoginComponent, canActivate: [RoutingGuard, AuthenticationGuard] },
+      { path: 'register', component: RegisterComponent, canActivate: [AuthenticationGuard] },
+      { path: 'logout', component: LogoutComponent, canActivate: [RoutingGuard, AuthenticationGuard] },
     ],
-},
+  },
   { path: 'access-denied', component: AccessDeniedComponent },
-  { path: 'not-found', component: NotFoundComponent }
+  { path: 'not-found', component: NotFoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CoreRoutingModule { }
+export class CoreRoutingModule {}

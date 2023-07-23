@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
@@ -23,10 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.authenticationService.login(
-      this.loginForm.get('username')!.value,
-      this.loginForm!.get('password')!.value
-    ).subscribe({
+    this.authenticationService.login(this.loginForm.get('username')!.value, this.loginForm!.get('password')!.value).subscribe({
       next: () => {
         // Login successful, clear the error message
         this.errorMessage = '';
@@ -41,8 +38,7 @@ export class LoginComponent implements OnInit {
       },
       complete: () => {
         this.errorMessage = '';
-      }
+      },
     });
   }
-  
 }

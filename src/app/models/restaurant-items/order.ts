@@ -1,11 +1,13 @@
 import { Item } from './item';
 
 export interface Order {
-  id?: number;
-  customerId?: number;
-  restaurantId?: number;
-  orderDate?: Date;
-  totalPrice?: number;
+  order_id?: number;
+  customer_id?: number;
+  restaurant_id?: number;
+  datetime?: Date;
+  item_price?: number;
+  delivery_fee?: number;
+  total_price?: number;
   status?: string;
   items?: Item[];
 }

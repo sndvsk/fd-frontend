@@ -1,7 +1,7 @@
 <header class="header">
   <a routerLink="/" class="logo">Delive<span class="yellow">ry</span> App</a>
 
-  <nav class="navbar" id="navbarHeader" [class.showing]="navbarShow" (click)="closeNavbarOnLinkClick($event)">
+  <nav class="navbar" id="navbarHeader" [class.showing]="navbarShow" (click)="closeNavbarOnLinkClick($event)" (keyup.enter)="closeNavbarOnLinkClick($event)" tabindex="0">
     <a routerLink="/home">Home</a>
     <a href="#services">Services</a>
     <a routerLink="/about-us">About Us</a>
@@ -30,7 +30,8 @@
         
         <ng-container *ngIf="userRole === 'CUSTOMER'">
           <!-- Customer options -->
-          <a routerLink="/customer/cart">Cart</a>
+          <a routerLink="/customer/restaurant">Restaurants</a>
+          <a routerLink="/customer/checkout">Cart</a>
           <a routerLink="/customer/orders">Orders</a>
         </ng-container>
 
@@ -40,7 +41,7 @@
       </div>
 
       <ng-container *ngIf="isLoggedIn(); else signInOption">
-        <a class="user-name" (click)="toggleDropdown()" *ngIf="username">{{ username }}</a>
+        <a class="user-name" (click)="toggleDropdown()" (keyup.enter)="toggleDropdown()" tabindex="0" *ngIf="username">{{ username }} </a>
       </ng-container>
       
       <ng-template #signInOption>

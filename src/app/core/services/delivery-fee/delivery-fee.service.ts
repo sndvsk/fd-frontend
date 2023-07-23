@@ -5,19 +5,16 @@ import { DeliveryFeeClient } from '../../clients/delivery-fee.client';
 import { ErrorHandlerService } from '../error-handler/error-handler.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DeliveryFeeService {
-
-  constructor(
-    private errorHandler: ErrorHandlerService,
-    private deliveryFeeClient: DeliveryFeeClient) {}
+  constructor(private errorHandler: ErrorHandlerService, private deliveryFeeClient: DeliveryFeeClient) {}
 
   calculateDeliveryFee(city: string, vehicleType: string, dateTime?: string) {
     return this.deliveryFeeClient.calculateDeliveryFee(city, vehicleType, dateTime).pipe(
       catchError(this.errorHandler.handleError),
-      tap((response) => {
-        console.log("All restaurants fetched.");
+      tap(() => {
+        console.log('All restaurants fetched.');
       })
     );
   }
@@ -25,8 +22,8 @@ export class DeliveryFeeService {
   getAllExistingDeliveryFees(): Observable<DeliveryFee[]> {
     return this.deliveryFeeClient.getAllExistingDeliveryFees().pipe(
       catchError(this.errorHandler.handleError),
-      tap((response) => {
-        console.log("All restaurants fetched.");
+      tap(() => {
+        console.log('All restaurants fetched.');
       })
     );
   }
@@ -34,10 +31,9 @@ export class DeliveryFeeService {
   getExistingDeliveryFeeById(id: number): Observable<DeliveryFee> {
     return this.deliveryFeeClient.getExistingDeliveryFeeById(id).pipe(
       catchError(this.errorHandler.handleError),
-      tap((response) => {
-        console.log("All restaurants fetched.");
+      tap(() => {
+        console.log('All restaurants fetched.');
       })
     );
   }
-  
 }

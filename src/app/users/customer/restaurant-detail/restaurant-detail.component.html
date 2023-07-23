@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="content-wrapper">
+        <div *ngFor="let menu of menus">
+            <h5>{{ menu.name }}</h5>
+            <ul>
+                <li *ngFor="let item of menu.items">
+                    <h4>{{ item.name }} - {{ item.price }}€</h4>
+                    <p>{{ item.description }}</p>
+                    <button (click)="addToCart(item.item_id!)">Add to Order</button>
+                </li>
+            </ul>
+        </div>
+        <div class="cart">
+            <h3>Cart:</h3>
+            <button *ngIf="cartLenght > 0" (click)="checkout()">Checkout</button>
+            <ul>
+                <li *ngFor="let itemId of cartItems | keyvalue">
+                  <ng-container *ngIf="getItemById(+itemId.key) as item">
+                    <h4>{{ item.name }} ({{ (item.price! * itemId.value!).toFixed(2) }}€) - Quantity: {{ itemId.value }}</h4>
+                    <button (click)="addToCart(+itemId.key)">Add more</button>
+                    <button (click)="removeFromCart(+itemId.key)">Remove one</button>
+                  </ng-container>
+                </li>
+            </ul>
+            <h3>Total price: {{ getTotalPrice().toFixed(2) }}€</h3>
+        </div>
+    </div>
+</div>

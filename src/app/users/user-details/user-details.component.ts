@@ -64,9 +64,7 @@ export class UserDetailsComponent implements OnInit {
 
   onUserSubmit() {
     // Only include fields that are not empty or undefined
-    const customerToSend = Object.fromEntries(
-      Object.entries(this.user).filter(([key, value]) => value !== '' && value !== undefined)
-    ) as User; // Add 'as User' to explicitly cast the object
+    const customerToSend = Object.fromEntries(Object.entries(this.user).filter(([value]) => value !== '' && value !== undefined)) as User; // Add 'as User' to explicitly cast the object
 
     this.userService.updateUser(this.username!, customerToSend).subscribe((response) => {
       const updatedUsername = customerToSend.username as string; // Cast 'username' as string
@@ -78,17 +76,17 @@ export class UserDetailsComponent implements OnInit {
 
   onAddressSubmit() {
     // Only include fields that are not empty or undefined
-    const addressToSend = Object.fromEntries(Object.entries(this.address).filter(([key, value]) => value !== '' && value !== undefined));
+    const addressToSend = Object.fromEntries(Object.entries(this.address).filter(([value]) => value !== '' && value !== undefined));
 
     if (this.addressExists) {
       // Update address
-      this.customerService.updateAddress(+this.userId!, addressToSend).subscribe((response) => {
+      this.customerService.updateAddress(+this.userId!, addressToSend).subscribe(() => {
         this.address = addressToSend; // assign addressToSend to this.address
         location.reload();
       });
     } else {
       // Add address
-      this.customerService.addAddress(+this.userId!, addressToSend).subscribe((response) => {
+      this.customerService.addAddress(+this.userId!, addressToSend).subscribe(() => {
         this.address = addressToSend; // assign addressToSend to this.address
         this.addressExists = true;
       });

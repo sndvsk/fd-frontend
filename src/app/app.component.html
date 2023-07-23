@@ -10,6 +10,6 @@
 <footer>
   <app-footer></app-footer>
 </footer>
-<div #scrollTop class="scroll-top" (click)="scrollToTop()">
+<div #scrollTop class="scroll-top" (click)="scrollToTop()" (keyup.enter)="scrollToTop()" tabindex="0">
   <img src="assets/images/arrow-up-outline.svg" alt="" />
 </div>

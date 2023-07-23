@@ -1,8 +1,7 @@
 export interface DeliveryFee {
-  id?: number;
+  fee_id?: number;
   city: string;
-  vehicleType: string;
-  deliveryFee: number;
-  weatherId?: number;
+  vehicle_type: string;
+  delivery_fee: number;
   timestamp?: string;
 }

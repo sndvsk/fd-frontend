@@ -7,7 +7,7 @@ import { ExtraFeeWindSpeedRule } from 'src/app/models/fee-rule/wind';
 import { ErrorHandlerService } from '../error-handler/error-handler.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FeeRuleService {
   feeRules!: RegionalBaseFeeRule;
@@ -15,9 +15,7 @@ export class FeeRuleService {
   windSpeedRules!: ExtraFeeWindSpeedRule;
   weatherPhenomenonRules!: ExtraFeeWeatherPhenomenonRule;
 
-  constructor(
-    private errorHandler: ErrorHandlerService,
-    private feeRuleClient: FeeRuleClient) {}
+  constructor(private errorHandler: ErrorHandlerService, private feeRuleClient: FeeRuleClient) {}
 
   getFeeRules() {
     this.feeRuleClient.getAllRegionalBaseFeeRules().subscribe((data) => {
@@ -57,7 +55,7 @@ export class FeeRuleService {
     });
   }
 
-  private getAirTemperatureRules() {
+  getAirTemperatureRules() {
     this.feeRuleClient.getAllExtraFeeAirTemperatureRules().subscribe((data) => {
       this.airTemperatureRules = data;
     });
@@ -95,7 +93,7 @@ export class FeeRuleService {
     });
   }
 
-  private getWindSpeedRules() {
+  getWindSpeedRules() {
     this.feeRuleClient.getAllExtraFeeWindSpeedRules().subscribe((data) => {
       this.windSpeedRules = data;
     });
@@ -133,7 +131,7 @@ export class FeeRuleService {
     });
   }
 
-  private getWeatherPhenomenonRules() {
+  getWeatherPhenomenonRules() {
     this.feeRuleClient.getAllExtraFeeWeatherPhenomenonRules().subscribe((data) => {
       this.weatherPhenomenonRules = data;
     });
@@ -170,5 +168,4 @@ export class FeeRuleService {
       // Perform any additional operations or update UI
     });
   }
-
 }

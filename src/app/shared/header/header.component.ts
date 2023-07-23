@@ -1,5 +1,5 @@
 import { NgIfContext } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, HostListener, NgZone, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, NgZone, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { Roles } from 'src/app/models/user-items/roles';
@@ -7,10 +7,9 @@ import { Roles } from 'src/app/models/user-items/roles';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
   @ViewChild('navBurger') navBurger: ElementRef | undefined;
 
   public navbarShow = false;
@@ -22,23 +21,18 @@ export class HeaderComponent implements OnInit {
 
   signInOptions!: TemplateRef<NgIfContext<boolean>> | null;
 
-  constructor(
-    public authenticationService: AuthenticationService,
-    private router: Router,
-    private ngZone: NgZone
-    ) {
-      this.username = localStorage.getItem('username');
-    }
-
+  constructor(public authenticationService: AuthenticationService, private router: Router, private ngZone: NgZone) {
+    this.username = localStorage.getItem('username');
+  }
 
   ngOnInit(): void {
     this.refreshOnInit();
-    
+
     this.isSmallScreen = window.innerWidth < 768;
-    if(this.isSmallScreen) {
+    if (this.isSmallScreen) {
       this.showDropdown = true;
     }
-  
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.refreshOnInit();
@@ -47,9 +41,8 @@ export class HeaderComponent implements OnInit {
         }
       }
     });
-    
   }
-  
+
   refreshOnInit() {
     this.authenticationService.getUserRole().subscribe((role) => {
       this.userRole = role as Roles;
@@ -59,13 +52,13 @@ export class HeaderComponent implements OnInit {
       localStorage.setItem('username', username);
     });
   }
-  
+
   toggleNavbar() {
     this.navbarShow = !this.navbarShow;
   }
 
   closeNavbar() {
-    if(this.isSmallScreen) {
+    if (this.isSmallScreen) {
       this.navbarShow = false;
     }
   }
@@ -93,7 +86,7 @@ export class HeaderComponent implements OnInit {
   onResize(event: Event) {
     this.ngZone.run(() => {
       this.isSmallScreen = (event.target as Window).innerWidth < 768;
-      if(this.isSmallScreen) {
+      if (this.isSmallScreen) {
         this.showDropdown = true;
       }
     });
@@ -104,5 +97,4 @@ export class HeaderComponent implements OnInit {
       this.navbarShow = false;
     }
   }
-
 }
