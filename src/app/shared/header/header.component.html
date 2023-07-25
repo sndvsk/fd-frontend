@@ -18,13 +18,13 @@
         <!-- Check user's role -->
         <ng-container *ngIf="userRole === 'ADMIN'">
           <!-- Admin options -->
-          <a routerLink="/admin/settings">Website Settings</a>
           <a routerLink="/admin/panel">Admin Panel</a>
+          <a routerLink="/admin/settings">Website Settings</a>
         </ng-container>
         
         <ng-container *ngIf="userRole === 'OWNER'">
           <!-- Owner options -->
-          <a routerLink="/owner/panel">Restaurant List</a>
+          <a routerLink="/owner/panel">Owner panel</a>
           <a routerLink="/owner/orders">Orders</a>
         </ng-container>
         

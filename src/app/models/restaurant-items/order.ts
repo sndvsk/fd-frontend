@@ -4,7 +4,7 @@ export interface Order {
   order_id?: number;
   customer_id?: number;
   restaurant_id?: number;
-  datetime?: Date;
+  datetime?: Date | string;
   item_price?: number;
   delivery_fee?: number;
   total_price?: number;

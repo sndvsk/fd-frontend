@@ -1,1 +1,11 @@
-<p>admin-panel works!</p>
+<div class="admin-panel">
+    <button (click)="switchToDisplayRestaurantsPanel()">Display All Restaurants</button>
+    <button (click)="switchToDisplayUsersPanel()">Display All Users</button>
+    <button (click)="switchToDisplayOrdersPanel()">Display All Orders</button>
+    <button (click)="switchToPendingOwnersPanel()">Pending Owner Applications</button>
+
+    <app-display-restaurants *ngIf="panel === 'displayRestaurants'"></app-display-restaurants>
+    <app-display-users *ngIf="panel === 'displayUsers'"></app-display-users>
+    <app-display-orders *ngIf="panel === 'displayOrders'"></app-display-orders>
+    <app-pending-owners *ngIf="panel === 'pendingOwners'"></app-pending-owners>
+</div>

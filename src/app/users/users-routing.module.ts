@@ -10,6 +10,14 @@ import { SettingsComponent } from './admin/settings/settings.component';
 import { RestaurantListComponent } from './customer/restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './customer/restaurant-detail/restaurant-detail.component';
 import { CheckoutComponent } from './customer/checkout/checkout.component';
+import { DisplayComponent } from './owner/owner-panel/display/display.component';
+import { ManageItemsComponent } from './owner/owner-panel/manage-items/manage-items.component';
+import { ManageMenusComponent } from './owner/owner-panel/manage-menus/manage-menus.component';
+import { ManageRestaurantsComponent } from './owner/owner-panel/manage-restaurants/manage-restaurants.component';
+import { DisplayOrdersComponent } from './admin/admin-panel/display-orders/display-orders.component';
+import { DisplayRestaurantsComponent } from './admin/admin-panel/display-restaurants/display-restaurants.component';
+import { DisplayUsersComponent } from './admin/admin-panel/display-users/display-users.component';
+import { PendingOwnersComponent } from './admin/admin-panel/pending-owners/pending-owners.component';
 
 const routes: Routes = [
   {
@@ -17,6 +25,10 @@ const routes: Routes = [
     children: [
       { path: 'panel', component: AdminPanelComponent },
       { path: 'settings', component: SettingsComponent },
+      { path: 'display/orders', component: DisplayOrdersComponent },
+      { path: 'display/restaurants', component: DisplayRestaurantsComponent },
+      { path: 'display/users', component: DisplayUsersComponent },
+      { path: 'pending-owners', component: PendingOwnersComponent },
     ],
   },
   {
@@ -24,6 +36,10 @@ const routes: Routes = [
     children: [
       { path: 'panel', component: OwnerPanelComponent },
       { path: 'orders', component: OwnerOrdersComponent },
+      { path: 'display', component: DisplayComponent },
+      { path: 'manage/items', component: ManageItemsComponent },
+      { path: 'manage/menus', component: ManageMenusComponent },
+      { path: 'manage/restaurants', component: ManageRestaurantsComponent },
     ],
   },
   {

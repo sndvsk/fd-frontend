@@ -25,6 +25,12 @@ import { AssignMenuDialogComponent } from './owner/owner-panel/dialogs/assing-me
 import { RestaurantListComponent } from './customer/restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './customer/restaurant-detail/restaurant-detail.component';
 import { CheckoutComponent } from './customer/checkout/checkout.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { DisplayRestaurantsComponent } from './admin/admin-panel/display-restaurants/display-restaurants.component';
+import { DisplayUsersComponent } from './admin/admin-panel/display-users/display-users.component';
+import { DisplayOrdersComponent } from './admin/admin-panel/display-orders/display-orders.component';
+import { PendingOwnersComponent } from './admin/admin-panel/pending-owners/pending-owners.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +49,10 @@ import { CheckoutComponent } from './customer/checkout/checkout.component';
     RestaurantListComponent,
     RestaurantDetailComponent,
     CheckoutComponent,
+    DisplayRestaurantsComponent,
+    DisplayUsersComponent,
+    DisplayOrdersComponent,
+    PendingOwnersComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +66,8 @@ import { CheckoutComponent } from './customer/checkout/checkout.component';
     ReactiveFormsModule,
     FlexLayoutModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
   ],
   exports: [UserDetailsComponent],
 })
