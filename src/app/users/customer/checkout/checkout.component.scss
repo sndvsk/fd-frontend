@@ -11,13 +11,20 @@
 
 .cart,
 .delivery-methods {
+    margin-top: 10px;
     width: 100%; /* Adjust this value as needed */
     /* Add additional styling as needed */
 }
 
 .back-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 10px; /* Adjust this value as needed */
+    position: relative;
+    margin-right: auto;
+    //margin: 10px; /* Adjust this value as needed */
+}
+
+.submit-order-button {
+    position: relative;
+    margin-top: 10px;
+    margin-right: auto;
+    //margin: 10px; /* Adjust this value as needed */
 }

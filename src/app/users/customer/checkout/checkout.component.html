@@ -1,25 +1,38 @@
 <div class="container">
     <div class="content-wrapper">
+        
         <button class="back-button" (click)="goBack()">Go Back</button>
+
         <div class="cart">
             <h3>Cart:</h3>
             <ul>
                 <li *ngFor="let itemId of cartItems | keyvalue">
                   <ng-container *ngIf="getItemById(+itemId.key) as item">
                     <h4>{{ item.name }} ({{ (item.price! * itemId.value!).toFixed(2) }}€) - Quantity: {{ itemId.value }}</h4>
-                    <button (click)="addToCart(+itemId.key)">Add more</button>
+                    <button (click)="addToCart(+itemId.key, restaurantId!)">Add more</button>
                     <button (click)="removeFromCart(+itemId.key)">Remove one</button>
                   </ng-container>
                 </li>
             </ul>
             <h3>Total price: {{ getTotalPrice().toFixed(2) }}€</h3>
         </div>
+
         <div class="delivery-methods">
             <h3>Select Delivery Method</h3>
+            <!-- Show error message -->
+            <p class="error-message" *ngIf="deliveryError">{{deliveryError}}</p>
             <div *ngFor="let vehicleType of deliveryFees | keyvalue">
-                <input type="radio" id="{{vehicleType.key}}" name="vehicleType" value="{{vehicleType.key}}" [(ngModel)]="selectedVehicleType">
+                <input type="radio" id="{{vehicleType.key}}" name="vehicleType" value="{{vehicleType.key}}" [(ngModel)]="selectedVehicleType" [disabled]="isString(vehicleType.value) || orderPlaced">
                 <label for="{{vehicleType.key}}">{{vehicleType.key}} - {{vehicleType.value}}</label>
-            </div>
+            </div>           
+        </div>
+
+        <div class="total-price" *ngIf="!orderPlaced">
+            <h3>Total price with delivery: {{ getTotalPriceWithDelivery() | number:'1.2-2' }}€</h3>
+        </div>
+
+        <div class="submit-order-button">
+            <button (click)="submitOrder()" [disabled]="!selectedVehicleType || cartLenght < 1">Place Order</button>
         </div>
     </div>
 </div>

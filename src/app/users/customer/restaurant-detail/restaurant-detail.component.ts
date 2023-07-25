@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestaurantService } from 'src/app/core/services/restaurant-items/restaurant.service';
+import { CartStateService } from 'src/app/core/services/state/cart-state.service';
 import { Menu } from 'src/app/models/restaurant-items/menu';
 import { Restaurant } from 'src/app/models/restaurant-items/restaurant';
 
@@ -17,7 +18,12 @@ export class RestaurantDetailComponent implements OnInit {
   vehicleType?: string;
   cartLenght = 0;
 
-  constructor(private route: ActivatedRoute, private restaurantService: RestaurantService, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private restaurantService: RestaurantService,
+    private router: Router,
+    private cartStateService: CartStateService
+  ) {
     // Assume restaurantId is being passed in as a route parameter
     this.restaurantId = this.route.snapshot.params['id'];
   }
@@ -32,14 +38,22 @@ export class RestaurantDetailComponent implements OnInit {
     });
   }
 
-  addToCart(itemId: number) {
-    if (itemId in this.cartItems) {
-      this.cartItems[itemId]++;
+  addToCart(itemId: number, restaurantId: number) {
+    const currentRestaurantInCart = localStorage.getItem('restaurantId');
+
+    if (currentRestaurantInCart && currentRestaurantInCart !== restaurantId.toString()) {
+      alert('You can only order from one restaurant at a time. Please clear your cart before adding items from a different restaurant.');
     } else {
-      this.cartItems[itemId] = 1;
+      localStorage.setItem('restaurantId', restaurantId.toString());
+
+      if (itemId in this.cartItems) {
+        this.cartItems[itemId]++;
+      } else {
+        this.cartItems[itemId] = 1;
+      }
+      this.cartLenght++;
+      this.saveCart();
     }
-    this.cartLenght++;
-    this.saveCart();
   }
 
   removeFromCart(itemId: number) {
@@ -50,12 +64,20 @@ export class RestaurantDetailComponent implements OnInit {
     }
     this.cartLenght--;
     this.saveCart();
+
+    if (this.cartLenght === 0) {
+      localStorage.removeItem('restaurantId');
+    }
   }
 
   loadCart(): void {
     const cart = localStorage.getItem('cart');
     this.cartItems = cart ? JSON.parse(cart) : {};
     this.cartLenght = Object.values(this.cartItems).reduce((a, b) => a + b, 0);
+
+    if (this.cartLenght === 0) {
+      localStorage.removeItem('restaurantId');
+    }
   }
 
   saveCart(): void {
@@ -88,14 +110,16 @@ export class RestaurantDetailComponent implements OnInit {
 
   checkout() {
     if (Object.keys(this.cartItems).length > 0) {
-      this.router.navigate(['/customer/checkout'], {
+      this.cartStateService.setCheckoutState(this.cartItems, this.restaurantId, this.currentRestaurant!, this.menus);
+      this.router.navigate(['/customer/checkout']);
+      /*       this.router.navigate(['/customer/checkout'], {
         state: {
           cartItems: this.cartItems,
           restaurantId: this.restaurantId,
           currentRestaurant: this.currentRestaurant,
           menus: this.menus,
         },
-      });
+      }); */
     } else {
       console.log('No items in the cart');
     }

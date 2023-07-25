@@ -6,7 +6,7 @@
                 <li *ngFor="let item of menu.items">
                     <h4>{{ item.name }} - {{ item.price }}€</h4>
                     <p>{{ item.description }}</p>
-                    <button (click)="addToCart(item.item_id!)">Add to Order</button>
+                    <button (click)="addToCart(item.item_id!, restaurantId)">Add to Order</button>
                 </li>
             </ul>
         </div>
@@ -17,7 +17,7 @@
                 <li *ngFor="let itemId of cartItems | keyvalue">
                   <ng-container *ngIf="getItemById(+itemId.key) as item">
                     <h4>{{ item.name }} ({{ (item.price! * itemId.value!).toFixed(2) }}€) - Quantity: {{ itemId.value }}</h4>
-                    <button (click)="addToCart(+itemId.key)">Add more</button>
+                    <button (click)="addToCart(+itemId.key, restaurantId)">Add more</button>
                     <button (click)="removeFromCart(+itemId.key)">Remove one</button>
                   </ng-container>
                 </li>
