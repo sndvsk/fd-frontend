@@ -27,7 +27,12 @@ export class ManageMenusComponent implements OnInit {
   constructor(private menuService: MenuService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    const storedOwnerId = localStorage.getItem('user_id');
+    const userRole = localStorage.getItem('user_role');
+    const adminViewOwnerId = localStorage.getItem('admin_view_owner_id');
+    const userId = localStorage.getItem('user_id');
+
+    const storedOwnerId = adminViewOwnerId && userRole === 'ADMIN' ? adminViewOwnerId : userId;
+
     if (storedOwnerId) {
       this.ownerId = Number(storedOwnerId);
     }

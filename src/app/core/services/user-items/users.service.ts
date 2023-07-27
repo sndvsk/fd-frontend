@@ -11,6 +11,24 @@ import { ErrorHandlerService } from '../error-handler/error-handler.service';
 export class UsersService {
   constructor(private errorHandler: ErrorHandlerService, private client: UsersClient, private router: Router) {}
 
+  getAllUsers() {
+    return this.client.getAllUsers().pipe(
+      catchError(this.errorHandler.handleError),
+      tap((response) => {
+        console.log(response);
+      })
+    );
+  }
+
+  getUserById(userId: number) {
+    return this.client.getUserById(userId).pipe(
+      catchError(this.errorHandler.handleError),
+      tap((response) => {
+        console.log(response);
+      })
+    );
+  }
+
   getUser(username: string) {
     return this.client.getUser(username).pipe(
       catchError(this.errorHandler.handleError),

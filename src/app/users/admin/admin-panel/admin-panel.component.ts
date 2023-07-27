@@ -6,14 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-panel.component.scss'],
 })
 export class AdminPanelComponent implements OnInit {
-  panel: 'displayRestaurants' | 'displayUsers' | 'displayOrders' | 'pendingOwners' = 'displayRestaurants';
+  panel: 'displayOwners' | 'displayUsers' | 'displayOrders' | 'pendingOwners' = 'displayOwners';
 
   ngOnInit(): void {
-    this.panel = 'displayRestaurants';
+    this.panel = 'displayOwners';
   }
 
-  switchToDisplayRestaurantsPanel(): void {
-    this.panel = 'displayRestaurants';
+  switchToDisplayOwnersPanel(): void {
+    this.panel = 'displayOwners';
   }
 
   switchToDisplayUsersPanel(): void {

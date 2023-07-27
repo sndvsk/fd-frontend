@@ -19,10 +19,16 @@ export class OwnerPanelComponent implements OnInit {
   @ViewChild(ManageItemsComponent) manageItemsComponent!: ManageItemsComponent;
 
   ngOnInit(): void {
-    const storedOwnerId = localStorage.getItem('user_id');
+    const userRole = localStorage.getItem('user_role');
+    const adminViewOwnerId = localStorage.getItem('admin_view_owner_id');
+    const userId = localStorage.getItem('user_id');
+
+    const storedOwnerId = adminViewOwnerId && userRole === 'ADMIN' ? adminViewOwnerId : userId;
+
     if (storedOwnerId) {
       this.ownerId = Number(storedOwnerId);
     }
+
     this.panel = 'display';
   }
 

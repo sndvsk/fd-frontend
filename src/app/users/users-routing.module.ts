@@ -15,9 +15,9 @@ import { ManageItemsComponent } from './owner/owner-panel/manage-items/manage-it
 import { ManageMenusComponent } from './owner/owner-panel/manage-menus/manage-menus.component';
 import { ManageRestaurantsComponent } from './owner/owner-panel/manage-restaurants/manage-restaurants.component';
 import { DisplayOrdersComponent } from './admin/admin-panel/display-orders/display-orders.component';
-import { DisplayRestaurantsComponent } from './admin/admin-panel/display-restaurants/display-restaurants.component';
 import { DisplayUsersComponent } from './admin/admin-panel/display-users/display-users.component';
 import { PendingOwnersComponent } from './admin/admin-panel/pending-owners/pending-owners.component';
+import { DisplayOwnersComponent } from './admin/admin-panel/display-owners/display-owners.component';
 
 const routes: Routes = [
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: 'panel', component: AdminPanelComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'display/orders', component: DisplayOrdersComponent },
-      { path: 'display/restaurants', component: DisplayRestaurantsComponent },
+      { path: 'display/owners', component: DisplayOwnersComponent },
       { path: 'display/users', component: DisplayUsersComponent },
       { path: 'pending-owners', component: PendingOwnersComponent },
     ],

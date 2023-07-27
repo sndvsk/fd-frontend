@@ -82,7 +82,7 @@ export class UserDetailsComponent implements OnInit {
       // Update address
       this.customerService.updateAddress(+this.userId!, addressToSend).subscribe(() => {
         this.address = addressToSend; // assign addressToSend to this.address
-        location.reload();
+        this.editModeAddress = false;
       });
     } else {
       // Add address

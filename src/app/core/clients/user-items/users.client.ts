@@ -13,11 +13,19 @@ export class UsersClient {
 
   constructor(private http: HttpClient) {}
 
-  getUser(username: string): Observable<any> {
-    return this.http.get<Customer>(`${this.baseUrl}/${username}`, { responseType: 'json' });
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/all`, { responseType: 'json' });
   }
 
-  updateUser(oldUsername: string, user: User): Observable<any> {
+  getUserById(userId: number): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/id/${userId}`, { responseType: 'json' });
+  }
+
+  getUser(username: string): Observable<User> {
+    return this.http.get<Customer>(`${this.baseUrl}/username/${username}`, { responseType: 'json' });
+  }
+
+  updateUser(oldUsername: string, user: User): Observable<User> {
     return this.http.patch(`${this.baseUrl}/update/${oldUsername}`, user, { responseType: 'json' });
   }
 }

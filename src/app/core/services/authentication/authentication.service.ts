@@ -115,6 +115,7 @@ export class AuthenticationService {
     localStorage.removeItem('user_role');
     localStorage.removeItem('user_id');
     localStorage.removeItem('username');
+    localStorage.removeItem('admin_view_owner_id');
     this.router.navigate(['/auth/login']);
 
     this.stopRefreshTokenTimer();
@@ -171,7 +172,7 @@ export class AuthenticationService {
     console.log('Refreshing token.');
     return this.authenticationClient.refreshToken(refreshToken).pipe(
       catchError(this.errorHandler.handleError),
-      tap((response: any) => {
+      tap((response) => {
         // Save the refreshed tokens here
         localStorage.setItem('accessTokenKey', response.access_token);
         localStorage.setItem('refreshTokenKey', response.refresh_token);

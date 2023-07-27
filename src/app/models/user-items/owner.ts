@@ -1,8 +1,9 @@
 import { User } from './user';
-import { Token } from './token';
 import { Restaurant } from '../restaurant-items/restaurant';
 
 export interface Owner extends User {
+  owner_id?: number;
   restaurants?: Restaurant[];
-  tokens: Token[];
+  approved: boolean;
+  user: User;
 }

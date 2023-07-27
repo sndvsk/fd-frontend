@@ -27,10 +27,11 @@ import { RestaurantDetailComponent } from './customer/restaurant-detail/restaura
 import { CheckoutComponent } from './customer/checkout/checkout.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { DisplayRestaurantsComponent } from './admin/admin-panel/display-restaurants/display-restaurants.component';
 import { DisplayUsersComponent } from './admin/admin-panel/display-users/display-users.component';
 import { DisplayOrdersComponent } from './admin/admin-panel/display-orders/display-orders.component';
 import { PendingOwnersComponent } from './admin/admin-panel/pending-owners/pending-owners.component';
+import { CapitalizeFirstPipe } from '../core/pipes/capitalize-first';
+import { DisplayOwnersComponent } from './admin/admin-panel/display-owners/display-owners.component';
 
 @NgModule({
   declarations: [
@@ -49,10 +50,11 @@ import { PendingOwnersComponent } from './admin/admin-panel/pending-owners/pendi
     RestaurantListComponent,
     RestaurantDetailComponent,
     CheckoutComponent,
-    DisplayRestaurantsComponent,
     DisplayUsersComponent,
     DisplayOrdersComponent,
     PendingOwnersComponent,
+    CapitalizeFirstPipe,
+    DisplayOwnersComponent,
   ],
   imports: [
     CommonModule,

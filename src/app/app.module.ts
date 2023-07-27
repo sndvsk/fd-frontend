@@ -18,9 +18,7 @@ import { UsersModule } from './users/users.module';
 import { CustomErrorHandler } from './core/handlers/error.handler';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -31,16 +29,16 @@ import { CustomErrorHandler } from './core/handlers/error.handler';
     NgbModule,
     RouterModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     AuthenticationGuard,
     RoutingGuard,
-    { provide: ErrorHandler, useClass: CustomErrorHandler }
+    { provide: ErrorHandler, useClass: CustomErrorHandler },
     // ...
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

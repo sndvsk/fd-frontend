@@ -16,16 +16,8 @@ import { LogoutComponent } from './authentication/logout/logout.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { RoutingGuard } from './guards/routing.guard';
 
-
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    AccessDeniedComponent,
-    RoleSelectionComponent,
-    NotFoundComponent,
-    LogoutComponent
-  ],
+  declarations: [LoginComponent, RegisterComponent, AccessDeniedComponent, RoleSelectionComponent, NotFoundComponent, LogoutComponent],
   imports: [
     CommonModule,
     CoreRoutingModule,
@@ -34,19 +26,9 @@ import { RoutingGuard } from './guards/routing.guard';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports: [
-    LoginComponent,
-    RegisterComponent,
-    LogoutComponent,
-    AccessDeniedComponent,
-    RoleSelectionComponent,
-    NotFoundComponent
-  ],
-  providers: [
-    AuthenticationGuard,
-    RoutingGuard
-  ]
+  exports: [LoginComponent, RegisterComponent, LogoutComponent, AccessDeniedComponent, RoleSelectionComponent, NotFoundComponent],
+  providers: [AuthenticationGuard, RoutingGuard],
 })
-export class CoreModule { }
+export class CoreModule {}
