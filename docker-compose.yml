@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  fd_frontend:
+    container_name: food-front
+    image: food-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '4200:80'
