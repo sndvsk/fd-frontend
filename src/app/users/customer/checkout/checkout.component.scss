@@ -1,6 +1,5 @@
 .container {
-    position: relative; /* Add this line */
-    margin-top: 8rem;  /* Change this value to match the height of your header */
+    position: relative;
 }
 
 .content-wrapper {
@@ -12,19 +11,18 @@
 .cart,
 .delivery-methods {
     margin-top: 10px;
-    width: 100%; /* Adjust this value as needed */
-    /* Add additional styling as needed */
+    width: 100%;
 }
 
 .back-button {
     position: relative;
     margin-right: auto;
-    //margin: 10px; /* Adjust this value as needed */
+    //margin: 10px;
 }
 
 .submit-order-button {
     position: relative;
     margin-top: 10px;
     margin-right: auto;
-    //margin: 10px; /* Adjust this value as needed */
+    //margin: 10px;
 }

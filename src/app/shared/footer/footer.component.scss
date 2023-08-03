@@ -1,7 +1,7 @@
 @import '/src/app/shared/header/header.component.scss';
 
 .footer .top {
-    background-color: var(--footer-yellow);
+    background-color: var(--footer-top);
     padding: 10rem 9%;
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: center;
     padding: 1.5rem 0;
-    background-color: var(--deep-yellow);
+    background-color: var(--footer-bottom);
   }
   
   .footer .top .content p {

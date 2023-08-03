@@ -1,4 +1,4 @@
-<div class="container" *ngIf="item && editMode">
+<div class="container margin-top-main" *ngIf="item && editMode">
     <mat-card class="item-form-card">
         <mat-card-content>
             <form fxLayout="column" fxLayoutAlign="start stretch">
@@ -43,7 +43,7 @@
     </mat-card>
 </div>
 
-<div class="item-section" *ngIf="!editMode">
+<div class="item-section margin-top-main" *ngIf="!editMode">
     <h2>Items</h2>
 
     <button (click)="addItem()">Add Item</button>

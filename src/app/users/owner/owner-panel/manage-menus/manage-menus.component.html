@@ -1,4 +1,4 @@
-<div class="container" *ngIf="menu && editMode">
+<div class="container margin-top-main" *ngIf="menu && editMode">
     <mat-card class="menu-form-card">
         <mat-card-content>
             <form fxLayout="column" fxLayoutAlign="start stretch">
@@ -32,7 +32,7 @@
     </mat-card>
 </div>
 
-<div class="menu-section" *ngIf="!editMode">
+<div class="menu-section margin-top-main" *ngIf="!editMode">
     <h2>Menus</h2>
 
     <button (click)="addMenu()">Add Menu</button>

@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
       { path: 'about-us', component: AboutUsComponent },
-      { path: 'terms-of-use', component: TermsOfUseComponent },
+      { path: 'terms-of-service', component: TermsOfUseComponent },
       { path: 'contact-us', component: ContactUsComponent },
     ],
   },

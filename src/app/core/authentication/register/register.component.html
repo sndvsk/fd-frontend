@@ -1,4 +1,4 @@
-<div class="authentication-card-container" fxLayout="column" fxLayoutAlign="center">
+<div class="authentication-card-container margin-top-main" fxLayout="column" fxLayoutAlign="center">
   <ng-container *ngIf="!showRegistrationForm; else registrationForm">
     <app-role-selection (roleSelected)="selectRole($event)"></app-role-selection>
   </ng-container>

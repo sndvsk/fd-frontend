@@ -7,12 +7,21 @@
 :root {
     --black: #1f1f1f;
     --white: #fff;
-    --yellow: #ffc554;
-    --deep-yellow: #ffc727;
-    --bg-yellow: #fffaf1;
-    --btn-yellow: #fff4d4;
-    --footer-yellow: #fff9e9;
+    --yellow: #FFCFDB;
     --grey: #737373;
+    //--deep-yellow: #ffc727;
+    //--bg-yellow: #fffaf1;
+    //--btn-yellow: #fff4d4;
+    //--footer-yellow: #fff9e9;
+
+    --light-pink: #FFCFDB;
+    --mid-pink: #F9ACC4;
+    --deep-pink: #E75E6C;
+    --footer-green: #FAF5FE;
+    --bg-blue: #F6F8FF;
+    --footer-top: #EBEEFA;
+    --footer-bottom: #D5DAEC;
+
     --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
     --transition: all 0.2s linear;
   }
@@ -54,8 +63,12 @@ section {
   padding: 2rem 9%;
 }
 
-.yellow {
-  color: var(--yellow);
+.margin-top-main {
+    margin-top: 8rem;
+}
+
+.deep-pink {
+  color: var(--deep-pink);
 }
 
 html, body { height: 100%; }

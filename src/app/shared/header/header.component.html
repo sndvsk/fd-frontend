@@ -1,15 +1,16 @@
 <header class="header">
-  <a routerLink="/" class="logo">Delive<span class="yellow">ry</span> App</a>
+  <a routerLink="/" class="logo">Blitz<span class="deep-pink">Bite</span></a>
 
-  <nav class="navbar" id="navbarHeader" [class.showing]="navbarShow" (click)="closeNavbarOnLinkClick($event)" (keyup.enter)="closeNavbarOnLinkClick($event)" tabindex="0">
+    <nav class="navbar" id="navbarHeader"
+        [class.showing]="navbarShow"
+        (click)="closeNavbarOnLinkClick($event)"
+        (keyup.enter)="closeNavbarOnLinkClick($event)" tabindex="0"
+    >
     <a routerLink="/">Home</a>
-    <a href="#services">Services</a>
     <a routerLink="/about-us">About Us</a>
     <a routerLink="/contact-us">Contact Us</a>
 
-    <!-- Check if user is logged in -->
     <div class="user-nav">
-      <!-- Check if user is logged in -->
       <div class="user-dropdown" [class.show]="showDropdown">
 
         <ng-container *ngIf="isLoggedIn()">

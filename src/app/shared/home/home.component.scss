@@ -28,7 +28,7 @@
   color: var(--white);
   font-weight: 500;
   border-radius: 0.5rem;
-  background-color: var(--yellow);
+  background-color: var(--deep-pink);
   padding: 1rem 1.5rem;
   margin-top: 1rem;
   transition: var(--transition);
@@ -68,7 +68,7 @@
 
 /* Services */
 section.services {
-  background-color: var(--bg-yellow);
+  background-color: var(--bg-blue);
   padding: 5rem 9%;
 }
 
@@ -201,7 +201,7 @@ section.about {
 
 /* App */
 
-section.app {
+/* section.app {
   margin: 10rem 9%;
   border-radius: 0.5rem;
   background-color: var(--yellow);
@@ -272,7 +272,7 @@ section.app .content .links img {
     width: 8rem;
     margin-right: 0;
   }
-}
+} */
 
 a.btn:focus {
   outline: 2px solid #000;

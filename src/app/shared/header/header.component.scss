@@ -71,14 +71,14 @@
 }
 
 .navbar a:hover {
-  color: var(--yellow);
-  border-color: var(--yellow);
+  color: var(--deep-pink);
+  border-color: var(--light-pinkdeep-pink);
 }
 
 .btn {
   display: inline-block;
-  color: var(--yellow);
-  background-color: var(--btn-yellow);
+  color: var(--light-pink);
+  background-color: var(--deep-pink);
   padding: 1rem;
   border-radius: 0.5rem;
   transition: var(--transition);

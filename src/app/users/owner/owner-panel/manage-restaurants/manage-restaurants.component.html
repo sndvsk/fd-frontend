@@ -1,4 +1,4 @@
-<div class="container" *ngIf="restaurant && editMode">
+<div class="container margin-top-main" *ngIf="restaurant && editMode">
     <mat-card class="restaurant-form-card">
       <mat-card-content>
         <div fxLayout="row" fxLayoutGap="20px">
@@ -83,7 +83,7 @@
     </mat-card>
 </div>
 
-<div class="restaurant-section" *ngIf="!editMode">
+<div class="restaurant-section margin-top-main" *ngIf="!editMode">
     <h2>Restaurants</h2>
 
     <button (click)="addRestaurant()">Add Restaurant</button>
