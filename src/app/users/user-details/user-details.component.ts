@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HotToastService } from '@ngneat/hot-toast';
+import { handleError } from 'src/app/core/handlers/error-toast';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { CustomerService } from 'src/app/core/services/user-items/customer.service';
 import { UsersService } from 'src/app/core/services/user-items/users.service';
@@ -40,25 +42,36 @@ export class UserDetailsComponent implements OnInit {
     apt_number: undefined,
   };
 
-  constructor(private authService: AuthenticationService, private userService: UsersService, private customerService: CustomerService) {}
+  constructor(
+    private authService: AuthenticationService,
+    private userService: UsersService,
+    private customerService: CustomerService,
+    private toast: HotToastService
+  ) {}
 
   ngOnInit() {
-    this.authService.getLoggedInName.subscribe((username) => {
+    this.authService.getLoggedInName.pipe(handleError(this.toast)).subscribe((username) => {
       this.username = username;
     });
 
-    this.userService.getUser(this.username!).subscribe((user) => {
-      this.user = user;
-      this.id = user.user_id;
-    });
+    this.userService
+      .getUser(this.username!)
+      .pipe(handleError(this.toast))
+      .subscribe((user) => {
+        this.user = user;
+        this.id = user.user_id;
+      });
 
     if (this.userRole === Roles.CUSTOMER) {
-      this.customerService.getAddress(+this.userId!).subscribe((address) => {
-        if (Object.keys(address).length !== 0) {
-          this.address = address;
-          this.addressExists = true;
-        }
-      });
+      this.customerService
+        .getAddress(+this.userId!)
+        .pipe(handleError(this.toast))
+        .subscribe((address) => {
+          if (Object.keys(address).length !== 0) {
+            this.address = address;
+            this.addressExists = true;
+          }
+        });
     }
   }
 
@@ -66,12 +79,15 @@ export class UserDetailsComponent implements OnInit {
     // Only include fields that are not empty or undefined
     const customerToSend = Object.fromEntries(Object.entries(this.user).filter(([value]) => value !== '' && value !== undefined)) as User; // Add 'as User' to explicitly cast the object
 
-    this.userService.updateUser(this.username!, customerToSend).subscribe((response) => {
-      const updatedUsername = customerToSend.username as string; // Cast 'username' as string
-      this.authService.getLoggedInName.next(updatedUsername);
-      localStorage.setItem('username', updatedUsername);
-      this.user = response;
-    });
+    this.userService
+      .updateUser(this.username!, customerToSend)
+      .pipe(handleError(this.toast))
+      .subscribe((response) => {
+        const updatedUsername = customerToSend.username as string; // Cast 'username' as string
+        this.authService.getLoggedInName.next(updatedUsername);
+        localStorage.setItem('username', updatedUsername);
+        this.user = response;
+      });
   }
 
   onAddressSubmit() {
@@ -80,16 +96,22 @@ export class UserDetailsComponent implements OnInit {
 
     if (this.addressExists) {
       // Update address
-      this.customerService.updateAddress(+this.userId!, addressToSend).subscribe(() => {
-        this.address = addressToSend; // assign addressToSend to this.address
-        this.editModeAddress = false;
-      });
+      this.customerService
+        .updateAddress(+this.userId!, addressToSend)
+        .pipe(handleError(this.toast))
+        .subscribe(() => {
+          this.address = addressToSend; // assign addressToSend to this.address
+          this.editModeAddress = false;
+        });
     } else {
       // Add address
-      this.customerService.addAddress(+this.userId!, addressToSend).subscribe(() => {
-        this.address = addressToSend; // assign addressToSend to this.address
-        this.addressExists = true;
-      });
+      this.customerService
+        .addAddress(+this.userId!, addressToSend)
+        .pipe(handleError(this.toast))
+        .subscribe(() => {
+          this.address = addressToSend; // assign addressToSend to this.address
+          this.addressExists = true;
+        });
     }
   }
 

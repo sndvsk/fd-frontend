@@ -16,6 +16,7 @@ import { RoutingGuard } from './core/guards/routing.guard';
 import { FormsModule } from '@angular/forms';
 import { UsersModule } from './users/users.module';
 import { CustomErrorHandler } from './core/handlers/error.handler';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { CustomErrorHandler } from './core/handlers/error.handler';
     RouterModule,
     BrowserAnimationsModule,
     FormsModule,
+    HotToastModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },

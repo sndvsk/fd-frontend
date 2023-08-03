@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HotToastService } from '@ngneat/hot-toast';
+import { handleError } from 'src/app/core/handlers/error-toast';
 import { RestaurantService } from 'src/app/core/services/restaurant-items/restaurant.service';
+import { normalizeArray } from 'src/app/core/utils/utils';
 import { Restaurant } from 'src/app/models/restaurant-items/restaurant';
 import { RestaurantTheme } from 'src/app/models/restaurant-items/restaurant-theme';
 import { Address } from 'src/app/models/user-items/address';
@@ -36,7 +39,7 @@ export class ManageRestaurantsComponent implements OnInit {
 
   restaurantThemes = Object.values(RestaurantTheme).slice(0, Object.keys(RestaurantTheme).length / 2);
 
-  constructor(private restaurantService: RestaurantService) {}
+  constructor(private restaurantService: RestaurantService, private toast: HotToastService) {}
 
   ngOnInit(): void {
     const userRole = localStorage.getItem('user_role');
@@ -49,9 +52,12 @@ export class ManageRestaurantsComponent implements OnInit {
       this.ownerId = Number(storedOwnerId);
     }
     if (this.ownerId) {
-      this.restaurantService.getRestaurantsByOwnerId(this.ownerId).subscribe((restaurants) => {
-        this.restaurants = restaurants;
-      });
+      this.restaurantService
+        .getRestaurantsByOwnerId(this.ownerId)
+        .pipe(handleError(this.toast))
+        .subscribe((restaurants) => {
+          this.restaurants = normalizeArray(restaurants);
+        });
     }
   }
 
@@ -87,6 +93,7 @@ export class ManageRestaurantsComponent implements OnInit {
       if (this.restaurant.restaurant_id && this.ownerId) {
         this.restaurantService
           .updateRestaurant(this.restaurant.restaurant_id, this.ownerId, this.restaurant)
+          .pipe(handleError(this.toast))
           .subscribe((updatedRestaurant) => {
             const index = this.restaurants.findIndex((restaurant) => restaurant.restaurant_id === updatedRestaurant.restaurant_id);
             if (index !== -1) {
@@ -94,9 +101,12 @@ export class ManageRestaurantsComponent implements OnInit {
             }
           });
       } else if (this.ownerId) {
-        this.restaurantService.createRestaurant(this.ownerId, this.restaurant).subscribe((newRestaurant) => {
-          this.restaurants.push(newRestaurant);
-        });
+        this.restaurantService
+          .createRestaurant(this.ownerId, this.restaurant)
+          .pipe(handleError(this.toast))
+          .subscribe((newRestaurant) => {
+            this.restaurants.push(newRestaurant);
+          });
       }
     }
     this.editMode = false;
@@ -104,10 +114,13 @@ export class ManageRestaurantsComponent implements OnInit {
 
   deleteRestaurant(restaurantId?: number) {
     if (restaurantId && this.ownerId) {
-      this.restaurantService.deleteRestaurant(restaurantId, this.ownerId).subscribe(() => {
-        // Remove the restaurant from the list after the deletion is complete
-        this.restaurants = this.restaurants.filter((r) => r.restaurant_id !== restaurantId);
-      });
+      this.restaurantService
+        .deleteRestaurant(restaurantId, this.ownerId)
+        .pipe(handleError(this.toast))
+        .subscribe(() => {
+          // Remove the restaurant from the list after the deletion is complete
+          this.restaurants = this.restaurants.filter((r) => r.restaurant_id !== restaurantId);
+        });
     }
   }
 }

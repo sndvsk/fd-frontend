@@ -1,15 +1,19 @@
 <div #preloader class="preloader">
-  <img src="assets/images/preloader.gif" alt="" />
+    <video autoplay loop muted playsinline>
+        <source src="assets/images/preloader.webm" type="video/webm">
+    </video>
 </div>
-<header>
-  <app-header></app-header>
-</header>
+
+<app-header></app-header>
+
 <main>
   <router-outlet></router-outlet>
 </main>
-<footer>
-  <app-footer></app-footer>
-</footer>
+
+
+<app-footer></app-footer>
+
+
 <div #scrollTop class="scroll-top" (click)="scrollToTop()" (keyup.enter)="scrollToTop()" tabindex="0">
-  <img src="assets/images/arrow-up-outline.svg" alt="" />
+  <img rel="preload" src="assets/images/arrow-up-outline.svg" alt="to top" width="50" height="50" />
 </div>

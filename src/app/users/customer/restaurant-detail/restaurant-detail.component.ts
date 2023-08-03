@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
+import { handleError } from 'src/app/core/handlers/error-toast';
 import { RestaurantService } from 'src/app/core/services/restaurant-items/restaurant.service';
 import { CartStateService } from 'src/app/core/services/state/cart-state.service';
 import { Menu } from 'src/app/models/restaurant-items/menu';
@@ -22,7 +24,8 @@ export class RestaurantDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private restaurantService: RestaurantService,
     private router: Router,
-    private cartStateService: CartStateService
+    private cartStateService: CartStateService,
+    private toast: HotToastService
   ) {
     // Assume restaurantId is being passed in as a route parameter
     this.restaurantId = this.route.snapshot.params['id'];
@@ -30,12 +33,15 @@ export class RestaurantDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCart();
-    this.restaurantService.getRestaurant(this.restaurantId).subscribe((data: Restaurant) => {
-      this.currentRestaurant = data;
-      if (this.currentRestaurant.menus) {
-        this.menus = this.currentRestaurant.menus;
-      }
-    });
+    this.restaurantService
+      .getRestaurant(this.restaurantId)
+      .pipe(handleError(this.toast))
+      .subscribe((data: Restaurant) => {
+        this.currentRestaurant = data;
+        if (this.currentRestaurant.menus) {
+          this.menus = this.currentRestaurant.menus;
+        }
+      });
   }
 
   addToCart(itemId: number, restaurantId: number) {

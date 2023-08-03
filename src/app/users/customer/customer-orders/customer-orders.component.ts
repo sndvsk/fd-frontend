@@ -5,6 +5,8 @@ import { Order } from 'src/app/models/restaurant-items/order';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
+import { HotToastService } from '@ngneat/hot-toast';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-customer-orders',
@@ -28,21 +30,34 @@ export class CustomerOrdersComponent implements OnInit {
     items: 'Items',
   };
 
-  constructor(private orderService: OrderService, private authenticationService: AuthenticationService, private datePipe: DatePipe) {}
+  constructor(
+    private orderService: OrderService,
+    private authenticationService: AuthenticationService,
+    private datePipe: DatePipe,
+    private toast: HotToastService
+  ) {}
 
   ngOnInit(): void {
     const customerId = Number(this.authenticationService.getUserId());
     if (customerId) {
-      this.orderService.getOrdersByCustomer(customerId).subscribe((orders) => {
-        orders.forEach((order) => {
-          const dateTransformed = this.datePipe.transform(order.datetime, 'dd-MM-yyyy hh:mm:ss');
-          if (dateTransformed) {
-            order.datetime = dateTransformed;
-          }
+      this.orderService
+        .getOrdersByCustomer(customerId)
+        .pipe(
+          catchError((error) => {
+            this.toast.error(`Error.<br>Status: ${error.status}<br>Message: ${error.statusText}`);
+            throw error;
+          })
+        )
+        .subscribe((orders) => {
+          orders.forEach((order) => {
+            const dateTransformed = this.datePipe.transform(order.datetime, 'dd-MM-yyyy hh:mm:ss');
+            if (dateTransformed) {
+              order.datetime = dateTransformed;
+            }
+          });
+          this.dataSource = new MatTableDataSource(orders);
+          this.dataSource.sort = this.sort;
         });
-        this.dataSource = new MatTableDataSource(orders);
-        this.dataSource.sort = this.sort;
-      });
     }
   }
 

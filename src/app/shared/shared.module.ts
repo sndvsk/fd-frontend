@@ -6,13 +6,21 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { HamburgerToggleDirective } from './header/hamburger-toggle.directive';
 import { SharedRoutingModule } from './shared-routing.module';
+import { PrivacyPolicyComponent } from './others/privacy-policy/privacy-policy.component';
+import { AboutUsComponent } from './others/about-us/about-us.component';
+import { TermsOfUseComponent } from './others/terms-of-use/terms-of-use.component';
+import { ContactUsComponent } from './others/contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    HamburgerToggleDirective
+    HamburgerToggleDirective,
+    PrivacyPolicyComponent,
+    AboutUsComponent,
+    TermsOfUseComponent,
+    ContactUsComponent
   ],
   imports: [
     CommonModule,

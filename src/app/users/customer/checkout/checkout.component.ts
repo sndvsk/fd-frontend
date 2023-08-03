@@ -10,6 +10,8 @@ import { OrderService } from 'src/app/core/services/restaurant-items/order.servi
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { CartStateService } from 'src/app/core/services/state/cart-state.service';
+import { HotToastService } from '@ngneat/hot-toast';
+import { handleError } from 'src/app/core/handlers/error-toast';
 
 @Component({
   selector: 'app-checkout',
@@ -39,7 +41,8 @@ export class CheckoutComponent implements OnInit {
     private itemService: ItemService,
     private orderService: OrderService,
     private authService: AuthenticationService,
-    private cartStateService: CartStateService
+    private cartStateService: CartStateService,
+    private toast: HotToastService
   ) {}
 
   ngOnInit(): void {
@@ -52,16 +55,22 @@ export class CheckoutComponent implements OnInit {
       // Fetch the item details using the ID of the first item in the cart
       const firstItemId = Object.keys(this.cartItems)[0];
       if (firstItemId && !this.restaurantId) {
-        this.itemService.getItem(+firstItemId).subscribe((item) => {
-          this.restaurantService.getRestaurant(item.restaurant_id!).subscribe((restaurant) => {
-            this.currentRestaurant = restaurant;
-            this.restaurantId = restaurant.restaurant_id;
-            this.menus = restaurant.menus || [];
+        this.itemService
+          .getItem(+firstItemId)
+          .pipe(handleError(this.toast))
+          .subscribe((item) => {
+            this.restaurantService
+              .getRestaurant(item.restaurant_id!)
+              .pipe(handleError(this.toast))
+              .subscribe((restaurant) => {
+                this.currentRestaurant = restaurant;
+                this.restaurantId = restaurant.restaurant_id;
+                this.menus = restaurant.menus || [];
 
-            // Call getDeliveryFees() once restaurant is fetched
-            this.getDeliveryFees();
+                // Call getDeliveryFees() once restaurant is fetched
+                this.getDeliveryFees();
+              });
           });
-        });
       } else {
         // Call getDeliveryFees() if state is defined
         this.getDeliveryFees();
@@ -95,15 +104,18 @@ export class CheckoutComponent implements OnInit {
 
     const currentDateTime = new Date().toISOString();
     for (const vehicleType in this.deliveryFees) {
-      this.deliveryFeeService.calculateDeliveryFee(this.currentRestaurant?.address?.city || '', vehicleType, currentDateTime).subscribe({
-        next: (fee) => {
-          this.deliveryFees[vehicleType] = fee.delivery_fee;
-        },
-        error: (error) => {
-          this.deliveryFees[vehicleType] =
-            'Error: ' + (error instanceof HttpErrorResponse ? error.statusText : 'An error occurred during delivery fee calculation.');
-        },
-      });
+      this.deliveryFeeService
+        .calculateDeliveryFee(this.currentRestaurant?.address?.city || '', vehicleType, currentDateTime)
+        .pipe(handleError(this.toast))
+        .subscribe({
+          next: (fee) => {
+            this.deliveryFees[vehicleType] = fee.delivery_fee;
+          },
+          error: (error) => {
+            this.deliveryFees[vehicleType] =
+              'Error: ' + (error instanceof HttpErrorResponse ? error.statusText : 'An error occurred during delivery fee calculation.');
+          },
+        });
     }
   }
 
@@ -200,25 +212,29 @@ export class CheckoutComponent implements OnInit {
   submitOrder(): void {
     if (Object.keys(this.cartItems).length > 0) {
       const customerId = Number(this.authService.getUserId());
-      this.orderService.createOrder(customerId, this.restaurantId!).subscribe((response) => {
-        console.log('Order created');
-        if (response.order_id && this.currentRestaurant?.address?.city && this.selectedVehicleType) {
-          const items = JSON.stringify(this.cartItems);
-          this.orderService
-            .updateOrder(response.order_id, this.currentRestaurant?.address?.city, this.selectedVehicleType, items, customerId)
-            .subscribe(() => {
-              console.log('Order updated');
-              this.cartItems = {};
-              this.saveCart();
-              localStorage.removeItem('restaurantId');
-              this.orderPlaced = true;
-              this.selectedVehicleType = undefined;
-              this.resetDeliveryFees();
-              this.cartStateService.clearCheckoutState();
-              this.router.navigate(['/']);
-            });
-        }
-      });
+      this.orderService
+        .createOrder(customerId, this.restaurantId!)
+        .pipe(handleError(this.toast))
+        .subscribe((response) => {
+          console.log('Order created');
+          if (response.order_id && this.currentRestaurant?.address?.city && this.selectedVehicleType) {
+            const items = JSON.stringify(this.cartItems);
+            this.orderService
+              .updateOrder(response.order_id, this.currentRestaurant?.address?.city, this.selectedVehicleType, items, customerId)
+              .pipe(handleError(this.toast))
+              .subscribe(() => {
+                console.log('Order updated');
+                this.cartItems = {};
+                this.saveCart();
+                localStorage.removeItem('restaurantId');
+                this.orderPlaced = true;
+                this.selectedVehicleType = undefined;
+                this.resetDeliveryFees();
+                this.cartStateService.clearCheckoutState();
+                this.router.navigate(['/']);
+              });
+          }
+        });
     } else {
       console.log('No items in the cart');
     }

@@ -4,6 +4,8 @@ import { ItemService } from 'src/app/core/services/restaurant-items/item.service
 import { Item } from 'src/app/models/restaurant-items/item';
 import { AssignRestaurantDialogComponent } from '../dialogs/assign-restaurant-dialog/assign-restaurant-dialog.component';
 import { AssignMenuDialogComponent } from '../dialogs/assing-menu-dialog/assign-menu-dialog.component';
+import { HotToastService } from '@ngneat/hot-toast';
+import { handleError } from 'src/app/core/handlers/error-toast';
 
 @Component({
   selector: 'app-manage-items',
@@ -27,7 +29,7 @@ export class ManageItemsComponent implements OnInit {
     restaurant_id: undefined,
   };
 
-  constructor(private itemService: ItemService, public dialog: MatDialog) {}
+  constructor(private itemService: ItemService, public dialog: MatDialog, private toast: HotToastService) {}
 
   ngOnInit(): void {
     const userRole = localStorage.getItem('user_role');
@@ -40,9 +42,13 @@ export class ManageItemsComponent implements OnInit {
       this.ownerId = Number(storedOwnerId);
     }
     if (this.ownerId) {
-      this.itemService.getItemsByOwnerId(this.ownerId).subscribe((items) => {
-        this.items = items.sort((a, b) => (a.item_id ? a.item_id : 0) - (b.item_id ? b.item_id : 0));
-      });
+      this.itemService
+        .getItemsByOwnerId(this.ownerId)
+        .pipe(handleError(this.toast))
+        .subscribe((items) => {
+          const _items = Array.isArray(items) ? items : [items];
+          this.items = _items.sort((a, b) => (a.item_id ? a.item_id : 0) - (b.item_id ? b.item_id : 0));
+        });
     }
   }
 
@@ -78,6 +84,7 @@ export class ManageItemsComponent implements OnInit {
       if (this.item.item_id && this.item.name && this.item.restaurant_id) {
         this.itemService
           .patchItemInRestaurantMenu(this.item.item_id, this.item.restaurant_id, this.ownerId, this.item)
+          .pipe(handleError(this.toast))
           .subscribe((updatedItem) => {
             const index = this.items.findIndex((item) => item.item_id === updatedItem.item_id);
             if (index !== -1) {
@@ -86,9 +93,12 @@ export class ManageItemsComponent implements OnInit {
           });
       } else {
         if (this.item.name) {
-          this.itemService.addItem(this.ownerId, this.item).subscribe((newItem) => {
-            this.items.push(newItem);
-          });
+          this.itemService
+            .addItem(this.ownerId, this.item)
+            .pipe(handleError(this.toast))
+            .subscribe((newItem) => {
+              this.items.push(newItem);
+            });
         }
       }
     }
@@ -97,25 +107,34 @@ export class ManageItemsComponent implements OnInit {
 
   removeFromMenu(item: Item) {
     if (item.menu_id && this.ownerId && item.item_id && item.restaurant_id) {
-      this.itemService.removeItemFromMenu(item.item_id, this.ownerId, item.restaurant_id, item.menu_id).subscribe(() => {
-        item.menu_id = null;
-      });
+      this.itemService
+        .removeItemFromMenu(item.item_id, this.ownerId, item.restaurant_id, item.menu_id)
+        .pipe(handleError(this.toast))
+        .subscribe(() => {
+          item.menu_id = null;
+        });
     }
   }
 
   removeFromRestaurant(item: Item) {
     if (item.restaurant_id && this.ownerId && item.item_id && item.restaurant_id) {
-      this.itemService.removeItemFromRestaurant(item.item_id, this.ownerId, item.restaurant_id).subscribe(() => {
-        item.restaurant_id = null;
-      });
+      this.itemService
+        .removeItemFromRestaurant(item.item_id, this.ownerId, item.restaurant_id)
+        .pipe(handleError(this.toast))
+        .subscribe(() => {
+          item.restaurant_id = null;
+        });
     }
   }
 
   deleteItem(itemId?: number) {
     if (itemId && this.ownerId) {
-      this.itemService.deleteItem(itemId, this.ownerId).subscribe(() => {
-        this.items = this.items.filter((i) => i.item_id !== itemId);
-      });
+      this.itemService
+        .deleteItem(itemId, this.ownerId)
+        .pipe(handleError(this.toast))
+        .subscribe(() => {
+          this.items = this.items.filter((i) => i.item_id !== itemId);
+        });
     }
   }
 
@@ -127,16 +146,19 @@ export class ManageItemsComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((updatedItem: Item) => {
-      if (updatedItem) {
-        const index = this.items.findIndex((i) => i.item_id === updatedItem.item_id);
-        if (index !== -1) {
-          this.items[index] = updatedItem;
-        } else {
-          this.items.push(updatedItem);
+    dialogRef
+      .afterClosed()
+      .pipe(handleError(this.toast))
+      .subscribe((updatedItem: Item) => {
+        if (updatedItem) {
+          const index = this.items.findIndex((i) => i.item_id === updatedItem.item_id);
+          if (index !== -1) {
+            this.items[index] = updatedItem;
+          } else {
+            this.items.push(updatedItem);
+          }
         }
-      }
-    });
+      });
   }
 
   assignToRestaurant(item: Item) {
@@ -147,15 +169,18 @@ export class ManageItemsComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((updatedItem: Item) => {
-      if (updatedItem) {
-        const index = this.items.findIndex((i) => i.item_id === updatedItem.item_id);
-        if (index !== -1) {
-          this.items[index] = updatedItem;
-        } else {
-          this.items.push(updatedItem);
+    dialogRef
+      .afterClosed()
+      .pipe(handleError(this.toast))
+      .subscribe((updatedItem: Item) => {
+        if (updatedItem) {
+          const index = this.items.findIndex((i) => i.item_id === updatedItem.item_id);
+          if (index !== -1) {
+            this.items[index] = updatedItem;
+          } else {
+            this.items.push(updatedItem);
+          }
         }
-      }
-    });
+      });
   }
 }

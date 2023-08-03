@@ -273,3 +273,7 @@ section.app .content .links img {
     margin-right: 0;
   }
 }
+
+a.btn:focus {
+  outline: 2px solid #000;
+}

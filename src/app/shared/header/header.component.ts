@@ -1,6 +1,8 @@
 import { NgIfContext } from '@angular/common';
 import { Component, ElementRef, HostListener, NgZone, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
+import { handleError } from 'src/app/core/handlers/error-toast';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { Roles } from 'src/app/models/user-items/roles';
 
@@ -21,7 +23,12 @@ export class HeaderComponent implements OnInit {
 
   signInOptions!: TemplateRef<NgIfContext<boolean>> | null;
 
-  constructor(public authenticationService: AuthenticationService, private router: Router, private ngZone: NgZone) {
+  constructor(
+    public authenticationService: AuthenticationService,
+    private router: Router,
+    private ngZone: NgZone,
+    private toast: HotToastService
+  ) {
     this.username = localStorage.getItem('username');
   }
 
@@ -44,10 +51,13 @@ export class HeaderComponent implements OnInit {
   }
 
   refreshOnInit() {
-    this.authenticationService.getUserRole().subscribe((role) => {
-      this.userRole = role as Roles;
-    });
-    this.authenticationService.getLoggedInName.subscribe((username) => {
+    this.authenticationService
+      .getUserRole()
+      .pipe(handleError(this.toast))
+      .subscribe((role) => {
+        this.userRole = role as Roles;
+      });
+    this.authenticationService.getLoggedInName.pipe(handleError(this.toast)).subscribe((username) => {
       this.username = username;
       localStorage.setItem('username', username);
     });

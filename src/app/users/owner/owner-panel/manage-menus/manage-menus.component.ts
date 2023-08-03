@@ -3,6 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from 'src/app/core/services/restaurant-items/menu.service';
 import { Menu } from 'src/app/models/restaurant-items/menu';
 import { AssignRestaurantDialogComponent } from '../dialogs/assign-restaurant-dialog/assign-restaurant-dialog.component';
+import { HotToastService } from '@ngneat/hot-toast';
+import { handleError } from 'src/app/core/handlers/error-toast';
+import { normalizeArray } from 'src/app/core/utils/utils';
 
 @Component({
   selector: 'app-manage-menus',
@@ -24,7 +27,7 @@ export class ManageMenusComponent implements OnInit {
     visibility: undefined,
   };
 
-  constructor(private menuService: MenuService, public dialog: MatDialog) {}
+  constructor(private menuService: MenuService, public dialog: MatDialog, private toast: HotToastService) {}
 
   ngOnInit(): void {
     const userRole = localStorage.getItem('user_role');
@@ -37,9 +40,12 @@ export class ManageMenusComponent implements OnInit {
       this.ownerId = Number(storedOwnerId);
     }
     if (this.ownerId) {
-      this.menuService.getMenusByOwnerId(this.ownerId).subscribe((menus) => {
-        this.menus = menus;
-      });
+      this.menuService
+        .getMenusByOwnerId(this.ownerId)
+        .pipe(handleError(this.toast))
+        .subscribe((menus) => {
+          this.menus = normalizeArray(menus);
+        });
     }
   }
 
@@ -65,33 +71,42 @@ export class ManageMenusComponent implements OnInit {
 
   toggleMenuVisibility(menuId?: number) {
     if (menuId && this.ownerId) {
-      this.menuService.toggleMenuVisibility(menuId, this.ownerId).subscribe((updatedMenu) => {
-        const index = this.menus.findIndex((menu) => menu.menu_id === updatedMenu.menu_id);
-        if (index !== -1) {
-          this.menus[index] = updatedMenu;
-          // If currently edited menu is the one we are toggling visibility for, update this.menu as well
-          if (this.menu.menu_id === updatedMenu.menu_id) {
-            this.menu = { ...updatedMenu };
+      this.menuService
+        .toggleMenuVisibility(menuId, this.ownerId)
+        .pipe(handleError(this.toast))
+        .subscribe((updatedMenu) => {
+          const index = this.menus.findIndex((menu) => menu.menu_id === updatedMenu.menu_id);
+          if (index !== -1) {
+            this.menus[index] = updatedMenu;
+            // If currently edited menu is the one we are toggling visibility for, update this.menu as well
+            if (this.menu.menu_id === updatedMenu.menu_id) {
+              this.menu = { ...updatedMenu };
+            }
           }
-        }
-      });
+        });
     }
   }
 
   saveMenu() {
     if (this.menu && this.ownerId) {
       if (this.menu.menu_id && this.menu.name) {
-        this.menuService.patchMenu(this.menu.menu_id, this.menu.name, this.ownerId).subscribe((updatedMenu) => {
-          const index = this.menus.findIndex((menu) => menu.menu_id === updatedMenu.menu_id);
-          if (index !== -1) {
-            this.menus[index] = updatedMenu;
-          }
-        });
+        this.menuService
+          .patchMenu(this.menu.menu_id, this.menu.name, this.ownerId)
+          .pipe(handleError(this.toast))
+          .subscribe((updatedMenu) => {
+            const index = this.menus.findIndex((menu) => menu.menu_id === updatedMenu.menu_id);
+            if (index !== -1) {
+              this.menus[index] = updatedMenu;
+            }
+          });
       } else {
         if (this.menu.name) {
-          this.menuService.addMenu(this.ownerId, this.menu.name).subscribe((newMenu) => {
-            this.menus.push(newMenu);
-          });
+          this.menuService
+            .addMenu(this.ownerId, this.menu.name)
+            .pipe(handleError(this.toast))
+            .subscribe((newMenu) => {
+              this.menus.push(newMenu);
+            });
         }
       }
     }
@@ -100,19 +115,25 @@ export class ManageMenusComponent implements OnInit {
 
   removeMenuFromRestaurant(menu: Menu) {
     if (menu.menu_id && this.ownerId && menu.restaurant_id) {
-      this.menuService.removeMenuFromRestaurant(menu.menu_id, this.ownerId, menu.restaurant_id).subscribe(() => {
-        // Update the menu's restaurant_id with null
-        menu.restaurant_id = null;
-      });
+      this.menuService
+        .removeMenuFromRestaurant(menu.menu_id, this.ownerId, menu.restaurant_id)
+        .pipe(handleError(this.toast))
+        .subscribe(() => {
+          // Update the menu's restaurant_id with null
+          menu.restaurant_id = null;
+        });
     }
   }
 
   deleteMenu(menuId?: number) {
     if (menuId && this.ownerId) {
-      this.menuService.deleteMenu(menuId, this.ownerId).subscribe(() => {
-        // Remove the menu from the list after the deletion is complete
-        this.menus = this.menus.filter((m) => m.menu_id !== menuId);
-      });
+      this.menuService
+        .deleteMenu(menuId, this.ownerId)
+        .pipe(handleError(this.toast))
+        .subscribe(() => {
+          // Remove the menu from the list after the deletion is complete
+          this.menus = this.menus.filter((m) => m.menu_id !== menuId);
+        });
     }
   }
 
@@ -122,12 +143,15 @@ export class ManageMenusComponent implements OnInit {
       data: { menu: menu, ownerId: this.ownerId },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        // Update the menu's restaurant_id with the selected restaurant id
-        menu.restaurant_id = result;
-        menu.visibility = result.visibility;
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(handleError(this.toast))
+      .subscribe((result) => {
+        if (result) {
+          // Update the menu's restaurant_id with the selected restaurant id
+          menu.restaurant_id = result;
+          menu.visibility = result.visibility;
+        }
+      });
   }
 }

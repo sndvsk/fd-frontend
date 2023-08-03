@@ -6,6 +6,9 @@ import { ItemService } from 'src/app/core/services/restaurant-items/item.service
 import { Menu } from 'src/app/models/restaurant-items/menu';
 import { Item } from 'src/app/models/restaurant-items/item';
 import { Restaurant } from 'src/app/models/restaurant-items/restaurant';
+import { HotToastService } from '@ngneat/hot-toast';
+import { handleError } from 'src/app/core/handlers/error-toast';
+import { normalizeArray } from 'src/app/core/utils/utils';
 
 interface DialogData {
   menu?: Menu;
@@ -27,7 +30,8 @@ export class AssignRestaurantDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private restaurantService: RestaurantService,
     private menuService: MenuService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private toast: HotToastService
   ) {
     this.ownerId = data.ownerId;
     this.fetchRestaurants();
@@ -39,9 +43,12 @@ export class AssignRestaurantDialogComponent {
 
   fetchRestaurants(): void {
     if (this.ownerId) {
-      this.restaurantService.getRestaurantsByOwnerId(this.ownerId).subscribe((restaurants) => {
-        this.restaurants = restaurants;
-      });
+      this.restaurantService
+        .getRestaurantsByOwnerId(this.ownerId)
+        .pipe(handleError(this.toast))
+        .subscribe((restaurants) => {
+          this.restaurants = normalizeArray(restaurants);
+        });
     }
   }
 
@@ -49,14 +56,20 @@ export class AssignRestaurantDialogComponent {
     if (this.selectedRestaurant && this.ownerId) {
       if (this.data.menu && this.data.menu.menu_id) {
         // If menu data exists, add menu to restaurant
-        this.menuService.addMenuToRestaurant(this.selectedRestaurant, this.data.menu.menu_id, this.ownerId).subscribe((updatedMenu) => {
-          this.dialogRef.close(updatedMenu);
-        });
+        this.menuService
+          .addMenuToRestaurant(this.selectedRestaurant, this.data.menu.menu_id, this.ownerId)
+          .pipe(handleError(this.toast))
+          .subscribe((updatedMenu) => {
+            this.dialogRef.close(updatedMenu);
+          });
       } else if (this.data.item && this.data.item.item_id) {
         // If item data exists, add item to restaurant
-        this.itemService.addItemToRestaurant(this.selectedRestaurant, this.ownerId, this.data.item.item_id).subscribe((updatedItem) => {
-          this.dialogRef.close(updatedItem);
-        });
+        this.itemService
+          .addItemToRestaurant(this.selectedRestaurant, this.ownerId, this.data.item.item_id)
+          .pipe(handleError(this.toast))
+          .subscribe((updatedItem) => {
+            this.dialogRef.close(updatedItem);
+          });
       }
     }
   }
