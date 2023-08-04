@@ -1,6 +1,6 @@
 {
     "/api/*": {
-      "target": "http://fd-app-test.eu-north-1.elasticbeanstalk.com",
+      "target": "http://fd-app.eu-north-1.elasticbeanstalk.com",
       "secure": false
     }
   }

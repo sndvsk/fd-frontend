@@ -70,12 +70,12 @@
   margin-right: 1rem;
 }
 
-div.nav .navbar .sign-in:hover {
+.navbar .sign-in.btn:hover {
     color: var(--white);
-}  
+}
 
 .navbar a:hover {
-  color: var(--deep-pink);
+  color: var(--light-pink);
   border-color: var(--light-pink);
 }
 
@@ -90,6 +90,7 @@ div.nav .navbar .sign-in:hover {
 
 .btn:hover {
   box-shadow: var(--box-shadow);
+  color: var(--black);
 }
 
 .header .hamburger img {

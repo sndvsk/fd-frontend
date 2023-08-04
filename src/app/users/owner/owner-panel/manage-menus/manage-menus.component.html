@@ -39,7 +39,7 @@
 
     <div *ngIf="menus.length > 0">
         <div *ngFor="let menu of menus">
-            <h3>{{ menu.name }}</h3>
+            <h3>{{menu.restaurant_name}} - {{ menu.name }}</h3>
             <button (click)="editMenu(menu)">Edit Menu</button>
             <button (click)="deleteMenu(menu.menu_id)">Delete Menu</button>
             <button *ngIf="!menu.restaurant_id" (click)="openAssignRestaurantDialog(menu)">Assign Restaurant</button>

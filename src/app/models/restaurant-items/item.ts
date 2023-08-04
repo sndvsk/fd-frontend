@@ -8,4 +8,6 @@ export interface Item {
   allergens?: string[];
   menu_id?: number | null;
   restaurant_id?: number | null;
+  menu_name?: string | null;
+  restaurant_name?: string | null;
 }

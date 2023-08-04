@@ -1,8 +1,8 @@
 <div class="owner-panel margin-top-main" *ngIf="ownerApproved">
-    <button (click)="switchToDisplayPanel()">Display Restaurants</button>
-    <button (click)="switchToRestaurantsPanel()">Manage Restaurants</button>
-    <button (click)="switchToMenusPanel()">Manage Menus</button>
-    <button (click)="switchToItemsPanel()">Manage Items</button>
+    <button mat-raised-button (click)="switchToDisplayPanel()" class="panel-button">Display Restaurants</button>
+    <button mat-raised-button (click)="switchToRestaurantsPanel()" class="panel-button">Manage Restaurants</button>
+    <button mat-raised-button (click)="switchToMenusPanel()" class="panel-button">Manage Menus</button>
+    <button mat-raised-button (click)="switchToItemsPanel()" class="panel-button">Manage Items</button>
 
     <app-display *ngIf="panel === 'display'"></app-display>
     <app-manage-restaurants *ngIf="panel === 'restaurants'"></app-manage-restaurants>

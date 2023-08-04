@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,6 +17,7 @@ import { Restaurant } from 'src/app/models/restaurant-items/restaurant';
   selector: 'app-owner-orders',
   templateUrl: './owner-orders.component.html',
   styleUrls: ['./owner-orders.component.scss'],
+  providers: [DatePipe],
 })
 export class OwnerOrdersComponent implements OnInit, OnDestroy {
   dataSource!: MatTableDataSource<Order>;
@@ -30,7 +32,8 @@ export class OwnerOrdersComponent implements OnInit, OnDestroy {
     private orderService: OrderService,
     private restaurantService: RestaurantService,
     private toast: HotToastService,
-    private ownerService: OwnerService
+    private ownerService: OwnerService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -52,8 +55,26 @@ export class OwnerOrdersComponent implements OnInit, OnDestroy {
                 .getOrdersByRestaurant(restaurant.restaurant_id, this.ownerId)
                 .pipe(catchError(handleError(this.toast)))
                 .subscribe((orders: any) => {
+                  orders.forEach((order: any) => {
+                    const dateTransformed = this.datePipe.transform(order.datetime, 'dd/MM/yyyy, hh:mm');
+                    if (dateTransformed) {
+                      order.datetimeStr = dateTransformed;
+                    }
+                    order.datetime = new Date(order.datetime);
+                  });
+
                   this.orders = [...this.orders, ...orders];
                   this.dataSource = new MatTableDataSource(this.orders);
+                  this.dataSource.sortingDataAccessor = (item: Order, property: string) => {
+                    switch (property) {
+                      case 'date_time':
+                        return item.datetime ? item.datetime : new Date(0);
+                      case 'username':
+                        return item.customer ? item.customer.username : '';
+                      default:
+                        return (item as any)[property];
+                    }
+                  };
                   this.dataSource.sort = this.sort;
                 });
             }

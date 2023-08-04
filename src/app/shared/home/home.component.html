@@ -43,6 +43,21 @@
     </div>
 </section>
 
+<section class="home" id="home" *ngIf="userRole === ''">
+    <div class="content">
+        <h1>Sign in and order food <span class="deep-pink">Easier & Faster.</span></h1>
+        <p>
+            BlitzBite, the new kid on the block in online food delivery, is making waves.
+            With a platform connecting food lovers and restaurants across Estonia,
+            we're redefining dining experiences with speed and ease like never before.
+        </p>
+        <a routerLink="/auth/login" class="home-btn">Go to Sign in</a>
+    </div>
+    <div class="image">
+        <img rel="preload" src="assets/images/main.svg" alt="" width="576" height="569" />
+    </div>
+</section>
+
 <!-- Services -->
 <section class="services" id="services" *ngIf="userRole === ''" [ngClass]="{'margin-top-main': userRole === ''}">
 

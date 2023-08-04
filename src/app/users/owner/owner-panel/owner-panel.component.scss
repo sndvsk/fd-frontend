@@ -1,4 +1,10 @@
-//.owner-panel {}
+.owner-panel {
+    margin-left: 20px;
+}
+
+.panel-button {
+    margin: 5px; // or any other value you prefer
+}
 
 .info {
     margin-top: 20rem;
@@ -7,5 +13,4 @@
     align-items: center;
     height: 100%; 
     text-align: center;
-  }
-  
+}
