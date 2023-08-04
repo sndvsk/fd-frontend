@@ -1,39 +1,58 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthenticationService } from '../services/authentication/authentication.service';
-
+import { Observable, map } from 'rxjs';
+import { Injectable } from '@angular/core';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class RoutingGuard implements CanActivate {
-  
-  constructor(
-    private authenticationService: AuthenticationService,
-    private router: Router
-  ) {}
-  
+export class RoutingGuard {
+  constructor(private authenticationService: AuthenticationService, private router: Router) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      
-    const isLoggedIn = this.authenticationService.isLoggedIn();
-    const isLoginPage = state.url === '/auth/login';
+    return this.authenticationService.getUserRole().pipe(
+      map((role: string) => {
+        // Role-based access control
+        const url = state.url.split('/')[1];
+        switch (url) {
+          case 'admin': {
+            if (role !== 'ADMIN') {
+              this.router.navigate(['/access-denied']);
+              return false;
+            }
+            return true;
+          }
 
-    if (isLoggedIn) {
-      if (isLoginPage) {
-        this.router.navigate(['/']); // Redirect to the home page
-        return false;
-      }
-      return true;
-    }
+          case 'owner': {
+            if (role !== 'OWNER' && role !== 'ADMIN') {
+              this.router.navigate(['/access-denied']);
+              return false;
+            }
+            return true;
+          }
 
-    if (isLoginPage) {
-      return true; // Allow access to the login page
-    }
+          case 'customer': {
+            if (role !== 'CUSTOMER' && role !== 'ADMIN') {
+              this.router.navigate(['/access-denied']);
+              return false;
+            }
+            return true;
+          }
 
-    this.router.navigate(['/auth/login']); // Redirect to the login page
-    return false;
+          case 'user-details': {
+            if (!role) {
+              this.router.navigate(['/access-denied']);
+              return false;
+            }
+            return true;
+          }
+
+          default:
+            return true;
+        }
+      })
+    );
   }
 }

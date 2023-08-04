@@ -10,6 +10,7 @@ import { PrivacyPolicyComponent } from './others/privacy-policy/privacy-policy.c
 import { AboutUsComponent } from './others/about-us/about-us.component';
 import { TermsOfUseComponent } from './others/terms-of-use/terms-of-use.component';
 import { ContactUsComponent } from './others/contact-us/contact-us.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -20,17 +21,9 @@ import { ContactUsComponent } from './others/contact-us/contact-us.component';
     PrivacyPolicyComponent,
     AboutUsComponent,
     TermsOfUseComponent,
-    ContactUsComponent
+    ContactUsComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedRoutingModule,
-    RouterModule
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent
-  ]
+  imports: [CommonModule, SharedRoutingModule, RouterModule, MatButtonModule],
+  exports: [HeaderComponent, FooterComponent, HomeComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

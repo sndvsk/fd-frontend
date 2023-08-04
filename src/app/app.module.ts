@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { UsersModule } from './users/users.module';
 import { CustomErrorHandler } from './core/handlers/error.handler';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { CheckoutNavigationGuard } from './core/guards/checkout-navigation.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +39,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     AuthenticationGuard,
     RoutingGuard,
+    CheckoutNavigationGuard,
     { provide: ErrorHandler, useClass: CustomErrorHandler },
     // ...
   ],

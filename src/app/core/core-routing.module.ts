@@ -5,31 +5,26 @@ import { RegisterComponent } from './authentication/register/register.component'
 import { AccessDeniedComponent } from './errors/access-denied/access-denied.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
-//import { AuthenticationGuard } from './guards/authentication.guard';
+import { AuthenticationGuard } from './guards/authentication.guard';
 import { RoutingGuard } from './guards/routing.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'auth',
+    canActivate: [RoutingGuard, AuthenticationGuard],
     children: [
       {
         path: 'login',
         component: LoginComponent,
-        canActivate: [
-          RoutingGuard, //AuthenticationGuard
-        ],
       },
       {
         path: 'register',
-        component: RegisterComponent, //canActivate: [AuthenticationGuard]
+        component: RegisterComponent,
       },
       {
         path: 'logout',
         component: LogoutComponent,
-        canActivate: [
-          RoutingGuard, //AuthenticationGuard
-        ],
       },
     ],
   },

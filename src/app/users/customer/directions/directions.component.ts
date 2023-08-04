@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { MapDirectionsService } from '@angular/google-maps';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MapDirectionsService, MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { ActivatedRoute } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Observable, catchError, map } from 'rxjs';
 import { handleError } from 'src/app/core/handlers/error-toast';
@@ -19,6 +20,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./directions.component.scss'],
 })
 export class DirectionsComponent implements OnInit {
+  @ViewChild(MapInfoWindow, { static: false }) infoWindow?: MapInfoWindow;
+  markerPositions: google.maps.LatLngLiteral[] = [];
   directions?: GoogleDirectionResponse;
   directionsResults$?: Observable<google.maps.DirectionsResult | undefined>;
   apiLoaded: Observable<boolean>;
@@ -27,32 +30,37 @@ export class DirectionsComponent implements OnInit {
   customerAddress?: Address;
   restaurantAddress?: Address;
   markers?: any[];
+  zoom = 4;
+  infoContent = '';
+  totalDuration = '';
+  deliveryCountdown? = '';
+
+  constructor(
+    private httpClient: HttpClient,
+    private errorHandler: ErrorHandlerService,
+    private authenticationService: AuthenticationService,
+    private customerService: CustomerService,
+    private toast: HotToastService,
+    private restaurantService: RestaurantService,
+    private directionsService: DirectionsService,
+    private mapDirectionsService: MapDirectionsService,
+    private route: ActivatedRoute
+  ) {
+    const apiKey = environment.googleMapsApiKey;
+    this.apiLoaded = httpClient.jsonp(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`, 'callback').pipe(
+      map(() => true),
+      catchError(this.errorHandler.handleError)
+    );
+  }
 
   ngOnInit(): void {
-    this.markers!.push({
-      position: {
-        lat: 40.4381311,
-        lng: -3.8196233,
-      },
-      label: {
-        color: 'black',
-        text: 'Madrid',
-      },
-    });
+    this.loadScript();
 
-    this.markers!.push({
-      position: {
-        lat: 48.8615515,
-        lng: 2.3112233,
-      },
-      label: {
-        color: 'black',
-        text: 'Paris',
-      },
+    this.route.queryParams.subscribe((params) => {
+      this.restaurantId = Number(params['restaurantId']);
     });
 
     this.customerId = Number(this.authenticationService.getUserId());
-    this.restaurantId = Number(localStorage.getItem('restaurantId')) || 1;
 
     if (this.customerId && this.restaurantId) {
       this.customerService
@@ -69,7 +77,6 @@ export class DirectionsComponent implements OnInit {
         .pipe(handleError(this.toast))
         .subscribe((restaurant) => {
           this.restaurantAddress = restaurant.address;
-
           if (this.customerAddress && this.restaurantAddress) {
             this.getDirections([this.customerAddress, this.restaurantAddress]);
           }
@@ -83,35 +90,70 @@ export class DirectionsComponent implements OnInit {
       .pipe(handleError(this.toast))
       .subscribe((directionsResponse) => {
         this.directions = directionsResponse;
+
+        const origin = this.directions.routes[0].bounds.southwest;
+        const destination = this.directions.routes[0].bounds.northeast;
+
+        const request: google.maps.DirectionsRequest = {
+          destination: { lat: this.directions.routes[0].bounds.northeast.lat, lng: this.directions.routes[0].bounds.northeast.lng },
+          origin: { lat: this.directions.routes[0].bounds.southwest.lat, lng: this.directions.routes[0].bounds.southwest.lng },
+          travelMode: google.maps.TravelMode.WALKING,
+        };
+
+        this.directionsResults$ = this.mapDirectionsService.route(request).pipe(
+          handleError(this.toast),
+          map((response) => response.result)
+        );
+
+        this.markerPositions = [
+          { lat: origin.lat, lng: origin.lng },
+          { lat: destination.lat, lng: destination.lng },
+        ];
+
+        this.getTime();
       });
   }
 
-  constructor(
-    private httpClient: HttpClient,
-    private errorHandler: ErrorHandlerService,
-    private authenticationService: AuthenticationService,
-    private customerService: CustomerService,
-    private toast: HotToastService,
-    private restaurantService: RestaurantService,
-    private directionsService: DirectionsService,
-    private mapDirectionsService: MapDirectionsService
-  ) {
-    const apiKey = environment.googleMapsApiKey;
-    this.apiLoaded = httpClient.jsonp(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`, 'callback').pipe(
-      map(() => true),
-      catchError(this.errorHandler.handleError)
-    );
+  getTime() {
+    let totalSeconds = 0;
+    for (const leg of this.directions!.routes[0].legs) {
+      totalSeconds += leg.duration.value;
+    }
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds - hours * 3600) / 60);
+    this.totalDuration = hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
+
+    // convert totalSeconds to milliseconds and start countdown
+    this.startCountdown(totalSeconds * 1000);
   }
 
-  center: google.maps.LatLngLiteral = { lat: 24, lng: 12 };
-  zoom = 4;
-  display?: google.maps.LatLngLiteral;
+  startCountdown(milliseconds: number) {
+    const interval = setInterval(() => {
+      milliseconds -= 1000;
+      const hours = Math.floor(milliseconds / 1000 / 3600);
+      const minutes = Math.floor(milliseconds / 1000 / 60) % 60;
+      const seconds = Math.floor(milliseconds / 1000) % 60;
+      this.deliveryCountdown = `${hours}h ${minutes}m ${seconds}s`;
 
-  moveMap(event: google.maps.MapMouseEvent) {
-    this.center = event!.latLng!.toJSON();
+      if (milliseconds <= 0) {
+        clearInterval(interval);
+        // trigger order delivery event here
+        console.log('Order delivered!');
+      }
+    }, 1000);
   }
 
-  move(event: google.maps.MapMouseEvent) {
-    this.display = event!.latLng!.toJSON();
+  openInfoWindow(marker: MapMarker) {
+    this.infoContent = `Latitude: ${marker.getPosition()?.lat}, Longitude: ${marker.getPosition()?.lng()}`;
+    this.infoWindow?.open(marker);
+  }
+
+  loadScript() {
+    const node = document.createElement('script');
+    node.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}&libraries=visualization`;
+    node.type = 'text/javascript';
+    node.async = true;
+    node.charset = 'utf-8';
+    document.getElementsByTagName('head')[0].appendChild(node);
   }
 }

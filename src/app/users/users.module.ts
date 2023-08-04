@@ -34,7 +34,7 @@ import { CapitalizeFirstPipe } from '../core/pipes/capitalize-first';
 import { DisplayOwnersComponent } from './admin/admin-panel/display-owners/display-owners.component';
 import { DirectionsComponent } from './customer/directions/directions.component';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule, JsonpInterceptor } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,6 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     CommonModule,
-    GoogleMapsModule,
     UsersRoutingModule,
     FormsModule,
     MatCardModule,
@@ -77,7 +76,9 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
     MatSortModule,
     HttpClientJsonpModule,
     HttpClientModule,
+    GoogleMapsModule,
   ],
   exports: [UserDetailsComponent, DirectionsComponent],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JsonpInterceptor, multi: true }],
 })
 export class UsersModule {}

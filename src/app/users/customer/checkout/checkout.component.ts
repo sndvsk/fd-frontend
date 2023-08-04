@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { CartStateService } from 'src/app/core/services/state/cart-state.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { handleError } from 'src/app/core/handlers/error-toast';
+import { NavigationService } from 'src/app/core/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-checkout',
@@ -42,7 +43,8 @@ export class CheckoutComponent implements OnInit {
     private orderService: OrderService,
     private authService: AuthenticationService,
     private cartStateService: CartStateService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private navigationService: NavigationService
   ) {}
 
   ngOnInit(): void {
@@ -231,7 +233,8 @@ export class CheckoutComponent implements OnInit {
                 this.selectedVehicleType = undefined;
                 this.resetDeliveryFees();
                 this.cartStateService.clearCheckoutState();
-                this.router.navigate(['/customer/directions']);
+                this.navigationService.setNavigationFromCheckout(true);
+                this.router.navigate(['/customer/directions'], { queryParams: { restaurantId: this.restaurantId } });
               });
           }
         });
