@@ -17,7 +17,7 @@ export class OrderClient {
   }
 
   getOrderById(id: number): Observable<Order> {
-    return this.http.get<Order>(`${this.baseUrl}/${id}`);
+    return this.http.get<Order>(`${this.baseUrl}/admin/${id}`);
   }
 
   getOrdersByCustomer(customerId: number): Observable<Order[]> {

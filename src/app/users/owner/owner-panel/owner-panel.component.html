@@ -1,4 +1,4 @@
-<div class="owner-panel margin-top-main">
+<div class="owner-panel margin-top-main" *ngIf="ownerApproved">
     <button (click)="switchToDisplayPanel()">Display Restaurants</button>
     <button (click)="switchToRestaurantsPanel()">Manage Restaurants</button>
     <button (click)="switchToMenusPanel()">Manage Menus</button>
@@ -8,4 +8,8 @@
     <app-manage-restaurants *ngIf="panel === 'restaurants'"></app-manage-restaurants>
     <app-manage-menus *ngIf="panel === 'menus'"></app-manage-menus>
     <app-manage-items *ngIf="panel === 'items'"></app-manage-items>
+</div>
+
+<div class="margin-top-main info" *ngIf="!ownerApproved">
+    <p>You are not yet approved as an owner.<br>Please wait until you are or contact administration.</p>
 </div>

@@ -44,7 +44,7 @@
 </section>
 
 <!-- Services -->
-<section class="services" id="services">
+<section class="services" id="services" *ngIf="userRole === ''" [ngClass]="{'margin-top-main': userRole === ''}">
 
     <div class="top">
         <h2><span class="deep-pink">Why</span> We are the Best</h2>
