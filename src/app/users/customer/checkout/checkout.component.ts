@@ -231,7 +231,7 @@ export class CheckoutComponent implements OnInit {
                 this.selectedVehicleType = undefined;
                 this.resetDeliveryFees();
                 this.cartStateService.clearCheckoutState();
-                this.router.navigate(['/']);
+                this.router.navigate(['/customer/directions']);
               });
           }
         });

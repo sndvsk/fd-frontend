@@ -18,6 +18,7 @@ import { DisplayOrdersComponent } from './admin/admin-panel/display-orders/displ
 import { DisplayUsersComponent } from './admin/admin-panel/display-users/display-users.component';
 import { PendingOwnersComponent } from './admin/admin-panel/pending-owners/pending-owners.component';
 import { DisplayOwnersComponent } from './admin/admin-panel/display-owners/display-owners.component';
+import { DirectionsComponent } from './customer/directions/directions.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,7 @@ const routes: Routes = [
       { path: 'checkout', component: CheckoutComponent },
       { path: 'restaurant', component: RestaurantListComponent },
       { path: 'restaurant/:id', component: RestaurantDetailComponent },
+      { path: 'directions', component: DirectionsComponent },
     ],
   },
   { path: 'user-details', component: UserDetailsComponent },

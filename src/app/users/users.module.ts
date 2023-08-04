@@ -32,6 +32,9 @@ import { DisplayOrdersComponent } from './admin/admin-panel/display-orders/displ
 import { PendingOwnersComponent } from './admin/admin-panel/pending-owners/pending-owners.component';
 import { CapitalizeFirstPipe } from '../core/pipes/capitalize-first';
 import { DisplayOwnersComponent } from './admin/admin-panel/display-owners/display-owners.component';
+import { DirectionsComponent } from './customer/directions/directions.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -55,9 +58,11 @@ import { DisplayOwnersComponent } from './admin/admin-panel/display-owners/displ
     PendingOwnersComponent,
     CapitalizeFirstPipe,
     DisplayOwnersComponent,
+    DirectionsComponent,
   ],
   imports: [
     CommonModule,
+    GoogleMapsModule,
     UsersRoutingModule,
     FormsModule,
     MatCardModule,
@@ -70,7 +75,9 @@ import { DisplayOwnersComponent } from './admin/admin-panel/display-owners/displ
     MatDialogModule,
     MatTableModule,
     MatSortModule,
+    HttpClientJsonpModule,
+    HttpClientModule,
   ],
-  exports: [UserDetailsComponent],
+  exports: [UserDetailsComponent, DirectionsComponent],
 })
 export class UsersModule {}

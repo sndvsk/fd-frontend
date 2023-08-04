@@ -1,0 +1,14 @@
+<div class="margin-top-main">
+    <p>test</p>
+    <div class="map-container" *ngIf="apiLoaded | async">
+        <google-map width="100%" height="450px" [zoom]="zoom">
+
+            <map-marker *ngFor="let marker of markers" 
+            [position]="marker.position" 
+            [label]="marker.label">
+        
+            </map-marker>
+        
+        </google-map>
+    </div>    
+</div>
