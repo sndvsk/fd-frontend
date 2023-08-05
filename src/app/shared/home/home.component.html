@@ -1,65 +1,20 @@
-<section class="home" id="home" *ngIf="userRole === 'CUSTOMER'">
+<section class="home" id="home" *ngIf="userRole">
     <div class="content">
-        <h1>Order Your Product <span class="deep-pink">Easier & Faster.</span></h1>
+        <h1>{{ userRolesData[userRole].h1 }} <span class="deep-pink">{{ userRolesData[userRole].h1Span }}</span></h1>
         <p>
             BlitzBite, the new kid on the block in online food delivery, is making waves.
             With a platform connecting food lovers and restaurants across Estonia,
             we're redefining dining experiences with speed and ease like never before.
         </p>
-        <a routerLink="/customer/restaurant" class="home-btn">Go to Menu</a>
+        <a routerLink="{{ userRolesData[userRole].routerLink }}" class="home-btn">{{ userRolesData[userRole].btnText }}</a>
     </div>
     <div class="image">
-        <img rel="preload" src="assets/images/main.svg" alt="" width="576" height="569" />
-    </div>
-</section>
-
-<section class="home" id="home" *ngIf="userRole === 'OWNER'">
-    <div class="content">
-      <h1>Manage Your Restaurant <span class="deep-pink">Easier & Faster.</span></h1>
-      <p>
-        BlitzBite, the new kid on the block in online food delivery, is making waves.
-        With a platform connecting food lovers and restaurants across Estonia,
-        we're redefining dining experiences with speed and ease like never before.
-      </p>
-      <a routerLink="/owner/panel" class="home-btn">Go to Owner Panel</a>
-    </div>
-    <div class="image">
-      <img rel="preload" src="assets/images/main.svg" alt="" width="576" height="569" />
-    </div>
-</section>
-
-<section class="home" id="home" *ngIf="userRole === 'ADMIN'">
-    <div class="content">
-        <h1>Admin The App <span class="deep-pink">Easier & Faster.</span></h1>
-        <p>
-            BlitzBite, the new kid on the block in online food delivery, is making waves.
-            With a platform connecting food lovers and restaurants across Estonia,
-            we're redefining dining experiences with speed and ease like never before.
-        </p>
-        <a routerLink="/admin/panel" class="home-btn">Go to Admin Panel</a>
-    </div>
-    <div class="image">
-        <img rel="preload" src="assets/images/main.svg" alt="" width="576" height="569" />
-    </div>
-</section>
-
-<section class="home" id="home" *ngIf="userRole === ''">
-    <div class="content">
-        <h1>Sign in and order food <span class="deep-pink">Easier & Faster.</span></h1>
-        <p>
-            BlitzBite, the new kid on the block in online food delivery, is making waves.
-            With a platform connecting food lovers and restaurants across Estonia,
-            we're redefining dining experiences with speed and ease like never before.
-        </p>
-        <a routerLink="/auth/login" class="home-btn">Go to Sign in</a>
-    </div>
-    <div class="image">
-        <img rel="preload" src="assets/images/main.svg" alt="" width="576" height="569" />
+        <img src="assets/images/main.svg" alt="main image delivery" width="576" height="569" />
     </div>
 </section>
 
 <!-- Services -->
-<section class="services" id="services" *ngIf="userRole === ''" [ngClass]="{'margin-top-main': userRole === ''}">
+<section class="services" id="services" *ngIf="userRole === 'none'" [ngClass]="{'margin-top-main': userRole === 'none'}">
 
     <div class="top">
         <h2><span class="deep-pink">Why</span> We are the Best</h2>
@@ -73,7 +28,7 @@
     <div class="bottom">
 
         <div class="box">
-            <img rel="preload" src="assets/images/deliver-bike.svg" alt="" />
+            <img src="assets/images/deliver-bike.svg" alt="bike" />
             <h4>Free Delivery</h4>
             <p>
                 Lorem ipsum dolor sit amet,adipiscing elit. Eu, montes, metus
@@ -83,7 +38,7 @@
         </div>
 
         <div class="box">
-            <img rel="preload" src="assets/images/food-dish.svg" alt="" />
+            <img src="assets/images/food-dish.svg" alt="plate" />
             <h4>Healthy Foods</h4>
             <p>
                 Lorem ipsum dolor sit amet,adipiscing elit. Eu, montes, metus
@@ -93,7 +48,7 @@
         </div>
 
         <div class="box">
-            <img rel="preload" src="assets/images/app-phone.svg" alt="" />
+            <img src="assets/images/app-phone.svg" alt="phone" />
             <h4>Online Ordering</h4>
             <p>
                 Lorem ipsum dolor sit amet,adipiscing elit. Eu, montes, metus
@@ -108,7 +63,7 @@
 <!-- App -->
 <!-- <section class="app" id="contact">
     <div class="image">
-        <img rel="preload" src="assets/images/splash with mobile.svg" alt="" />
+        <img src="assets/images/splash with mobile.svg" alt="" />
     </div>
     <div class="content">
         <h3>Place your order through our app</h3>

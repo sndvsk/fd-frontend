@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public authenticationService: AuthenticationService,
-    private router: Router,
+    public router: Router,
     private ngZone: NgZone,
     private toast: HotToastService
   ) {
@@ -39,6 +39,15 @@ export class HeaderComponent implements OnInit {
     if (this.isSmallScreen) {
       this.showDropdown = true;
     }
+
+    window.addEventListener('resize', () => {
+      this.isSmallScreen = window.innerWidth < 768;
+      if (!this.isSmallScreen) {
+        this.showDropdown = false;
+      } else {
+        this.showDropdown = true;
+      }
+    });
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

@@ -7,19 +7,21 @@
     min-height: 20vh;
 }
 
-.mat-form-field {
-    width: 100%;
-}
-
-input.matInput {
-    width: 100%;
-}
-
+.full-width-input {
+    width: 100% !important;
+  }
+  
 .error-message {
     color: red;
 }
 
-
 .buttons {
     margin: 0 auto;
+    justify-content: center;
+    gap: 20px;
 }
+
+.btn--large {
+    padding: 15px 30px; 
+    font-size: 18px;
+  }

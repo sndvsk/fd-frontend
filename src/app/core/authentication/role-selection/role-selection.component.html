@@ -2,9 +2,10 @@
     <mat-card class="authentication-card">
         <mat-card-header>
             <mat-card-title fxLayoutAlign="center">Select Your Role:</mat-card-title>
-          </mat-card-header>
-        <button mat-raised-button color="primary" (click)="selectRole('customer')">Customer</button>
-        <button mat-raised-button color="primary" (click)="selectRole('owner')">Restaurant Owner</button>
+        </mat-card-header>
+        <div class="buttons">
+          <button mat-raised-button class="btn btn--primary btn--large" (click)="selectRole('customer')">Customer</button>
+          <button mat-raised-button class="btn btn--primary btn--large" (click)="selectRole('owner')">Restaurant Owner</button>
+        </div>
     </mat-card>
 </div>
-  

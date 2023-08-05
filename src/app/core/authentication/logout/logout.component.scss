@@ -15,7 +15,19 @@
     margin-bottom: 32px;
   }
   
-  button {
+  .btn--primary {
     width: 200px;
+    font-size: 1.6rem;
+    color: var(--white);
+    background-color: var(--deep-pink);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+  
+  .btn--primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
   }
   

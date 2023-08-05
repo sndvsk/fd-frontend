@@ -110,12 +110,15 @@ export class AuthenticationService {
         .subscribe();
     }
 
-    localStorage.removeItem('accessTokenKey');
+    localStorage.clear();
+    /*     localStorage.removeItem('accessTokenKey');
     localStorage.removeItem('refreshTokenKey');
     localStorage.removeItem('user_role');
     localStorage.removeItem('user_id');
     localStorage.removeItem('username');
     localStorage.removeItem('admin_view_owner_id');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('restaurantId'); */
     this.router.navigate(['/auth/login']);
 
     this.stopRefreshTokenTimer();

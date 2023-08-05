@@ -153,7 +153,7 @@ export class DirectionsComponent implements OnInit {
     node.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}&libraries=visualization`;
     node.type = 'text/javascript';
     node.async = true;
-    node.charset = 'utf-8';
+    //node.charset = 'utf-8';
     document.getElementsByTagName('head')[0].appendChild(node);
   }
 }

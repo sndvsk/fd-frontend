@@ -6,7 +6,7 @@
         (click)="closeNavbarOnLinkClick($event)"
         (keyup.enter)="closeNavbarOnLinkClick($event)" tabindex="0"
     >
-    <a routerLink="/">Home</a>
+    <a routerLink="/" *ngIf="router.url !== '/'">Home</a>
     <a routerLink="/about-us">About Us</a>
     <a routerLink="/contact-us">Contact Us</a>
 

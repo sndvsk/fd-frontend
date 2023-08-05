@@ -7,6 +7,23 @@
     min-height: 20vh;
 }
 
+.full-width-input {
+    width: 100% !important;
+}
+
 .error-message {
     color: red;
+}
+
+.buttons {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.btn--large {
+    padding: 15px 30px; 
+    font-size: 18px;
 }
