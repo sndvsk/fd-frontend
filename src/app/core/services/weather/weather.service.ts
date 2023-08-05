@@ -4,7 +4,7 @@ import { WeatherData } from 'src/app/models/weather/weather-data';
 import { WeatherDataClient } from '../../clients/weather.clients';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WeatherDataService {
   constructor(private client: WeatherDataClient) {}
@@ -21,7 +21,14 @@ export class WeatherDataService {
     return this.client.getAllWeatherData();
   }
 
-  addWeatherData(data: {stationName: string; wmoCode?: number; airTemperature: number; windSpeed: number; weatherPhenomenon: string; time?: Date}): Observable<WeatherData> {
+  addWeatherData(data: {
+    stationName: string;
+    wmoCode?: number;
+    airTemperature: number;
+    windSpeed: number;
+    weatherPhenomenon: string;
+    time?: Date;
+  }): Observable<WeatherData> {
     return this.client.addWeatherData(data);
   }
 
@@ -29,7 +36,10 @@ export class WeatherDataService {
     return this.client.getWeatherDataById(id);
   }
 
-  patchWeatherDataById(id: number, data: {airTemperature?: number; windSpeed?: number; weatherPhenomenon?: string}): Observable<WeatherData> {
+  patchWeatherDataById(
+    id: number,
+    data: { airTemperature?: number; windSpeed?: number; weatherPhenomenon?: string }
+  ): Observable<WeatherData> {
     return this.client.patchWeatherDataById(id, data);
   }
 

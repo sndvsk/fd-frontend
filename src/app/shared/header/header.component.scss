@@ -18,12 +18,8 @@
   font-weight: 700;
 }
 
-.user-name {
-  color: blue;
-}
-
 .user-nav {
-  padding: 1rem; /* updated from 5px */
+  padding: 1rem;
   border-bottom: 2px solid transparent;
 }
 
@@ -51,7 +47,6 @@
 
 .hamburger {
   display: none; /* hamburger menu hidden by default */
-  /* ...other styles... */
 }
 
 .navbar.showing {
@@ -75,7 +70,7 @@
 }
 
 .navbar a:hover {
-  color: var(--light-pink);
+  color: var(--black);
   border-color: var(--light-pink);
 }
 
@@ -89,8 +84,8 @@
 }
 
 .btn:hover {
+  background-color: red;
   box-shadow: var(--box-shadow);
-  color: var(--black);
 }
 
 .header .hamburger img {
@@ -104,10 +99,6 @@
 @media (max-width: 996px) {
   .logo {
     font-size: 3rem;
-  }
-
-  .navbar a {
-    padding: 0.5rem;
   }
 
   .navbar a:not(:last-child) {
@@ -135,13 +126,17 @@
     /* top: -100%; */
   }
 
+  .navbar a {
+    padding: 0.5rem;
+  }
+
   .user-nav {
-    order: 2; /* To make it appear below the nav links */
+    order: 2;
   }
 
   .user-dropdown {
-    position: relative; /* To prevent it from being absolutely positioned */
-    top: auto; /* To override the top positioning */
+    position: relative;
+    top: auto;
     padding-top: 0px;
     background-color: transparent;
     box-shadow: none;

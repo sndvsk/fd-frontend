@@ -1,0 +1,11 @@
+<div class="margin-top-main">
+    <section class="home" id="home" *ngIf="userRole">
+        <div class="content others-p">
+            <h1>{{ userRolesData[userRole].h1 }} <span class="deep-pink">{{ userRolesData[userRole].h1Span }}</span></h1>
+            <p>
+                {{ userRolesData[userRole].content }}
+            </p>
+            <a routerLink="{{ userRolesData[userRole].routerLink }}" class="btn btn--primary btn--large">{{ userRolesData[userRole].btnText }}</a>
+        </div>
+    </section>
+</div>

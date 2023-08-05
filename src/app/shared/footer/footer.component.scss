@@ -2,55 +2,60 @@
 
 .footer .top {
     background-color: var(--footer-top);
-    padding: 10rem 9%;
+    padding: 5rem 9%;
     display: grid;
     grid-template-columns: 1fr 2fr;
   }
   
-  .footer .top .links {
+.footer .top .links {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
-  }
+}
   
-  .footer .bottom {
+.footer .bottom {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1.5rem 0;
     background-color: var(--footer-bottom);
-  }
+}
   
-  .footer .top .content p {
+.footer .bottom .git {
+    font-size: 2rem;
+    color: var(--deep-pink);
+}
+
+.footer .top .content p {
     color: var(--grey);
     margin-top: 2rem;
     width: 90%;
-  }
+}
   
-  .footer .top .link h4 {
+.footer .top .link h4 {
     font-size: 1.7rem;
     margin-bottom: 1.5rem;
-  }
+}
   
-  .footer .top .link a {
+.footer .top .link a {
     display: inline-block;
     color: var(--grey);
     margin-bottom: 1rem;
-  }
+}
   
-  .footer .top .link span {
+.footer .top .link span {
     color: var(--grey);
-  }
+}
   
-  .footer .top .link a {
+.footer .top .link a {
     display: block;
-  }
+}
   
-  .footer .top .link div {
+.footer .top .link div {
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
-  }
+}
   
   .footer .top .link div img {
     margin-right: 1rem;

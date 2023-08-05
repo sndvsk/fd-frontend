@@ -9,7 +9,7 @@ import { AuthenticationGuard } from './guards/authentication.guard';
 import { RoutingGuard } from './guards/routing.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'auth',
     canActivate: [RoutingGuard, AuthenticationGuard],

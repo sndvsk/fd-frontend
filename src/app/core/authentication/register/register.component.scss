@@ -1,5 +1,5 @@
 .authentication-card {
-    width: 30%;
+    width: 50%;
     margin: 0 auto;
 }
 
@@ -26,4 +26,20 @@
 .btn--large {
     padding: 15px 30px; 
     font-size: 18px;
+}
+
+@media screen and (max-width: 1000px) {
+    .authentication-card {
+      width: 70%;
+    }
+    .btn {
+      flex: 0 0 auto;
+      min-width: 100px;
+    }
+  }
+  
+@media screen and (max-width: 768px) {
+    .authentication-card {
+        width: 100%;
+    }
 }

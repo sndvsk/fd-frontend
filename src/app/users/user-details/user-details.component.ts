@@ -77,13 +77,13 @@ export class UserDetailsComponent implements OnInit {
 
   onUserSubmit() {
     // Only include fields that are not empty or undefined
-    const customerToSend = Object.fromEntries(Object.entries(this.user).filter(([value]) => value !== '' && value !== undefined)) as User; // Add 'as User' to explicitly cast the object
+    const customerToSend = Object.fromEntries(Object.entries(this.user).filter(([value]) => value !== '' && value !== undefined)) as User;
 
     this.userService
       .updateUser(this.username!, customerToSend)
       .pipe(handleError(this.toast))
       .subscribe((response) => {
-        const updatedUsername = customerToSend.username as string; // Cast 'username' as string
+        const updatedUsername = customerToSend.username as string;
         this.authService.getLoggedInName.next(updatedUsername);
         localStorage.setItem('username', updatedUsername);
         this.user = response;
@@ -100,7 +100,7 @@ export class UserDetailsComponent implements OnInit {
         .updateAddress(+this.userId!, addressToSend)
         .pipe(handleError(this.toast))
         .subscribe(() => {
-          this.address = addressToSend; // assign addressToSend to this.address
+          this.address = addressToSend;
           this.editModeAddress = false;
         });
     } else {
@@ -109,7 +109,7 @@ export class UserDetailsComponent implements OnInit {
         .addAddress(+this.userId!, addressToSend)
         .pipe(handleError(this.toast))
         .subscribe(() => {
-          this.address = addressToSend; // assign addressToSend to this.address
+          this.address = addressToSend;
           this.addressExists = true;
         });
     }

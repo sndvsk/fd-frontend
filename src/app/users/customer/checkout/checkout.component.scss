@@ -1,28 +1,72 @@
-.container {
-    position: relative;
-}
-
-.content-wrapper {
+.checkout-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.cart,
-.delivery-methods {
-    margin-top: 10px;
+.button-container {
     width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
 }
 
-.back-button {
-    position: relative;
-    margin-right: auto;
-    //margin: 10px;
+.checkout-content {
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart, .delivery-methods, .total-price, .submit-order-button {
+    margin-bottom: 2rem;
 }
 
 .submit-order-button {
-    position: relative;
-    margin-top: 10px;
-    margin-right: auto;
-    //margin: 10px;
+    display: flex;
+    justify-content: center;
 }
+
+.cart-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.cart-item {
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.cart-item h4 {
+    margin-bottom: 1rem;
+}
+
+.cart-item .btn {
+    margin-right: 1rem;
+}
+
+.delivery-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    color: red;
+}
+
+.delivery-method input[type="radio"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+}
+
+.delivery-method label {
+    font-size: 1.5rem;
+}
+

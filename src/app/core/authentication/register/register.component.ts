@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { handleError } from '../../handlers/error-toast';
+import { HotToastService } from '@ngneat/hot-toast';
 
 function roleValidator(control: AbstractControl): ValidationErrors | null {
   const validRoles = ['owner', 'customer'];
@@ -22,7 +24,7 @@ export class RegisterComponent implements OnInit {
 
   errorMessage: any;
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService, private toast: HotToastService) {}
 
   ngOnInit() {
     this.registerForm = new FormGroup({
@@ -53,6 +55,7 @@ export class RegisterComponent implements OnInit {
         this.registerForm.get('telephone')!.value,
         role // Use the uppercase role value
       )
+      .pipe(handleError(this.toast))
       .subscribe({
         next: () => {
           // Login successful, clear the error message

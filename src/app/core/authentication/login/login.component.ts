@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { handleError } from '../../handlers/error-toast';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,7 @@ export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   errorMessage: any;
 
-  constructor(private authenticationService: AuthenticationService, public router: Router) {}
+  constructor(private authenticationService: AuthenticationService, public router: Router, private toast: HotToastService) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -23,22 +25,25 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.authenticationService.login(this.loginForm.get('username')!.value, this.loginForm!.get('password')!.value).subscribe({
-      next: () => {
-        // Login successful, clear the error message
-        this.errorMessage = '';
-      },
-      error: (error) => {
-        // Login failed, set the error message
-        if (error instanceof HttpErrorResponse) {
-          this.errorMessage = error.statusText;
-        } else {
-          this.errorMessage = 'An error occurred during login.';
-        }
-      },
-      complete: () => {
-        this.errorMessage = '';
-      },
-    });
+    this.authenticationService
+      .login(this.loginForm.get('username')!.value, this.loginForm!.get('password')!.value)
+      .pipe(handleError(this.toast))
+      .subscribe({
+        next: () => {
+          // Login successful, clear the error message
+          this.errorMessage = '';
+        },
+        error: (error) => {
+          // Login failed, set the error message
+          if (error instanceof HttpErrorResponse) {
+            this.errorMessage = error.statusText;
+          } else {
+            this.errorMessage = 'An error occurred during login.';
+          }
+        },
+        complete: () => {
+          this.errorMessage = '';
+        },
+      });
   }
 }

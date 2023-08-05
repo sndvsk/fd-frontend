@@ -8,12 +8,12 @@ import { ExtraFeeWindSpeedRule } from 'src/app/models/fee-rule/wind';
 import { ExtraFeeWeatherPhenomenonRule } from 'src/app/models/fee-rule/phenomenon';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FeeRuleClient {
   private baseURL = environment.apiUrl + '/api/v1/rules';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Regional Base Fee Rules
 

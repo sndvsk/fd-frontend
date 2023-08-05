@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NavigationService } from '../services/navigation/navigation.service';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { NavigationService } from '../services/navigation/navigation.service';
 export class CheckoutNavigationGuard {
   constructor(private navigationService: NavigationService, private router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(): boolean {
     const navigationFromCheckout = this.navigationService.getNavigationFromCheckout();
 
     if (navigationFromCheckout) {

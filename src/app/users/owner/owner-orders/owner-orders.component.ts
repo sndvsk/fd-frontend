@@ -4,7 +4,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { handleError } from 'src/app/core/handlers/error-toast';
 import { OrderService } from 'src/app/core/services/restaurant-items/order.service';
 import { RestaurantService } from 'src/app/core/services/restaurant-items/restaurant.service';
@@ -46,14 +45,14 @@ export class OwnerOrdersComponent implements OnInit, OnDestroy {
     if (this.ownerId) {
       this.restaurantService
         .getRestaurantsByOwnerId(this.ownerId)
-        .pipe(catchError(handleError(this.toast)))
+        .pipe(handleError(this.toast))
         .subscribe((restaurants) => {
           this.restaurants = normalizeArray(restaurants);
           this.restaurants.forEach((restaurant) => {
             if (restaurant.restaurant_id && this.ownerId) {
               this.orderService
                 .getOrdersByRestaurant(restaurant.restaurant_id, this.ownerId)
-                .pipe(catchError(handleError(this.toast)))
+                .pipe(handleError(this.toast))
                 .subscribe((orders: any) => {
                   orders.forEach((order: any) => {
                     const dateTransformed = this.datePipe.transform(order.datetime, 'dd/MM/yyyy, hh:mm');

@@ -11,6 +11,7 @@ import { AboutUsComponent } from './others/about-us/about-us.component';
 import { TermsOfUseComponent } from './others/terms-of-use/terms-of-use.component';
 import { ContactUsComponent } from './others/contact-us/contact-us.component';
 import { MatButtonModule } from '@angular/material/button';
+import { HelpUsersComponent } from './others/help-users/help-users.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
     AboutUsComponent,
     TermsOfUseComponent,
     ContactUsComponent,
+    HelpUsersComponent,
   ],
   imports: [CommonModule, SharedRoutingModule, RouterModule, MatButtonModule],
   exports: [HeaderComponent, FooterComponent, HomeComponent],
