@@ -1,45 +1,45 @@
 .authentication-card {
-    width: 50%;
-    margin: 0 auto;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .authentication-card-container {
-    min-height: 20vh;
+  min-height: 20vh;
 }
 
 .full-width-input {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 .error-message {
-    color: red;
+  color: red;
 }
 
 .buttons {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
 }
 
 .btn--large {
-    padding: 15px 30px; 
-    font-size: 18px;
+  padding: 15px 30px;
+  font-size: 18px;
 }
 
 @media screen and (max-width: 1000px) {
-    .authentication-card {
-      width: 70%;
-    }
-    .btn {
-      flex: 0 0 auto;
-      min-width: 100px;
-    }
+  .authentication-card {
+    width: 70%;
   }
-  
+  .btn {
+    flex: 0 0 auto;
+    min-width: 100px;
+  }
+}
+
 @media screen and (max-width: 768px) {
-    .authentication-card {
-        width: 100%;
-    }
+  .authentication-card {
+    width: 100%;
+  }
 }

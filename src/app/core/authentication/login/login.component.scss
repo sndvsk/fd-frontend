@@ -1,31 +1,31 @@
 .authentication-card {
-    width: 50%;
-    margin: 0 auto;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .authentication-card-container {
-    min-height: 20vh;
+  min-height: 20vh;
 }
 
 .full-width-input {
-    width: 100% !important;
+  width: 100% !important;
 }
-  
+
 .error-message {
-    color: red;
+  color: red;
 }
 
 .buttons {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
 }
 
 .btn {
-    flex: 1 1 auto; /* this will make the button scale with the form */
-    margin: 0 10px; /* adjust as needed */
+  flex: 1 1 auto; /* this will make the button scale with the form */
+  margin: 0 10px; /* adjust as needed */
 }
 
 @media screen and (max-width: 1000px) {

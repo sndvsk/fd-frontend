@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { handleError } from 'src/app/core/handlers/error-toast';
@@ -6,6 +7,7 @@ import { RestaurantService } from 'src/app/core/services/restaurant-items/restau
 import { CartStateService } from 'src/app/core/services/state/cart-state.service';
 import { Menu } from 'src/app/models/restaurant-items/menu';
 import { Restaurant } from 'src/app/models/restaurant-items/restaurant';
+import { ItemDetailsDialogComponent } from '../item-details-dialog/item-details-dialog.component';
 
 @Component({
   selector: 'app-restaurant-detail',
@@ -19,13 +21,15 @@ export class RestaurantDetailComponent implements OnInit {
   cartItems: { [itemId: number]: number } = {};
   vehicleType?: string;
   cartLenght = 0;
+  visibleItemDetails?: number;
 
   constructor(
     private route: ActivatedRoute,
     private restaurantService: RestaurantService,
     private router: Router,
     private cartStateService: CartStateService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private dialog: MatDialog
   ) {
     // Assume restaurantId is being passed in as a route parameter
     this.restaurantId = this.route.snapshot.params['id'];
@@ -44,36 +48,24 @@ export class RestaurantDetailComponent implements OnInit {
       });
   }
 
+  toggleItemDetails(item: any): void {
+    this.dialog.open(ItemDetailsDialogComponent, {
+      data: {
+        item: item,
+      },
+    });
+  }
+
   addToCart(itemId: number, restaurantId: number) {
-    const currentRestaurantInCart = localStorage.getItem('restaurantId');
-
-    if (currentRestaurantInCart && currentRestaurantInCart !== restaurantId.toString()) {
-      alert('You can only order from one restaurant at a time. Please clear your cart before adding items from a different restaurant.');
-    } else {
-      localStorage.setItem('restaurantId', restaurantId.toString());
-
-      if (itemId in this.cartItems) {
-        this.cartItems[itemId]++;
-      } else {
-        this.cartItems[itemId] = 1;
-      }
-      this.cartLenght++;
-      this.saveCart();
-    }
+    // ONLY let the CartStateService manage the logic
+    this.cartStateService.addToItem(itemId, restaurantId);
+    this.loadCart();
   }
 
   removeFromCart(itemId: number) {
-    if (itemId in this.cartItems && this.cartItems[itemId] > 1) {
-      this.cartItems[itemId]--;
-    } else {
-      delete this.cartItems[itemId];
-    }
-    this.cartLenght--;
-    this.saveCart();
-
-    if (this.cartLenght === 0) {
-      localStorage.removeItem('restaurantId');
-    }
+    // ONLY let the CartStateService manage the logic
+    this.cartStateService.removeItem(itemId);
+    this.loadCart();
   }
 
   loadCart(): void {
@@ -116,9 +108,10 @@ export class RestaurantDetailComponent implements OnInit {
 
   checkout() {
     if (Object.keys(this.cartItems).length > 0) {
-      this.cartStateService.setCheckoutState(this.cartItems, this.restaurantId, this.currentRestaurant!, this.menus);
-      this.router.navigate(['/customer/checkout']);
-      /*       this.router.navigate(['/customer/checkout'], {
+      if (this.currentRestaurant) {
+        this.cartStateService.setCheckoutState(this.cartItems, this.restaurantId, this.currentRestaurant, this.menus);
+        this.router.navigate(['/customer/checkout']);
+        /*       this.router.navigate(['/customer/checkout'], {
         state: {
           cartItems: this.cartItems,
           restaurantId: this.restaurantId,
@@ -126,6 +119,7 @@ export class RestaurantDetailComponent implements OnInit {
           menus: this.menus,
         },
       }); */
+      }
     } else {
       console.log('No items in the cart');
     }

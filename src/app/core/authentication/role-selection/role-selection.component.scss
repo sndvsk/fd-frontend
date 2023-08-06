@@ -1,47 +1,47 @@
 .authentication-card {
-    width: 50%;
-    height: 20vh;
-    margin: 0 auto;
+  width: 50%;
+  height: 20vh;
+  margin: 0 auto;
 }
 
 .centered-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .authentication-card-container {
-    min-height: 20vh;
+  min-height: 20vh;
 }
 
 .buttons {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
 }
 
 .btn--large {
-    padding: 15px 30px;
-    font-size: 18px;
-    width: 200px;
+  padding: 15px 30px;
+  font-size: 18px;
+  width: 200px;
 }
 
 @media screen and (max-width: 1000px) {
-    .authentication-card {
-      width: 70%;
-    }
-    .btn {
-      flex: 0 0 auto;
-      min-width: 100px;
-    }
+  .authentication-card {
+    width: 70%;
   }
-  
+  .btn {
+    flex: 0 0 auto;
+    min-width: 100px;
+  }
+}
+
 @media screen and (max-width: 768px) {
-    .authentication-card {
-        width: 100%;
-    }
+  .authentication-card {
+    width: 100%;
+  }
 }

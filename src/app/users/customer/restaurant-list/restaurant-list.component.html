@@ -1,7 +1,7 @@
 <div class="container margin-top-main">
-    <div *ngFor="let restaurant of restaurants">
-        <h2>{{ restaurant.name }}</h2>
-        <button (click)="viewMenu(restaurant.restaurant_id!)">View Menu</button>
+    <h1>Restaurant List</h1>
+    <div *ngFor="let restaurant of restaurants" class="restaurant-box">
+        <h2 class="restaurant-name">{{ restaurant.name }}</h2>
+        <button class="btn btn--primary btn--large" (click)="viewMenu(restaurant.restaurant_id!)">View Menu</button>
     </div>
 </div>
-  

@@ -12,7 +12,7 @@
     <a routerLink="/help">Help</a>
 
     <div class="user-nav">
-      <div class="user-dropdown" [class.show]="showDropdown">
+      <div class="user-dropdown" [class.show]="showDropdown" (click)="toggleDropdown()" (keyup.enter)="toggleDropdown()" tabindex="0">
 
         <ng-container *ngIf="isLoggedIn()">
             <a routerLink="/user-details">Profile Settings</a>

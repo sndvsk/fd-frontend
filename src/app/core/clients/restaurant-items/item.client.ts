@@ -64,6 +64,7 @@ export class ItemClient {
     const params = new HttpParams().set('ownerId', ownerId.toString());
     return this.http.delete<string>(`${this.baseUrl}/${itemId}`, {
       params: params,
+      responseType: 'text' as 'json',
     });
   }
 }

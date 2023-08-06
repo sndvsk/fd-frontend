@@ -1,3 +1,5 @@
+<link rel="preload" href="assets/images/main.svg" as="image"/>
+
 <section class="home" id="home" *ngIf="userRole">
     <div class="content">
         <h1>{{ userRolesData[userRole].h1 }} <span class="deep-pink">{{ userRolesData[userRole].h1Span }}</span></h1>
@@ -15,6 +17,9 @@
 
 <!-- Services -->
 <section class="services" id="services" *ngIf="userRole === 'none'" [ngClass]="{'margin-top-main': userRole === 'none'}">
+    <link rel="preload" href="assets/images/deliver-bike.svg" as="image"/>
+    <link rel="preload" href="assets/images/food-dish.svg" as="image"/>
+    <link rel="preload" href="assets/images/app-phone.svg" as="image"/>
 
     <div class="top">
         <h2><span class="deep-pink">Why</span> choose us?</h2>

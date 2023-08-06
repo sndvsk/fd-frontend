@@ -83,9 +83,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleDropdown() {
-    if (!this.isSmallScreen) {
-      this.showDropdown = !this.showDropdown;
-    }
+    this.showDropdown = !this.showDropdown;
   }
 
   hideDropdown() {

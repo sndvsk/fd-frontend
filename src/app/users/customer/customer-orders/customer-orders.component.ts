@@ -17,14 +17,21 @@ import { catchError } from 'rxjs';
 export class CustomerOrdersComponent implements OnInit {
   dataSource: MatTableDataSource<Order> = new MatTableDataSource<Order>();
   @ViewChild(MatSort, { static: true }) sort: MatSort = new MatSort();
-  allColumns: string[] = ['order_id', 'restaurant_name', 'datetime', 'item_price', 'delivery_fee', 'total_price', 'status', 'items'];
+  allColumns: string[] = [
+    'order_id',
+    'restaurant_name',
+    'datetime', //'item_price', 'delivery_fee',
+    'total_price',
+    'status',
+    'items',
+  ];
   displayedColumns: string[] = this.allColumns;
   columnLabels: { [key: string]: string } = {
     order_id: 'Order ID',
     restaurant_name: 'Restaurant Name',
     datetime: 'Datetime',
-    item_price: 'Item Price',
-    delivery_fee: 'Delivery Fee',
+    /*     item_price: 'Item Price',
+    delivery_fee: 'Delivery Fee', */
     total_price: 'Total Price',
     status: 'Status',
     items: 'Items',

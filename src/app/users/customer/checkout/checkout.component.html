@@ -6,13 +6,17 @@
         </div>
         <div class="cart">
             <h3>Cart:</h3>
-            <ul class="cart-items">
-                <li class="cart-item" *ngFor="let itemId of cartItems | keyvalue">
-                  <ng-container *ngIf="getItemById(+itemId.key) as item">
-                    <h4>{{ item.name }} ({{ (item.price! * itemId.value!).toFixed(2) }}€) - Quantity: {{ itemId.value }}</h4>
-                    <button class="btn btn--primary" (click)="addToCart(+itemId.key, restaurantId!)">Add more</button>
-                    <button class="btn btn--secondary" (click)="removeFromCart(+itemId.key)">Remove one</button>
-                  </ng-container>
+            <ul>
+                <li *ngFor="let itemId of cartItems | keyvalue">
+                <ng-container *ngIf="getItemById(+itemId.key) as item">
+                    <div class="item-content">
+                        <h4>{{ item.name }} ({{ (item.price! * itemId.value!).toFixed(2) }}€) <br> Quantity: {{ itemId.value }}</h4>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="btn btn--primary" (click)="addToCart(+itemId.key, restaurantId!)">Add more</button>
+                        <button class="btn btn--secondary" (click)="removeFromCart(+itemId.key)">Remove one</button>
+                    </div>
+                </ng-container>
                 </li>
             </ul>
             <h3>Total price: {{ getTotalPrice().toFixed(2) }}€</h3>

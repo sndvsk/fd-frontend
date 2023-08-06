@@ -1,47 +1,47 @@
 <div class="container">
     <h1>All Orders</h1>
-  
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-        
-        <!-- Order ID Column -->
-        <ng-container matColumnDef="order_id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Order ID</th>
-            <td mat-cell *matCellDef="let order">{{ order.order_id }}</td>
-        </ng-container>
-        
-        <!-- Customer ID Column -->
-        <ng-container matColumnDef="customer_id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer ID</th>
-            <td mat-cell *matCellDef="let order">{{ order.customer_id }}</td>
-        </ng-container>
-        
-        <!-- Customer Username Column -->
-        <ng-container matColumnDef="username">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Username</th>
-            <td mat-cell *matCellDef="let order">{{ order.customer.username }}</td>
-        </ng-container>
-        
-        <!-- Restaurant ID Column -->
-        <ng-container matColumnDef="restaurant_id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Restaurant ID</th>
-            <td mat-cell *matCellDef="let order">{{ order.restaurant_id }}</td>
-        </ng-container>
-        
-        <!-- Restaurant Name Column -->
-        <ng-container matColumnDef="restaurant_name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Restaurant Name</th>
-            <td mat-cell *matCellDef="let order">{{ order.restaurant_name }}</td>
-        </ng-container>
-        
-        <!-- Total Price Column -->
-        <ng-container matColumnDef="total_price">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Price</th>
-            <td mat-cell *matCellDef="let order">{{ order.total_price }}</td>
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="['order_id', 'customer_id', 'restaurant_id', 'username', 'restaurant_name', 'total_price']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['order_id', 'customer_id', 'restaurant_id', 'username', 'restaurant_name', 'total_price']"></tr>
-  
-    </table>
-  </div>
-  
+    <div class="table-container"> <!-- Added this wrapper -->
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            
+            <!-- Order ID Column -->
+            <ng-container matColumnDef="order_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Order ID</th>
+                <td mat-cell *matCellDef="let order">{{ order.order_id }}</td>
+            </ng-container>
+            
+            <!-- Customer ID Column -->
+            <ng-container matColumnDef="customer_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer ID</th>
+                <td mat-cell *matCellDef="let order">{{ order.customer_id }}</td>
+            </ng-container>
+            
+            <!-- Customer Username Column -->
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Username</th>
+                <td mat-cell *matCellDef="let order">{{ order.customer.username }}</td>
+            </ng-container>
+            
+            <!-- Restaurant ID Column -->
+            <ng-container matColumnDef="restaurant_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Restaurant ID</th>
+                <td mat-cell *matCellDef="let order">{{ order.restaurant_id }}</td>
+            </ng-container>
+            
+            <!-- Restaurant Name Column -->
+            <ng-container matColumnDef="restaurant_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Restaurant Name</th>
+                <td mat-cell *matCellDef="let order">{{ order.restaurant_name }}</td>
+            </ng-container>
+            
+            <!-- Total Price Column -->
+            <ng-container matColumnDef="total_price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Price</th>
+                <td mat-cell *matCellDef="let order">{{ order.total_price }}</td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="['order_id',  'username', 'restaurant_name', 'total_price']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['order_id', 'username', 'restaurant_name', 'total_price']"></tr>
+    
+        </table>
+    </div>
+</div>

@@ -1,72 +1,122 @@
+/* Base Layout and Containers */
 .checkout-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.button-container {
-    width: 100%;
-    text-align: left;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .checkout-content {
-    width: 90%;
-    max-width: 800px;
-    background: white;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 800px;
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.cart, .delivery-methods, .total-price, .submit-order-button {
-    margin-bottom: 2rem;
+.button-container {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 20px;
 }
 
+.cart ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.cart ul li {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  display: flex; /* Make the list item a flex container */
+  justify-content: space-between; /* Push the content and buttons apart */
+  align-items: right; /* Vertically align in case of wrapping or multiline content */
+}
+
+.item-content {
+  flex: 1; /* Allow item content to expand */
+  padding-right: 20px; /* Spacing between content and buttons */
+}
+
+.cart-item-actions {
+  display: flex; /* Make the buttons a flex container too */
+  gap: 10px; /* Space between buttons */
+}
+
+/* Shared Margins */
+.cart,
+.delivery-methods,
+.total-price,
 .submit-order-button {
-    display: flex;
-    justify-content: center;
+  margin-bottom: 2rem;
 }
 
+/* Submit Order Button Styling */
+.submit-order-button {
+  display: flex;
+  justify-content: center;
+}
+
+/* Cart Item Styles */
 .cart-items {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .cart-item {
-    border-bottom: 1px solid #eee;
-    padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
 
-    &:last-child {
-        border-bottom: none;
-    }
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.cart-item-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: white;
+}
+
+.cart-item-info {
+  flex: 1;
+  margin-right: 2rem;
 }
 
 .cart-item h4 {
-    margin-bottom: 1rem;
+  margin: 0;
 }
 
 .cart-item .btn {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
+/* Delivery Methods */
 .delivery-method {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.error-message {
-    color: red;
-}
-
-.delivery-method input[type="radio"] {
-    transform: scale(1.5);
-    margin-right: 10px;
+.delivery-method input[type='radio'] {
+  transform: scale(1.5);
+  margin-right: 10px;
 }
 
 .delivery-method label {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
+/* Error Styling */
+.error-message {
+  color: red;
+}

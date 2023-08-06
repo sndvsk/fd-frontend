@@ -1,11 +1,15 @@
 <div class="admin-panel margin-top-main">
-    <button (click)="switchToDisplayOwnersPanel()">Display Owners and restaurants</button>
-    <button (click)="switchToDisplayUsersPanel()">Display All Users</button>
-    <button (click)="switchToDisplayOrdersPanel()">Display All Orders</button>
-    <button (click)="switchToPendingOwnersPanel()">Pending Owner Applications</button>
+    <div class="btn-container">
+        <button class="btn btn--primary btn-size" (click)="switchToDisplayOwnersPanel()">Display Owners and restaurants</button>
+        <button class="btn btn--primary btn-size" (click)="switchToDisplayUsersPanel()">Display All Users</button>
+        <button class="btn btn--primary btn-size" (click)="switchToDisplayOrdersPanel()">Display All Orders</button>
+        <button class="btn btn--primary btn-size" (click)="switchToPendingOwnersPanel()">Pending Owner Applications</button>
+    </div>
 
-    <app-display-users *ngIf="panel === 'displayUsers'"></app-display-users>
-    <app-display-owners *ngIf="panel === 'displayOwners'"></app-display-owners>
-    <app-display-orders *ngIf="panel === 'displayOrders'"></app-display-orders>
-    <app-pending-owners *ngIf="panel === 'pendingOwners'"></app-pending-owners>
+    <div class="panel-container">
+        <app-display-users *ngIf="panel === 'displayUsers'"></app-display-users>
+        <app-display-owners *ngIf="panel === 'displayOwners'"></app-display-owners>
+        <app-display-orders *ngIf="panel === 'displayOrders'"></app-display-orders>
+        <app-pending-owners *ngIf="panel === 'pendingOwners'"></app-pending-owners>
+    </div>
 </div>

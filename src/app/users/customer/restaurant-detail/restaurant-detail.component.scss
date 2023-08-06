@@ -1,10 +1,142 @@
-//.container {}
-
-.content-wrapper {
-    display: flex;
-    justify-content: space-between;
+/* Base Styles */
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
 }
 
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+h5 {
+  font-size: 3rem;
+}
+
+/* Cart Styles */
 .cart {
+  width: 30%;
+  position: fixed;
+  top: 10%;
+  right: 5%;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-right: 2.5rem;
+  background-color: #fff;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.cart ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.cart ul li {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  display: flex; /* Added this to make sure content and buttons align horizontally */
+  justify-content: space-between; /* Added this for proper alignment */
+}
+
+/* Items Styles */
+.items {
+  width: 60%;
+  overflow-y: auto;
+}
+
+.items ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+/* Buttons and Containers */
+.btn--show-more {
+  background-color: var(--mid-pink);
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; /* Provides space between the buttons */
+}
+
+.item-content,
+.item-buttons {
+  width: 100%;
+  display: inline-block;
+}
+
+.item-box {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Media Query for Mobile View */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  h5 {
+    font-size: 2rem;
+  }
+
+  .cart {
+    margin-bottom: 2rem;
+  }
+
+  .items,
+  .cart {
+    width: 100%;
+  }
+
+  .item-box,
+  .cart ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .item-box p {
+    display: none; /* Hide the description */
+  }
+
+  .btn--show-more {
+    background-color: (--mid-pink);
+    display: block; /* Display the 'Show More' button */
+  }
+
+  .item-content {
+    width: 70%;
+    padding-right: 10px;
+  }
+
+  .item-buttons {
     width: 30%;
+    text-align: right;
+  }
+
+  .cart {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-right: 0;
+  }
+
+  .item-box h4,
+  .item-box button:not(.btn--show-more),
+  .cart ul li h4 {
+    /* Added this to make sure cart item text also displays */
+    display: block;
+  }
 }

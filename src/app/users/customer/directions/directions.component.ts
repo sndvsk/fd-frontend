@@ -9,6 +9,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
 import { DirectionsService } from 'src/app/core/services/directions/directions.service';
 import { ErrorHandlerService } from 'src/app/core/services/error-handler/error-handler.service';
 import { RestaurantService } from 'src/app/core/services/restaurant-items/restaurant.service';
+import { CartStateService } from 'src/app/core/services/state/cart-state.service';
 import { CustomerService } from 'src/app/core/services/user-items/customer.service';
 import { GoogleDirectionResponse } from 'src/app/models/directions/directions';
 import { Address } from 'src/app/models/user-items/address';
@@ -34,6 +35,7 @@ export class DirectionsComponent implements OnInit {
   infoContent = '';
   totalDuration = '';
   deliveryCountdown? = '';
+  vehicleType = '';
 
   constructor(
     private httpClient: HttpClient,
@@ -44,7 +46,8 @@ export class DirectionsComponent implements OnInit {
     private restaurantService: RestaurantService,
     private directionsService: DirectionsService,
     private mapDirectionsService: MapDirectionsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cartStateService: CartStateService
   ) {
     const apiKey = environment.googleMapsApiKey;
     this.apiLoaded = httpClient.jsonp(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`, 'callback').pipe(
@@ -54,10 +57,11 @@ export class DirectionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadScript();
+    //this.loadScript();
 
     this.route.queryParams.subscribe((params) => {
       this.restaurantId = Number(params['restaurantId']);
+      this.vehicleType = params['vehicleType'];
     });
 
     this.customerId = Number(this.authenticationService.getUserId());
@@ -79,6 +83,7 @@ export class DirectionsComponent implements OnInit {
           this.restaurantAddress = restaurant.address;
           if (this.customerAddress && this.restaurantAddress) {
             this.getDirections([this.customerAddress, this.restaurantAddress]);
+            this.cartStateService.clearRestaurantIdState();
           }
         });
     }
@@ -95,8 +100,8 @@ export class DirectionsComponent implements OnInit {
         const destination = this.directions.routes[0].bounds.northeast;
 
         const request: google.maps.DirectionsRequest = {
-          destination: { lat: this.directions.routes[0].bounds.northeast.lat, lng: this.directions.routes[0].bounds.northeast.lng },
-          origin: { lat: this.directions.routes[0].bounds.southwest.lat, lng: this.directions.routes[0].bounds.southwest.lng },
+          destination: { lat: destination.lat, lng: destination.lng },
+          origin: { lat: origin.lat, lng: origin.lng },
           travelMode: google.maps.TravelMode.WALKING,
         };
 
@@ -119,6 +124,13 @@ export class DirectionsComponent implements OnInit {
     for (const leg of this.directions!.routes[0].legs) {
       totalSeconds += leg.duration.value;
     }
+
+    if (this.vehicleType.toLocaleLowerCase() === 'bike') {
+      totalSeconds = totalSeconds * 2;
+    } else if (this.vehicleType.toLocaleLowerCase() === 'scooter') {
+      totalSeconds = totalSeconds * 1.5;
+    }
+
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds - hours * 3600) / 60);
     this.totalDuration = hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
@@ -148,12 +160,12 @@ export class DirectionsComponent implements OnInit {
     this.infoWindow?.open(marker);
   }
 
-  loadScript() {
+  /*   loadScript() {
     const node = document.createElement('script');
     node.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}&libraries=visualization`;
     node.type = 'text/javascript';
     node.async = true;
-    //node.charset = 'utf-8';
+    node.charset = 'utf-8';
     document.getElementsByTagName('head')[0].appendChild(node);
-  }
+  } */
 }

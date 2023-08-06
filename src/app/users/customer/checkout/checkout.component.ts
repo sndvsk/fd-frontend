@@ -122,36 +122,13 @@ export class CheckoutComponent implements OnInit {
   }
 
   addToCart(itemId: number, restaurantId: number) {
-    const currentRestaurantInCart = localStorage.getItem('restaurantId');
-
-    if (currentRestaurantInCart && currentRestaurantInCart !== restaurantId.toString()) {
-      alert('You can only order from one restaurant at a time. Please clear your cart before adding items from a different restaurant.');
-    } else {
-      localStorage.setItem('restaurantId', restaurantId.toString());
-
-      if (itemId in this.cartItems) {
-        this.cartItems[itemId]++;
-      } else {
-        this.cartItems[itemId] = 1;
-      }
-      this.cartLenght++;
-      this.saveCart();
-    }
+    // ONLY let the CartStateService manage the logic
+    this.cartStateService.addToItem(itemId, restaurantId);
   }
 
   removeFromCart(itemId: number) {
-    if (itemId in this.cartItems && this.cartItems[itemId] > 1) {
-      this.cartItems[itemId]--;
-    } else {
-      delete this.cartItems[itemId];
-    }
-    this.cartLenght--;
-    this.saveCart();
-
-    if (this.cartLenght === 0) {
-      localStorage.removeItem('restaurantId');
-      this.resetDeliveryFees();
-    }
+    // ONLY let the CartStateService manage the logic
+    this.cartStateService.removeItem(itemId);
   }
 
   loadCart(): void {
@@ -171,7 +148,6 @@ export class CheckoutComponent implements OnInit {
       bike: '',
       scooter: '',
     };
-    this.selectedVehicleType = undefined;
   }
 
   saveCart(): void {
@@ -228,13 +204,14 @@ export class CheckoutComponent implements OnInit {
                 console.log('Order updated');
                 this.cartItems = {};
                 this.saveCart();
-                localStorage.removeItem('restaurantId');
                 this.orderPlaced = true;
-                this.selectedVehicleType = undefined;
                 this.resetDeliveryFees();
                 this.cartStateService.clearCheckoutState();
                 this.navigationService.setNavigationFromCheckout(true);
-                this.router.navigate(['/customer/directions'], { queryParams: { restaurantId: this.restaurantId } });
+                this.router.navigate(['/customer/directions'], {
+                  queryParams: { restaurantId: this.restaurantId, vehicleType: this.selectedVehicleType },
+                });
+                this.selectedVehicleType = undefined;
               });
           }
         });

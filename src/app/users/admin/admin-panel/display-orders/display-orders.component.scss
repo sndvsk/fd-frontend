@@ -1,1 +1,27 @@
-//.container{}
+.container {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.mat-elevation-z8 {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e0e0e0;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.mat-cell,
+.mat-header-cell {
+  padding: 1em; /* default padding */
+}
+
+@media screen and (max-width: 768px) {
+  .mat-cell,
+  .mat-header-cell {
+    display: block;
+    padding: 0.5em; /* reduce padding for small screens */
+  }
+}

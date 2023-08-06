@@ -9,7 +9,8 @@
     "build:prod": "ng build --configuration production && purgecss --config ./purgecss.config.ts",
     "test": "ng test",
     "lint": "ng lint",
-    "gzip": "rm -rf ./dist/*-gzip && gzipper compress --verbose --output-file-format [filename].[ext] ./dist/fd-frontend ./dist/fd-frontend-gzip"
+    "gzip": "rm -rf ./dist/*-gzip && gzipper compress --verbose --output-file-format [filename].[ext] ./dist/fd-frontend ./dist/fd-frontend-gzip",
+    "pretty css": "npx prettier --write '**/*.scss'"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +35,7 @@
     "jwt-decode": "^3.1.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "xregexp": "^5.1.1",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

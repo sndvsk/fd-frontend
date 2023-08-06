@@ -1,34 +1,36 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.customer-form,
+.address-form {
+  width: 45%;
+}
+
+.customer-form form,
+.address-form form {
+  margin: 8rem auto auto auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  input {
+    padding: 5px;
   }
-  
-  .customer-form, .address-form {
-    width: 45%;
+  button {
+    padding: 10px;
   }
-  
-  .customer-form form, .address-form form {
-    margin: 8rem auto auto auto;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    input {
-      padding: 5px;
-    }
-    button {
-      padding: 10px;
-    }
+}
+
+@media screen and (max-width: 1000px) {
+  .customer-form,
+  .address-form {
+    width: 100%;
   }
-  
-  @media screen and (max-width: 1000px) {
-    .customer-form, .address-form {
-      width: 100%;
-    }
-  }
-  
-  h2 {
-    margin: 2rem auto;
-  }
-  
+}
+
+h2 {
+  margin: 2rem auto;
+}

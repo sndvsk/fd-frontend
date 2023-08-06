@@ -35,6 +35,7 @@ import { DisplayOwnersComponent } from './admin/admin-panel/display-owners/displ
 import { DirectionsComponent } from './customer/directions/directions.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule, JsonpInterceptor } from '@angular/common/http';
+import { ItemDetailsDialogComponent } from './customer/item-details-dialog/item-details-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule, JsonpInterc
     CapitalizeFirstPipe,
     DisplayOwnersComponent,
     DirectionsComponent,
+    ItemDetailsDialogComponent,
   ],
   imports: [
     CommonModule,
