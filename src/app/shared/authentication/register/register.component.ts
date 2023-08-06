@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { handleError } from '../../handlers/error-toast';
+import { handleError } from '../../../core/handlers/error-toast';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as XRegExp from 'xregexp';
 

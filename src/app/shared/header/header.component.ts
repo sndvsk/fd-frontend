@@ -110,7 +110,11 @@ export class HeaderComponent implements OnInit {
   }
 
   closeNavbarOnLinkClick(event: Event) {
-    if (this.isSmallScreen && event.target instanceof HTMLElement && event.target.tagName.toLowerCase() === 'a') {
+    if (
+      this.isSmallScreen &&
+      event.target instanceof HTMLElement &&
+      (event.target.tagName.toLowerCase() === 'a' || event.target.tagName.toLowerCase() === 'button')
+    ) {
       this.navbarShow = false;
     }
   }

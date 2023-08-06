@@ -12,6 +12,17 @@ import { TermsOfUseComponent } from './others/terms-of-use/terms-of-use.componen
 import { ContactUsComponent } from './others/contact-us/contact-us.component';
 import { MatButtonModule } from '@angular/material/button';
 import { HelpUsersComponent } from './others/help-users/help-users.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { LoginComponent } from './authentication/login/login.component';
+import { LogoutComponent } from './authentication/logout/logout.component';
+import { RegisterComponent } from './authentication/register/register.component';
+import { RoleSelectionComponent } from './authentication/role-selection/role-selection.component';
+import { AccessDeniedComponent } from './errors/access-denied/access-denied.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +35,25 @@ import { HelpUsersComponent } from './others/help-users/help-users.component';
     TermsOfUseComponent,
     ContactUsComponent,
     HelpUsersComponent,
+    LoginComponent,
+    LogoutComponent,
+    RegisterComponent,
+    RoleSelectionComponent,
+    AccessDeniedComponent,
+    NotFoundComponent,
   ],
-  imports: [CommonModule, SharedRoutingModule, RouterModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    SharedRoutingModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+  ],
   exports: [HeaderComponent, FooterComponent, HomeComponent],
 })
 export class SharedModule {}
