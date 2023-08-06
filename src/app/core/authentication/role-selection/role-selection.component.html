@@ -1,11 +1,27 @@
-<div class="authentication-card-container margin-top-main" fxLayout="column" fxLayoutAlign="center">
-    <mat-card class="authentication-card">
-        <mat-card-header class="centered-header">
-            <mat-card-title>Select Your Role:</mat-card-title>
-        </mat-card-header>
-        <div class="buttons">
-          <button mat-raised-button class="btn btn--primary btn--large" (click)="selectRole('customer')">Customer</button>
-          <button mat-raised-button class="btn btn--primary btn--large" (click)="selectRole('owner')">Restaurant Owner</button>
-        </div>
-    </mat-card>
+<div
+  class="authentication-card-container margin-top-main"
+  fxLayout="column"
+  fxLayoutAlign="center"
+>
+  <mat-card class="authentication-card">
+    <mat-card-header class="centered-header">
+      <mat-card-title>Select Your Role:</mat-card-title>
+    </mat-card-header>
+    <div class="buttons">
+      <button
+        mat-raised-button
+        class="btn btn--primary btn--large"
+        (click)="selectRole('customer')"
+      >
+        Customer
+      </button>
+      <button
+        mat-raised-button
+        class="btn btn--primary btn--large"
+        (click)="selectRole('owner')"
+      >
+        Restaurant Owner
+      </button>
+    </div>
+  </mat-card>
 </div>

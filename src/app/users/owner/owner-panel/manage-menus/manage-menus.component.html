@@ -1,52 +1,98 @@
-<div class="container margin-top-main" *ngIf="menu && editMode">
-    <mat-card class="menu-form-card">
-        <mat-card-content>
-            <form fxLayout="column" fxLayoutAlign="start stretch">
-                <h3>Menu Info</h3>
+<div
+  class="container margin-top-main"
+  *ngIf="menu && editMode"
+>
+  <mat-card class="menu-form-card">
+    <mat-card-content>
+      <form
+        fxLayout="column"
+        fxLayoutAlign="start stretch"
+      >
+        <h3>Menu Info</h3>
 
-                <mat-form-field>
-                    <mat-label>Name</mat-label>
-                    <input matInput type="text" [(ngModel)]="menu.name" name="name" id="name" placeholder="Menu name">
-                </mat-form-field>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="menu.name"
+            name="name"
+            id="name"
+            placeholder="Menu name"
+          />
+        </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>Visibility</mat-label>
-                    <input matInput type="text" [(ngModel)]="menu.visibility" name="visibility" id="visibility" placeholder="Visibility to customers" [disabled]="true">
-                    <mat-hint>{{ menu.visibility === 'true' ? 'The menu is visible to customers' : 'The menu is not visible to customers' }}</mat-hint>
-                </mat-form-field>                
-            </form>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="saveMenu()">Save</button>
-            <button mat-button (click)="cancelEdit()">Cancel</button>
-            <ng-container *ngIf="menu.restaurant_id; else noRestaurant">
-                <button (click)="toggleMenuVisibility(menu.menu_id)">
-                    {{ menu.visibility === 'true' ? 'Hide menu from customers' : 'Show menu to customers'}}
-                </button>
-            </ng-container>
-            <ng-template #noRestaurant>
-                <p>You need to assign the menu to a restaurant to make it visible</p>
-            </ng-template>
-        </mat-card-actions>
-        
-    </mat-card>
+        <mat-form-field>
+          <mat-label>Visibility</mat-label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="menu.visibility"
+            name="visibility"
+            id="visibility"
+            placeholder="Visibility to customers"
+            [disabled]="true"
+          />
+          <mat-hint>{{
+            menu.visibility === 'true' ? 'The menu is visible to customers' : 'The menu is not visible to customers'
+          }}</mat-hint>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="saveMenu()"
+      >
+        Save
+      </button>
+      <button
+        mat-button
+        (click)="cancelEdit()"
+      >
+        Cancel
+      </button>
+      <ng-container *ngIf="menu.restaurant_id; else noRestaurant">
+        <button (click)="toggleMenuVisibility(menu.menu_id)">
+          {{ menu.visibility === 'true' ? 'Hide menu from customers' : 'Show menu to customers' }}
+        </button>
+      </ng-container>
+      <ng-template #noRestaurant>
+        <p>You need to assign the menu to a restaurant to make it visible</p>
+      </ng-template>
+    </mat-card-actions>
+  </mat-card>
 </div>
 
-<div class="menu-section margin-top-main" *ngIf="!editMode">
-    <h2>Menus</h2>
+<div
+  class="menu-section margin-top-main"
+  *ngIf="!editMode"
+>
+  <h2>Menus</h2>
 
-    <button (click)="addMenu()">Add Menu</button>
+  <button (click)="addMenu()">Add Menu</button>
 
-    <div *ngIf="menus.length > 0">
-        <div *ngFor="let menu of menus">
-            <h3>{{menu.restaurant_name}} - {{ menu.name }}</h3>
-            <button (click)="editMenu(menu)">Edit Menu</button>
-            <button (click)="deleteMenu(menu.menu_id)">Delete Menu</button>
-            <button *ngIf="!menu.restaurant_id" (click)="openAssignRestaurantDialog(menu)">Assign Restaurant</button>
-            <button *ngIf="menu.restaurant_id" (click)="removeMenuFromRestaurant(menu)">Remove from Restaurant</button>
-        </div>
+  <div *ngIf="menus.length > 0">
+    <div *ngFor="let menu of menus">
+      <h3>{{ menu.restaurant_name }} - {{ menu.name }}</h3>
+      <button (click)="editMenu(menu)">Edit Menu</button>
+      <button (click)="deleteMenu(menu.menu_id)">Delete Menu</button>
+      <button
+        *ngIf="!menu.restaurant_id"
+        (click)="openAssignRestaurantDialog(menu)"
+      >
+        Assign Restaurant
+      </button>
+      <button
+        *ngIf="menu.restaurant_id"
+        (click)="removeMenuFromRestaurant(menu)"
+      >
+        Remove from Restaurant
+      </button>
     </div>
-    <div *ngIf="menus.length === 0">
-        <p>No menus found.</p>
-    </div>
+  </div>
+  <div *ngIf="menus.length === 0">
+    <p>No menus found.</p>
+  </div>
 </div>

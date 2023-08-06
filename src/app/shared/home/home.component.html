@@ -1,72 +1,113 @@
-<link rel="preload" href="assets/images/main.svg" as="image"/>
+<link
+  rel="preload"
+  href="assets/images/main.svg"
+  as="image"
+/>
 
-<section class="home" id="home" *ngIf="userRole">
-    <div class="content">
-        <h1>{{ userRolesData[userRole].h1 }} <span class="deep-pink">{{ userRolesData[userRole].h1Span }}</span></h1>
-        <p>
-            BlitzBite, the new kid on the block in online food delivery, is making waves.
-            With a platform connecting food lovers and restaurants across Estonia,
-            we're redefining dining experiences with speed and ease like never before.
-        </p>
-        <a routerLink="{{ userRolesData[userRole].routerLink }}" class="home-btn">{{ userRolesData[userRole].btnText }}</a>
-    </div>
-    <div class="image">
-        <img src="assets/images/main.svg" alt="main image delivery" width="576" height="569" />
-    </div>
+<section
+  class="home"
+  id="home"
+  *ngIf="userRole"
+>
+  <div class="content">
+    <h1>
+      {{ userRolesData[userRole].h1 }} <span class="deep-pink">{{ userRolesData[userRole].h1Span }}</span>
+    </h1>
+    <p>
+      BlitzBite, the new kid on the block in online food delivery, is making waves. With a platform connecting food lovers and restaurants
+      across Estonia, we're redefining dining experiences with speed and ease like never before.
+    </p>
+    <a
+      routerLink="{{ userRolesData[userRole].routerLink }}"
+      class="home-btn"
+      >{{ userRolesData[userRole].btnText }}</a
+    >
+  </div>
+  <div class="image">
+    <img
+      src="assets/images/main.svg"
+      alt="main image delivery"
+      width="576"
+      height="569"
+    />
+  </div>
 </section>
 
 <!-- Services -->
-<section class="services" id="services" *ngIf="userRole === 'none'" [ngClass]="{'margin-top-main': userRole === 'none'}">
-    <link rel="preload" href="assets/images/deliver-bike.svg" as="image"/>
-    <link rel="preload" href="assets/images/food-dish.svg" as="image"/>
-    <link rel="preload" href="assets/images/app-phone.svg" as="image"/>
+<section
+  class="services"
+  id="services"
+  *ngIf="userRole === 'none'"
+  [ngClass]="{ 'margin-top-main': userRole === 'none' }"
+>
+  <link
+    rel="preload"
+    href="assets/images/deliver-bike.svg"
+    as="image"
+  />
+  <link
+    rel="preload"
+    href="assets/images/food-dish.svg"
+    as="image"
+  />
+  <link
+    rel="preload"
+    href="assets/images/app-phone.svg"
+    as="image"
+  />
 
-    <div class="top">
-        <h2><span class="deep-pink">Why</span> choose us?</h2>
-        <p>
-            We are dedicated to providing high-quality service tailored to the
-            needs of our customers.
-            Our service is centered around you and we are committed to maintaining
-            excellence, respect, and integrity in all aspects of our operations.
-        </p>
+  <div class="top">
+    <h2><span class="deep-pink">Why</span> choose us?</h2>
+    <p>
+      We are dedicated to providing high-quality service tailored to the needs of our customers. Our service is centered around you and we
+      are committed to maintaining excellence, respect, and integrity in all aspects of our operations.
+    </p>
+  </div>
+
+  <div class="bottom">
+    <div class="box">
+      <img
+        src="assets/images/deliver-bike.svg"
+        alt="bike"
+        width="60"
+        height="60"
+      />
+      <h3>Conscious Delivery</h3>
+      <p>
+        We offer a delivery service that is mindful of the environment and tailored to your needs. Delivery fees are calculated based on
+        weather conditions and type of delivery vehicle to ensure a fair price and a reduced environmental impact.
+      </p>
     </div>
 
-    <div class="bottom">
-
-        <div class="box">
-            <img src="assets/images/deliver-bike.svg" alt="bike" width="60" height="60" />
-            <h3>Conscious Delivery</h3>
-            <p>
-                We offer a delivery service that is mindful of
-                the environment and tailored to your needs.
-                Delivery fees are calculated based on weather
-                conditions and type of delivery vehicle to ensure
-                a fair price and a reduced environmental impact.
-            </p>
-        </div>
-
-        <div class="box">
-            <img src="assets/images/food-dish.svg" alt="plate" width="60" height="60" />
-            <h3>Healthy Foods</h3>
-            <p>
-                We prioritize health and nutrition without
-                compromising on taste. Restaurants have a variety
-                of dishes made from fresh, organic, and locally-sourced ingredients.
-            </p>
-        </div>
-
-        <div class="box">
-            <img src="assets/images/app-phone.svg" alt="phone" width="60" height="60" />
-            <h3>Online Ordering</h3>
-            <p>
-                Our online ordering system is designed for your convenience.
-                Choose your favorite meal, place an order, and it will be on its way to you in no time.
-            </p>
-        </div>
-
+    <div class="box">
+      <img
+        src="assets/images/food-dish.svg"
+        alt="plate"
+        width="60"
+        height="60"
+      />
+      <h3>Healthy Foods</h3>
+      <p>
+        We prioritize health and nutrition without compromising on taste. Restaurants have a variety of dishes made from fresh, organic, and
+        locally-sourced ingredients.
+      </p>
     </div>
+
+    <div class="box">
+      <img
+        src="assets/images/app-phone.svg"
+        alt="phone"
+        width="60"
+        height="60"
+      />
+      <h3>Online Ordering</h3>
+      <p>
+        Our online ordering system is designed for your convenience. Choose your favorite meal, place an order, and it will be on its way to
+        you in no time.
+      </p>
+    </div>
+  </div>
 </section>
-
 
 <!-- App -->
 <!-- <section class="app" id="contact">

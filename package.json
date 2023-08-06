@@ -6,11 +6,13 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "build:prod": "ng build --configuration production && purgecss --config ./purgecss.config.ts",
+    "build:prod": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "gzip": "rm -rf ./dist/*-gzip && gzipper compress --verbose --output-file-format [filename].[ext] ./dist/fd-frontend ./dist/fd-frontend-gzip",
-    "pretty css": "npx prettier --write '**/*.scss'"
+    "pretty:css": "npx prettier --write '**/*.scss'",
+    "pretty:html": "npx prettier --write '**/*.html'",
+    "postbuild": "node ./src/environments/postbuild.js"
   },
   "private": true,
   "dependencies": {

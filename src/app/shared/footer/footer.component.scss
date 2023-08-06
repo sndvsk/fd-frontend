@@ -1,4 +1,7 @@
-@import '/src/app/shared/header/header.component.scss';
+.logo {
+  font-size: 3.6rem;
+  font-weight: 700;
+}
 
 .footer .top {
   background-color: var(--footer-top);
@@ -62,6 +65,10 @@
 }
 
 @media (max-width: 996px) {
+  .logo {
+    font-size: 3rem;
+  }
+
   .footer .top {
     padding: 5rem 9%;
     grid-template-columns: 1fr;

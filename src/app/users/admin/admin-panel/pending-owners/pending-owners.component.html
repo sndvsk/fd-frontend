@@ -1,54 +1,138 @@
 <div class="container">
-    <h1>Pending Owner Applications</h1>
-    <div class="table-container"> 
-        <table mat-table [dataSource]="owners" matSort class="mat-elevation-z8">
-            <!-- ID Column -->
-            <ng-container matColumnDef="owner_id">
-                <th mat-header-cell *matHeaderCellDef>ID</th>
-                <td mat-cell *matCellDef="let owner">{{ owner.owner_id }}</td>
-            </ng-container>
+  <h1>Pending Owner Applications</h1>
+  <div class="table-container">
+    <table
+      mat-table
+      [dataSource]="owners"
+      matSort
+      class="mat-elevation-z8"
+    >
+      <!-- ID Column -->
+      <ng-container matColumnDef="owner_id">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          ID
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let owner"
+        >
+          {{ owner.owner_id }}
+        </td>
+      </ng-container>
 
-            <!-- Username Column -->
-            <ng-container matColumnDef="username">
-                <th mat-header-cell *matHeaderCellDef>Username</th>
-                <td mat-cell *matCellDef="let owner">{{ owner.user.username }}</td>
-            </ng-container>
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Username
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let owner"
+        >
+          {{ owner.user.username }}
+        </td>
+      </ng-container>
 
-            <!-- First Name Column -->
-            <ng-container matColumnDef="firstname">
-                <th mat-header-cell *matHeaderCellDef>First Name</th>
-                <td mat-cell *matCellDef="let owner">{{ owner.user.firstname }}</td>
-            </ng-container>
+      <!-- First Name Column -->
+      <ng-container matColumnDef="firstname">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          First Name
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let owner"
+        >
+          {{ owner.user.firstname }}
+        </td>
+      </ng-container>
 
-            <!-- Last Name Column -->
-            <ng-container matColumnDef="lastname">
-                <th mat-header-cell *matHeaderCellDef>Last Name</th>
-                <td mat-cell *matCellDef="let owner">{{ owner.user.lastname }}</td>
-            </ng-container>
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="lastname">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Last Name
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let owner"
+        >
+          {{ owner.user.lastname }}
+        </td>
+      </ng-container>
 
-            <!-- Email Column -->
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef>Email</th>
-                <td mat-cell *matCellDef="let owner">{{ owner.user.email }}</td>
-            </ng-container>
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Email
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let owner"
+        >
+          {{ owner.user.email }}
+        </td>
+      </ng-container>
 
-            <!-- Telephone Column -->
-            <ng-container matColumnDef="telephone">
-                <th mat-header-cell *matHeaderCellDef>Telephone</th>
-                <td mat-cell *matCellDef="let owner">{{ owner.user.telephone }}</td>
-            </ng-container>
+      <!-- Telephone Column -->
+      <ng-container matColumnDef="telephone">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Telephone
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let owner"
+        >
+          {{ owner.user.telephone }}
+        </td>
+      </ng-container>
 
-            <!-- Actions Column -->
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef>Actions</th>
-                <td mat-cell *matCellDef="let owner">
-                <button class="btn btn--primary" (click)="approveOwner(owner.owner_id)">Approve</button>
-                <!-- <button (click)="rejectOwner(owner.owner_id)">Reject</button> -->
-                </td>
-            </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Actions
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let owner"
+        >
+          <button
+            class="btn btn--primary"
+            (click)="approveOwner(owner.owner_id)"
+          >
+            Approve
+          </button>
+          <!-- <button (click)="rejectOwner(owner.owner_id)">Reject</button> -->
+        </td>
+      </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="['owner_id', 'username', 'firstname', 'lastname', 'email', 'telephone', 'actions']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['owner_id', 'username', 'firstname', 'lastname', 'email', 'telephone', 'actions']"></tr>
-        </table>
-    </div>
+      <tr
+        mat-header-row
+        *matHeaderRowDef="['owner_id', 'username', 'firstname', 'lastname', 'email', 'telephone', 'actions']"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['owner_id', 'username', 'firstname', 'lastname', 'email', 'telephone', 'actions']"
+      ></tr>
+    </table>
+  </div>
 </div>
