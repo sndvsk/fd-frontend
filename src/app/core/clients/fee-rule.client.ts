@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/* import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -14,8 +14,6 @@ export class FeeRuleClient {
   private baseURL = environment.apiUrl + '/api/v1/rules';
 
   constructor(private http: HttpClient) {}
-
-  // Regional Base Fee Rules
 
   getAllRegionalBaseFeeRules(): Observable<any> {
     return this.http.get(`${this.baseURL}/fee/base`);
@@ -103,3 +101,4 @@ export class FeeRuleClient {
     return this.http.delete(`${this.baseURL}/fee/extra/phenomenon/${id}`);
   }
 }
+ */

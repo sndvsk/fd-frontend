@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.refreshOnInit();
         if (!this.isSmallScreen) {
-          this.showDropdown = false; // set to false instead of toggling
+          this.showDropdown = false;
         }
       }
     });
@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.username = ''; // Reset the username immediately
+    this.username = '';
     this.authenticationService.logout();
   }
 

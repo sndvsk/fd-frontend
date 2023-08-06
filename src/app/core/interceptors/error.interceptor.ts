@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthenticationService, private router: Router) {}
 
-  // todo handle refresh token -> look into sublime text
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((err) => {
@@ -19,9 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           const isUnauthorized = !this.authenticationService.isLoggedIn();
 
           if (isUnauthorized && !request.url.includes('/login')) {
-            // Perform logout action here
             console.log('User is unauthorized, logging out...');
-            // Redirect to logout or any other necessary action
             this.authenticationService.logout();
 
             // Stop the error propagation and return an empty observable
@@ -39,7 +36,6 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
         }
 
-        // Rethrow the error to be caught by the subscriber
         return throwError(() => err);
       })
     );

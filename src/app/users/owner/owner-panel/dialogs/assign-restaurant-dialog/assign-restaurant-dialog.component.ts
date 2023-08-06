@@ -23,7 +23,7 @@ interface DialogData {
 export class AssignRestaurantDialogComponent {
   restaurants: Restaurant[] = [];
   ownerId?: number;
-  selectedRestaurant = 0; // Initialized with 0
+  selectedRestaurant = 0;
 
   constructor(
     public dialogRef: MatDialogRef<AssignRestaurantDialogComponent>,

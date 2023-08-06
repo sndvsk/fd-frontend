@@ -10,15 +10,22 @@
   width: 100%;
 }
 
+.mat-elevation-z8 {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .mat-cell,
 .mat-header-cell {
-  padding: 1em; /* default padding */
+  padding: 1em;
 }
 
 @media screen and (max-width: 768px) {
   .mat-cell,
   .mat-header-cell {
     display: block;
-    padding: 0.5em; /* reduce padding for small screens */
+    padding: 0.5em;
   }
 }

@@ -11,7 +11,7 @@ export class ErrorHandlerService {
     const httpError = new HttpErrorResponse({
       error: {
         message: errorHeaders.errorMessage,
-        errorCode: errorHeaders.errorCode, // Add any other properties you want to include in the error object
+        errorCode: errorHeaders.errorCode,
       },
       status: errorHeaders.errorCode,
       statusText: errorHeaders.errorMessage,

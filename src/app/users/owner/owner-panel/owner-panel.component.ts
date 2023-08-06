@@ -50,7 +50,6 @@ export class OwnerPanelComponent implements OnInit {
     this.panel = 'display';
   }
 
-  // Methods to switch between panels
   switchToDisplayPanel(): void {
     this.panel = 'display';
   }

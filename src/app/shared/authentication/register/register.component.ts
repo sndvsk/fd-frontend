@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit() {
-    const role = this.registerForm.get('role')!.value.toUpperCase(); // Convert role to uppercase
+    const role = this.registerForm.get('role')!.value.toUpperCase();
     this.authenticationService
       .register(
         this.registerForm.get('firstname')!.value,
@@ -54,20 +54,20 @@ export class RegisterComponent implements OnInit {
         this.registerForm.get('email')!.value,
         this.registerForm.get('password')!.value,
         this.registerForm.get('telephone')!.value,
-        role // Use the uppercase role value
+        role
       )
       .pipe(handleError(this.toast))
       .subscribe({
         next: () => {
-          // Login successful, clear the error message
+          // Register successful, clear the error message
           this.errorMessage = '';
         },
         error: (error) => {
-          // Login failed, set the error message
+          // Register failed, set the error message
           if (error instanceof HttpErrorResponse) {
             this.errorMessage = error.statusText;
           } else {
-            this.errorMessage = 'An error occurred during login.';
+            this.errorMessage = 'An error occurred during register.';
           }
         },
         complete: () => {

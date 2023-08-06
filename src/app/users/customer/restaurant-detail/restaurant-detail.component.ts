@@ -31,7 +31,6 @@ export class RestaurantDetailComponent implements OnInit {
     private toast: HotToastService,
     private dialog: MatDialog
   ) {
-    // Assume restaurantId is being passed in as a route parameter
     this.restaurantId = this.route.snapshot.params['id'];
   }
 
@@ -57,13 +56,11 @@ export class RestaurantDetailComponent implements OnInit {
   }
 
   addToCart(itemId: number, restaurantId: number) {
-    // ONLY let the CartStateService manage the logic
     this.cartStateService.addToItem(itemId, restaurantId);
     this.loadCart();
   }
 
   removeFromCart(itemId: number) {
-    // ONLY let the CartStateService manage the logic
     this.cartStateService.removeItem(itemId);
     this.loadCart();
   }

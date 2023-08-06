@@ -12,6 +12,7 @@ export class CustomErrorHandler implements ErrorHandler {
         this.errorHandlerService.handleError(error);
       } else {
         // Handle any other type of errors
+        console.log(error);
       }
     });
   }

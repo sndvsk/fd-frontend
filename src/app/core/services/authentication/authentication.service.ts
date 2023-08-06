@@ -14,10 +14,9 @@ export class AuthenticationService {
   @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
   @Output() getLoggedInId: EventEmitter<any> = new EventEmitter();
 
-  // Create a new BehaviorSubject for user role
   private userRole = new BehaviorSubject<string>(localStorage.getItem('user_role') || '');
   private userName = new BehaviorSubject<string>(localStorage.getItem('username') || '');
-  private refreshTokenTimeout?: any; // Variable to hold the timeout
+  private refreshTokenTimeout?: any;
 
   constructor(private errorHandler: ErrorHandlerService, private authenticationClient: AuthenticationClient, private router: Router) {}
 
@@ -53,12 +52,9 @@ export class AuthenticationService {
     const userRole = this.getRoleFromToken(accessToken);
     const username = this.getUsernameFromToken(accessToken);
 
-    // Save the user role and username
     localStorage.setItem('user_role', userRole);
     localStorage.setItem('username', username);
-    //this.username = username;
 
-    // Update the user role
     this.userRole.next(userRole);
     this.router.navigate(['/']);
 
@@ -120,8 +116,6 @@ export class AuthenticationService {
     localStorage.removeItem('cart');
     localStorage.removeItem('restaurantId'); */
     this.router.navigate(['/auth/login']);
-
-    this.stopRefreshTokenTimer();
   }
 
   public isLoggedIn(): boolean {
@@ -182,34 +176,26 @@ export class AuthenticationService {
 
         location.reload();
 
-        // Restart the refresh token timer
         //this.startRefreshTokenTimer();
       })
     );
   }
 
-  private startRefreshTokenTimer() {
-    // Clear existing refresh token timeout
+  /*   private startRefreshTokenTimer() {
     this.stopRefreshTokenTimer();
-
-    // Get the expiration time of the access token
     const accessToken = localStorage.getItem('accessTokenKey');
     if (!accessToken) {
       return;
     }
     const tokenExpiration = this.decodeToken(accessToken).exp;
-
-    // Calculate the timeout duration (1 minute before the token expiration)
     const expiresIn = tokenExpiration - Math.floor(Date.now() / 1000) - 60;
-
-    // Set the timeout to refresh the token
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), expiresIn * 1000);
-  }
+  } */
 
-  private stopRefreshTokenTimer() {
+  /*   private stopRefreshTokenTimer() {
     if (this.refreshTokenTimeout) {
       clearTimeout(this.refreshTokenTimeout);
       this.refreshTokenTimeout = undefined;
     }
-  }
+  } */
 }

@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/* You can add global styles to this file, and also import other style files */
 //@import url(https://fonts.googleapis.com/css2?family=Ubuntu:wght@300%3B400%3B500%3B700&display=swap);
 
 @import './hamburgers/_sass/hamburgers/hamburgers.scss';
@@ -8,20 +7,14 @@
 :root {
   --black: #1f1f1f;
   --white: #fff;
-  --yellow: #ffcfdb;
   --grey: #737373;
-  //--deep-yellow: #ffc727;
-  //--bg-yellow: #fffaf1;
-  //--btn-yellow: #fff4d4;
-  //--footer-yellow: #fff9e9;
 
   --light-pink: #ffcfdb;
   --mid-pink: #f9acc4;
   --deep-pink: #e75e6c;
-  --footer-green: #faf5fe;
   --bg-blue: #f6f8ff;
-  --footer-top: #ebeefa;
-  --footer-bottom: #d5daec;
+  --footer-top: #ebeefabe;
+  --footer-bottom: #d5daeca6;
 
   --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
   --transition: all 0.2s linear;
@@ -142,7 +135,6 @@ body {
   box-shadow: var(--box-shadow);
 }
 
-/* base button styles */
 .btn {
   display: inline-block;
   color: var(--white);
@@ -161,12 +153,10 @@ body {
   box-shadow: var(--box-shadow);
 }
 
-/* primary button */
 .btn--primary {
   background-color: var(--deep-pink);
 }
 
-/* secondary button */
 .btn--secondary {
   background-color: var(--mid-pink);
 }

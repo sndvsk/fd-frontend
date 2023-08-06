@@ -4,7 +4,6 @@ import { Customer } from './customer';
 
 export enum TokenType {
   BEARER = 'BEARER',
-  // add other types if exist
 }
 
 export interface Token {

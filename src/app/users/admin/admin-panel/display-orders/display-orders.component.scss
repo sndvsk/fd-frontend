@@ -15,13 +15,13 @@
 
 .mat-cell,
 .mat-header-cell {
-  padding: 1em; /* default padding */
+  padding: 1em;
 }
 
 @media screen and (max-width: 768px) {
   .mat-cell,
   .mat-header-cell {
     display: block;
-    padding: 0.5em; /* reduce padding for small screens */
+    padding: 0.5em;
   }
 }

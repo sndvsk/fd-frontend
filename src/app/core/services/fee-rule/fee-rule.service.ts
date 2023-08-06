@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/* import { Injectable } from '@angular/core';
 import { FeeRuleClient } from '../../clients/fee-rule.client';
 import { RegionalBaseFeeRule } from 'src/app/models/fee-rule/base';
 import { ExtraFeeWeatherPhenomenonRule } from 'src/app/models/fee-rule/phenomenon';
@@ -137,3 +137,4 @@ export class FeeRuleService {
     });
   }
 }
+ */

@@ -3,8 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { handleError } from '../../../core/handlers/error-toast';
-import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +13,7 @@ export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   errorMessage: any;
 
-  constructor(private authenticationService: AuthenticationService, public router: Router, private toast: HotToastService) {}
+  constructor(private authenticationService: AuthenticationService, public router: Router) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -27,7 +25,7 @@ export class LoginComponent implements OnInit {
   public onSubmit() {
     this.authenticationService
       .login(this.loginForm.get('username')!.value, this.loginForm!.get('password')!.value)
-      .pipe(handleError(this.toast))
+      //.pipe(handleError(this.toast))
       .subscribe({
         next: () => {
           // Login successful, clear the error message

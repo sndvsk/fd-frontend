@@ -98,7 +98,6 @@ export class CheckoutComponent implements OnInit {
 
   getDeliveryFees(): void {
     if (!this.currentRestaurant) {
-      // If no current restaurant, set the error message and leave this.deliveryFees[vehicleType] as empty.
       this.deliveryError = 'Error: No current restaurant. Have you added something to the cart?';
       return;
     }
@@ -122,12 +121,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   addToCart(itemId: number, restaurantId: number) {
-    // ONLY let the CartStateService manage the logic
     this.cartStateService.addToItem(itemId, restaurantId);
   }
 
   removeFromCart(itemId: number) {
-    // ONLY let the CartStateService manage the logic
     this.cartStateService.removeItem(itemId);
   }
 
