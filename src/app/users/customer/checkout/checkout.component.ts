@@ -13,6 +13,7 @@ import { CartStateService } from 'src/app/core/services/state/cart-state.service
 import { HotToastService } from '@ngneat/hot-toast';
 import { handleError } from 'src/app/core/handlers/error-toast';
 import { NavigationService } from 'src/app/core/services/navigation/navigation.service';
+import { DeliveryFeeStateService } from 'src/app/core/services/state/delivery-fee-state.service';
 
 @Component({
   selector: 'app-checkout',
@@ -44,7 +45,8 @@ export class CheckoutComponent implements OnInit {
     private authService: AuthenticationService,
     private cartStateService: CartStateService,
     private toast: HotToastService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private deliveryFeeStateService: DeliveryFeeStateService
   ) {}
 
   ngOnInit(): void {
@@ -105,12 +107,19 @@ export class CheckoutComponent implements OnInit {
 
     const currentDateTime = new Date().toISOString();
     for (const vehicleType in this.deliveryFees) {
+      const cachedFee = this.deliveryFeeStateService.getFee(this.currentRestaurant.restaurant_id!.toString(), vehicleType);
+      if (cachedFee !== null) {
+        this.deliveryFees[vehicleType] = cachedFee;
+        continue;
+      }
+
       this.deliveryFeeService
         .calculateDeliveryFee(this.currentRestaurant?.address?.city || '', vehicleType, currentDateTime)
         .pipe(handleError(this.toast))
         .subscribe({
           next: (fee) => {
             this.deliveryFees[vehicleType] = fee.delivery_fee;
+            this.deliveryFeeStateService.setFee(this.currentRestaurant!.restaurant_id!.toString(), vehicleType, fee.delivery_fee);
           },
           error: (error) => {
             this.deliveryFees[vehicleType] =
