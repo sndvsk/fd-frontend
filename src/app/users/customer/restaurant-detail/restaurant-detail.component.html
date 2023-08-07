@@ -44,7 +44,7 @@
       <!-- Check if there are any menus at all -->
       <ng-container *ngIf="menus.length > 0; else noMenusAtAll">
         <!-- Create a filtered list of visible menus -->
-        <ng-container *ngIf="(menus | filterVisibleMenus:'visibility':'true') as visibleMenus">
+        <ng-container *ngIf="menus | filterVisibleMenus : 'visibility' : 'true' as visibleMenus">
           <!-- If there are no visible menus -->
           <ng-container *ngIf="visibleMenus.length === 0">
             <p class="styled-p">There are no visible menus for this restaurant.<br />Check later.</p>
