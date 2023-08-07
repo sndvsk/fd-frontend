@@ -190,6 +190,7 @@ export class UserDetailsComponent implements OnInit {
           this.toast.success('Address successfully set!');
           this.address = addressToSend;
           this.addressExists = true;
+          this.editModeAddress = false;
         });
     }
   }

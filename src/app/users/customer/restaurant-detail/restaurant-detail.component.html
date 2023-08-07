@@ -41,36 +41,56 @@
 
     <!-- Items Section -->
     <div class="items">
-      <div *ngFor="let menu of menus">
-        <div *ngIf="menu.visibility === 'true' && menu.items?.length! > 0">
-          <h5>{{ menu.name }}</h5>
-          <ul>
-            <li
-              *ngFor="let item of menu.items"
-              class="item-box"
-            >
-              <div class="item-content">
-                <h4>{{ item.name }} - {{ item.price }}€</h4>
-                <p>{{ item.description }}</p>
-              </div>
-              <div class="button-container">
-                <button
-                  class="btn btn--primary"
-                  (click)="addToCart(item.item_id!, restaurantId)"
+      <!-- Check if there are any menus at all -->
+      <ng-container *ngIf="menus.length > 0; else noMenusAtAll">
+        <!-- Create a filtered list of visible menus -->
+        <ng-container *ngIf="(menus | filterVisibleMenus:'visibility':'true') as visibleMenus">
+          <!-- If there are no visible menus -->
+          <ng-container *ngIf="visibleMenus.length === 0">
+            <p class="styled-p">There are no visible menus for this restaurant.<br />Check later.</p>
+          </ng-container>
+
+          <!-- Loop through the visible menus -->
+          <div *ngFor="let menu of visibleMenus">
+            <h5>{{ menu.name }}</h5>
+            <ng-container *ngIf="menu.items?.length! > 0; else noItems">
+              <ul>
+                <li
+                  *ngFor="let item of menu.items"
+                  class="item-box"
                 >
-                  Add to Order
-                </button>
-                <button
-                  class="btn btn--show-more"
-                  (click)="toggleItemDetails(item)"
-                >
-                  Show More
-                </button>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+                  <div class="item-content">
+                    <h4>{{ item.name }} - {{ item.price }}€</h4>
+                    <p>{{ item.description }}</p>
+                  </div>
+                  <div class="button-container">
+                    <button
+                      class="btn btn--primary"
+                      (click)="addToCart(item.item_id!, restaurantId)"
+                    >
+                      Add to Order
+                    </button>
+                    <button
+                      class="btn btn--show-more"
+                      (click)="toggleItemDetails(item)"
+                    >
+                      Show More
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #noItems>
+              <p class="styled-p">This menu currently has no items.</p>
+            </ng-template>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <!-- Template for when there are no menus at all -->
+      <ng-template #noMenusAtAll>
+        <p class="styled-p">There are no menus for this restaurant.</p>
+      </ng-template>
     </div>
   </div>
 </div>

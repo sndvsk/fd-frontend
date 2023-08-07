@@ -37,6 +37,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule, JsonpInterceptor } from '@angular/common/http';
 import { ItemDetailsDialogComponent } from './customer/item-details-dialog/item-details-dialog.component';
 import { ConfirmationDialogComponent } from './owner/owner-panel/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { FilterVisibleMenusPipe } from '../core/pipes/filter';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ConfirmationDialogComponent } from './owner/owner-panel/dialogs/confirm
     DisplayOrdersComponent,
     PendingOwnersComponent,
     CapitalizeFirstPipe,
+    FilterVisibleMenusPipe,
     DisplayOwnersComponent,
     DirectionsComponent,
     ItemDetailsDialogComponent,

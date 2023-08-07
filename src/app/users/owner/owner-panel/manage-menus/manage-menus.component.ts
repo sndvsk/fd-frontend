@@ -168,7 +168,6 @@ export class ManageMenusComponent implements OnInit {
 
   openAssignRestaurantDialog(menu: Menu) {
     const dialogRef = this.dialog.open(AssignRestaurantDialogComponent, {
-      width: '250px',
       data: { menu: menu, ownerId: this.ownerId },
     });
 

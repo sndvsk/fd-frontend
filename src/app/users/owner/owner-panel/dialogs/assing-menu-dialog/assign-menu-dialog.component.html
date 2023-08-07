@@ -1,33 +1,35 @@
-<div style="padding: 2rem;">
-    <h1>Assign Item to Menu</h1>
-    <p>Please select a menu to assign this item to.</p>
-    <mat-form-field class="menu-select" style="width: 100%;">
-        <mat-select
-          placeholder="Select Menu"
-          [(ngModel)]="selectedMenu"
-        >
-          <mat-option
-            *ngFor="let menu of menus"
-            [value]="menu.menu_id"
-          >
-            {{ menu.name }}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-        <button
-          class="btn btn--primary btn--large"
-          (click)="onOkClick()"
-          cdkFocusInitial
-        >
-          Submit
-        </button>
-        <button
-          class="btn btn--secondary btn--large"
-          (click)="onNoClick()"
-        >
-          Cancel
-        </button>
-    </div>
+<div style="padding: 2rem; width: 100%;">
+  <h1>Assign Item to Menu</h1>
+  <p>Please select a menu to assign this item to.</p>
+  <mat-form-field
+    class="menu-select"
+    style="width: 100%"
+  >
+    <mat-select
+      placeholder="Select Menu"
+      [(ngModel)]="selectedMenu"
+    >
+      <mat-option
+        *ngFor="let menu of menus"
+        [value]="menu.menu_id"
+      >
+        {{ menu.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem">
+    <button
+      class="btn btn--primary btn--large"
+      (click)="onOkClick()"
+      cdkFocusInitial
+    >
+      Submit
+    </button>
+    <button
+      class="btn btn--secondary btn--large"
+      (click)="onNoClick()"
+    >
+      Cancel
+    </button>
+  </div>
 </div>
-
