@@ -6,6 +6,8 @@ import { normalizeArray } from 'src/app/core/utils/utils';
 import { Restaurant } from 'src/app/models/restaurant-items/restaurant';
 import { RestaurantTheme } from 'src/app/models/restaurant-items/restaurant-theme';
 import { Address } from 'src/app/models/user-items/address';
+import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-manage-restaurants',
@@ -39,7 +41,7 @@ export class ManageRestaurantsComponent implements OnInit {
 
   restaurantThemes = Object.values(RestaurantTheme).slice(0, Object.keys(RestaurantTheme).length / 2);
 
-  constructor(private restaurantService: RestaurantService, private toast: HotToastService) {}
+  constructor(private restaurantService: RestaurantService, private toast: HotToastService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     const userRole = localStorage.getItem('user_role');
@@ -113,14 +115,22 @@ export class ManageRestaurantsComponent implements OnInit {
   }
 
   deleteRestaurant(restaurantId?: number) {
-    if (restaurantId && this.ownerId) {
-      this.restaurantService
-        .deleteRestaurant(restaurantId, this.ownerId)
-        .pipe(handleError(this.toast))
-        .subscribe(() => {
-          // Remove the restaurant from the list after the deletion is complete
-          this.restaurants = this.restaurants.filter((r) => r.restaurant_id !== restaurantId);
-        });
-    }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: { entityType: 'restaunrant' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (restaurantId && this.ownerId) {
+          this.restaurantService
+            .deleteRestaurant(restaurantId, this.ownerId)
+            .pipe(handleError(this.toast))
+            .subscribe(() => {
+              // Remove the restaurant from the list after the deletion is complete
+              this.restaurants = this.restaurants.filter((r) => r.restaurant_id !== restaurantId);
+            });
+        }
+      }
+    });
   }
 }

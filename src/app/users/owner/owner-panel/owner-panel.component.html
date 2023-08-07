@@ -2,44 +2,44 @@
   class="owner-panel margin-top-main"
   *ngIf="ownerApproved"
 >
-  <button
-    mat-raised-button
-    (click)="switchToDisplayPanel()"
-    class="panel-button"
-  >
-    Display Restaurants
-  </button>
-  <button
-    mat-raised-button
-    (click)="switchToRestaurantsPanel()"
-    class="panel-button"
-  >
-    Manage Restaurants
-  </button>
-  <button
-    mat-raised-button
-    (click)="switchToMenusPanel()"
-    class="panel-button"
-  >
-    Manage Menus
-  </button>
-  <button
-    mat-raised-button
-    (click)="switchToItemsPanel()"
-    class="panel-button"
-  >
-    Manage Items
-  </button>
+  <div class="btn-container">
+    <button
+      class="btn btn--primary btn-size"
+      (click)="switchToDisplayPanel()"
+    >
+      Overview Restaurants
+    </button>
+    <button
+      class="btn btn--primary btn-size"
+      (click)="switchToRestaurantsPanel()"
+    >
+      Manage Restaurants
+    </button>
+    <button
+      class="btn btn--primary btn-size"
+      (click)="switchToMenusPanel()"
+    >
+      Manage Menus
+    </button>
+    <button
+      class="btn btn--primary btn-size"
+      (click)="switchToItemsPanel()"
+    >
+      Manage Items
+    </button>
+  </div>
 
-  <app-display *ngIf="panel === 'display'"></app-display>
-  <app-manage-restaurants *ngIf="panel === 'restaurants'"></app-manage-restaurants>
-  <app-manage-menus *ngIf="panel === 'menus'"></app-manage-menus>
-  <app-manage-items *ngIf="panel === 'items'"></app-manage-items>
+  <div class="panel-container">
+    <app-display *ngIf="panel === 'display'"></app-display>
+    <app-manage-restaurants *ngIf="panel === 'restaurants'"></app-manage-restaurants>
+    <app-manage-menus *ngIf="panel === 'menus'"></app-manage-menus>
+    <app-manage-items *ngIf="panel === 'items'"></app-manage-items>
+  </div>
 </div>
 
 <div
-  class="margin-top-main info"
+  class="margin-top-main info others-p"
   *ngIf="!ownerApproved"
 >
-  <p>You are not yet approved as an owner.<br />Please wait until you are or contact administration.</p>
+  <p>You are not yet approved as a restaurant owner.<br />Please wait until you are or contact administration.</p>
 </div>

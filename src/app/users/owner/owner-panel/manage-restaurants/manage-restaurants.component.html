@@ -173,16 +173,15 @@
         </form>
       </div>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions class="btn-cont">
       <button
-        mat-raised-button
-        color="primary"
+        class="btn btn--primary btn--large btn--gap"
         (click)="saveRestaurant()"
       >
         Save
       </button>
       <button
-        mat-button
+        class="btn btn--secondary btn--large"
         (click)="cancelEdit()"
       >
         Cancel
@@ -192,20 +191,43 @@
 </div>
 
 <div
-  class="restaurant-section margin-top-main"
+  class="restaurant-container margin-top-main"
   *ngIf="!editMode"
 >
-  <h2>Restaurants</h2>
+  <h1>Restaurants</h1>
 
-  <button (click)="addRestaurant()">Add Restaurant</button>
+  <!-- "Add Restaurant" button on top -->
+  <button
+    class="btn btn--primary btn--large add-rest"
+    (click)="addRestaurant()"
+  >
+    Add Restaurant
+  </button>
 
+  <!-- List of restaurants in a column layout -->
   <div *ngIf="restaurants.length > 0">
-    <div *ngFor="let restaurant of restaurants">
-      <h3>{{ restaurant.name }}</h3>
-      <button (click)="editRestaurant(restaurant)">Edit Restaurant</button>
-      <button (click)="deleteRestaurant(restaurant.restaurant_id)">Delete Restaurant</button>
+    <div
+      *ngFor="let restaurant of restaurants"
+      class="restaurant-box"
+    >
+      <h2 class="restaurant-name">{{ restaurant.name }}</h2>
+      <div class="restaurant-actions">
+        <button
+          class="btn btn--primary btn--large"
+          (click)="editRestaurant(restaurant)"
+        >
+          Edit Restaurant
+        </button>
+        <button
+          class="btn btn--secondary btn--large"
+          (click)="deleteRestaurant(restaurant.restaurant_id)"
+        >
+          Delete Restaurant
+        </button>
+      </div>
     </div>
   </div>
+
   <div *ngIf="restaurants.length === 0">
     <p>No restaurants found.</p>
   </div>

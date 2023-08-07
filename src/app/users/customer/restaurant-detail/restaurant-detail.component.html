@@ -42,6 +42,7 @@
     <!-- Items Section -->
     <div class="items">
       <div *ngFor="let menu of menus">
+        <div *ngIf="menu.visibility === 'true' && menu.items?.length! > 0">
         <h5>{{ menu.name }}</h5>
         <ul>
           <li
@@ -68,6 +69,7 @@
             </div>
           </li>
         </ul>
+        </div>
       </div>
     </div>
   </div>

@@ -84,6 +84,7 @@
 }
 
 .btn:hover {
+  color: white;
   background-color: red;
   box-shadow: var(--box-shadow);
 }
@@ -96,7 +97,7 @@
   display: none;
 }
 
-@media (max-width: 996px) {
+@media (max-width: 1000px) {
   .logo {
     font-size: 3rem;
   }

@@ -29,8 +29,8 @@
       <div
         class="user-dropdown"
         [class.show]="showDropdown"
-        (click)="toggleDropdown()"
-        (keyup.enter)="toggleDropdown()"
+        (click)="closeDropdown()"
+        (keyup.enter)="closeDropdown()"
         tabindex="0"
       >
         <ng-container *ngIf="isLoggedIn()">
@@ -77,6 +77,9 @@
         <button
           class="btn sign-in btn--large"
           routerLink="/auth/login"
+          (click)="closeNavbar()"
+          (keyup.enter)="closeNavbar()"
+          tabindex="0"
         >
           Sign in
         </button>

@@ -83,11 +83,17 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleDropdown() {
+    if (this.isSmallScreen) {
+      this.showDropdown = true;
+      return;
+    }
     this.showDropdown = !this.showDropdown;
   }
 
-  hideDropdown() {
-    this.showDropdown = false;
+  closeDropdown() {
+    setTimeout(() => {
+      this.showDropdown = false;
+    }, 50);
   }
 
   logout() {
@@ -110,12 +116,14 @@ export class HeaderComponent implements OnInit {
   }
 
   closeNavbarOnLinkClick(event: Event) {
-    if (
-      this.isSmallScreen &&
-      event.target instanceof HTMLElement &&
-      (event.target.tagName.toLowerCase() === 'a' || event.target.tagName.toLowerCase() === 'button')
-    ) {
+    if (this.isSmallScreen && event.target instanceof HTMLElement && event.target.tagName.toLowerCase() === 'a') {
       this.navbarShow = false;
+    }
+  }
+
+  onDropdownClick(event: Event) {
+    if (event.target instanceof HTMLElement && event.target.tagName.toLowerCase() === 'a') {
+      this.closeDropdown();
     }
   }
 }

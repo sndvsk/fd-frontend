@@ -1,3 +1,78 @@
-//.container {}
+h1 {
+  font-size: 3rem;
+}
 
-//.menu-section {}
+.container,
+.menu-section {
+  width: 80%;
+  padding: 2rem;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.menu-name {
+  margin-right: 1rem;
+}
+
+.btn-cont {
+    padding: 1.6rem;
+}
+
+.menu-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.add-menu {
+  margin-bottom: 2rem;
+}
+
+.menu-form-card {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.mat-form-field {
+  margin-top: 1rem;
+}
+
+@media (max-width: 1000px) {
+  .container,
+  .menu-section {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container,
+  .menu-section {
+    width: 100%;
+  }
+
+  .menu-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu-name {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .menu-actions {
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+  }
+}

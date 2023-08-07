@@ -35,7 +35,8 @@
                 "
               >
                 <span *ngIf="registerForm.get('firstname')?.errors?.['required']">Please enter your first name.</span>
-                <span *ngIf="registerForm.get('firstname')?.errors?.['minlength']">First name must be at least 3 characters.</span>
+                <span *ngIf="registerForm.get('firstname')?.errors?.['minlength']">First name must be at least 3 characters long.</span>
+                <span *ngIf="registerForm.get('firstname')?.errors?.['maxlength']">First name must be at maximum 255 characters long.</span>
                 <span *ngIf="registerForm.get('firstname')?.errors?.['pattern']">Enter valid name.</span>
               </mat-error>
             </mat-form-field>
@@ -54,6 +55,7 @@
               >
                 <span *ngIf="registerForm.get('lastname')?.errors?.['required']">Please enter your last name.</span>
                 <span *ngIf="registerForm.get('lastname')?.errors?.['minlength']">Last name must be at least 3 characters.</span>
+                <span *ngIf="registerForm.get('lastname')?.errors?.['maxlength']">Last name must be at maximum 255 characters long.</span>
                 <span *ngIf="registerForm.get('lastname')?.errors?.['pattern']">Enter valid last name.</span>
               </mat-error>
             </mat-form-field>
@@ -71,7 +73,8 @@
                 "
               >
                 <span *ngIf="registerForm.get('username')?.errors?.['required']">Username is required.</span>
-                <span *ngIf="registerForm.get('username')?.errors?.['minlength']">Username should be at least 3 characters long.</span>
+                <span *ngIf="registerForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters long.</span>
+                <span *ngIf="registerForm.get('username')?.errors?.['maxlength']">Username must be at maximum 255 characters long.</span>
               </mat-error>
             </mat-form-field>
 
@@ -87,6 +90,7 @@
                 *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
               >
                 <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</span>
+                <span *ngIf="registerForm.get('email')?.errors?.['maxlength']">Email must be at maximum 255 characters long.</span>
                 <span *ngIf="registerForm.get('email')?.errors?.['pattern'] || registerForm.get('email')?.errors?.['email']"
                   >Please enter a valid email.</span
                 >
@@ -107,7 +111,8 @@
                 "
               >
                 <span *ngIf="registerForm.get('telephone')?.errors?.['required']">Telephone is required.</span>
-                <span *ngIf="registerForm.get('telephone')?.errors?.['minlength']">Telephone should be at least 10 characters long.</span>
+                <span *ngIf="registerForm.get('telephone')?.errors?.['minlength']">Telephone must be at least 10 characters long.</span>
+                <span *ngIf="registerForm.get('telephone')?.errors?.['maxlength']">Telephone must be maximum 15 characters long.</span>
                 <span *ngIf="registerForm.get('telephone')?.errors?.['pattern']">Please enter a valid telephone number.</span>
               </mat-error>
             </mat-form-field>
@@ -126,7 +131,8 @@
                 "
               >
                 <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</span>
-                <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password should be at least 3 characters long.</span>
+                <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 3 characters long.</span>
+                <span *ngIf="registerForm.get('password')?.errors?.['maxlength']">Password must be at maximum 255 characters long.</span>
               </mat-error>
             </mat-form-field>
           </div>

@@ -9,7 +9,6 @@
         fxLayoutAlign="start stretch"
       >
         <h3>Menu Info</h3>
-
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input
@@ -21,7 +20,6 @@
             placeholder="Menu name"
           />
         </mat-form-field>
-
         <mat-form-field>
           <mat-label>Visibility</mat-label>
           <input
@@ -39,23 +37,25 @@
         </mat-form-field>
       </form>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions class="btn-cont">
       <button
-        mat-raised-button
-        color="primary"
+        class="btn btn--primary btn--large btn--gap"
         (click)="saveMenu()"
       >
         Save
       </button>
       <button
-        mat-button
+        class="btn btn--secondary btn--large btn--gap"
         (click)="cancelEdit()"
       >
         Cancel
       </button>
       <ng-container *ngIf="menu.restaurant_id; else noRestaurant">
-        <button (click)="toggleMenuVisibility(menu.menu_id)">
-          {{ menu.visibility === 'true' ? 'Hide menu from customers' : 'Show menu to customers' }}
+        <button
+          class="btn btn--primary btn--large"
+          (click)="toggleMenuVisibility(menu.menu_id)"
+        >
+          {{ menu.visibility === 'true' ? 'Hide menu' : 'Show menu' }}
         </button>
       </ng-container>
       <ng-template #noRestaurant>
@@ -69,29 +69,55 @@
   class="menu-section margin-top-main"
   *ngIf="!editMode"
 >
-  <h2>Menus</h2>
-
-  <button (click)="addMenu()">Add Menu</button>
+  <h1>Menus</h1>
+  <button
+    class="btn btn--primary btn--large add-menu"
+    (click)="addMenu()"
+  >
+    Add Menu
+  </button>
 
   <div *ngIf="menus.length > 0">
-    <div *ngFor="let menu of menus">
-      <h3>{{ menu.restaurant_name }} - {{ menu.name }}</h3>
-      <button (click)="editMenu(menu)">Edit Menu</button>
-      <button (click)="deleteMenu(menu.menu_id)">Delete Menu</button>
-      <button
-        *ngIf="!menu.restaurant_id"
-        (click)="openAssignRestaurantDialog(menu)"
-      >
-        Assign Restaurant
-      </button>
-      <button
-        *ngIf="menu.restaurant_id"
-        (click)="removeMenuFromRestaurant(menu)"
-      >
-        Remove from Restaurant
-      </button>
+    <div
+      class="menu-item"
+      *ngFor="let menu of menus"
+    >
+      <h2 class="menu-name">Restaurant: {{ menu.restaurant_name }} <br>Menu: {{ menu.name }}</h2>
+      <div class="menu-actions">
+        <button
+          class="btn btn--primary"
+          [class.btn--large]="isLargeScreen"
+          (click)="editMenu(menu)"
+        >
+          Edit Menu
+        </button>
+        <button
+          class="btn btn--secondary"
+          [class.btn--large]="isLargeScreen"
+          (click)="deleteMenu(menu.menu_id)"
+        >
+          Delete Menu
+        </button>
+        <button
+          class="btn btn--primary"
+          [class.btn--large]="isLargeScreen"
+          *ngIf="!menu.restaurant_id"
+          (click)="openAssignRestaurantDialog(menu)"
+        >
+          Assign Restaurant
+        </button>
+        <button
+          class="btn btn--secondary"
+          [class.btn--large]="isLargeScreen"
+          *ngIf="menu.restaurant_id"
+          (click)="removeMenuFromRestaurant(menu)"
+        >
+          Remove from Restaurant
+        </button>
+      </div>
     </div>
   </div>
+
   <div *ngIf="menus.length === 0">
     <p>No menus found.</p>
   </div>

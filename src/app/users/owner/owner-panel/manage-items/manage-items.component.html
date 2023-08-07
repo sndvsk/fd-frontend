@@ -80,16 +80,15 @@
         </mat-form-field>
       </form>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions class="btn-cont">
       <button
-        mat-raised-button
-        color="primary"
+        class="btn btn--primary btn--large btn--gap"
         (click)="saveItem()"
       >
         Save
       </button>
       <button
-        mat-button
+      class="btn btn--secondary btn--large"
         (click)="cancelEdit()"
       >
         Cancel
@@ -102,46 +101,77 @@
   class="item-section margin-top-main"
   *ngIf="!editMode"
 >
-  <h2>Items</h2>
+  <h1>Items</h1>
 
-  <button (click)="addItem()">Add Item</button>
+  <button
+    class="btn btn--primary btn--large add-item"
+    (click)="addItem()"
+  >
+    Add Item
+  </button>
 
   <div *ngIf="items.length > 0">
-    <div *ngFor="let item of items">
-      <h3>Restaurant: {{ item.restaurant_name }}, menu: {{ item.menu_name }} - {{ item.name }}</h3>
-      <p>{{ item.description }}</p>
-      <p>Price: {{ item.price }}</p>
-      <!-- <img [src]="item.image" alt="{{item.name}} image" width="100" height="100"> -->
-      <!--             <p>Ingredients: {{ item.ingredients }}</p>
-            <p>Allergens: {{ item.allergens }}</p> -->
-      <button (click)="editItem(item)">Edit Item</button>
-      <button (click)="deleteItem(item.item_id)">Delete Item</button>
-      <button
-        *ngIf="!item.menu_id"
-        (click)="assignToMenu(item)"
-      >
-        Assign to Menu
-      </button>
-      <button
-        *ngIf="item.menu_id"
-        (click)="removeFromMenu(item)"
-      >
-        Remove from Menu
-      </button>
-      <button
-        *ngIf="!item.restaurant_id"
-        (click)="assignToRestaurant(item)"
-      >
-        Assign to Restaurant
-      </button>
-      <button
-        *ngIf="item.restaurant_id"
-        (click)="removeFromRestaurant(item)"
-      >
-        Remove from Restaurant
-      </button>
+    <div
+      class="item-box"
+      *ngFor="let item of items"
+    >
+      <div class="item-info">
+        <h2>Restaurant: {{ item.restaurant_name }}<br>Menu: {{ item.menu_name }}<br>Item: {{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+        <p>Price: {{ item.price }}</p>
+      </div>
+
+      <div class="item-actions">
+        <button
+        class="btn btn--primary"
+        [class.btn--large]="isLargeScreen"
+          (click)="editItem(item)"
+        >
+          Edit Item
+        </button>
+        <button
+          class="btn btn--secondary"
+          [class.btn--large]="isLargeScreen"
+          (click)="deleteItem(item.item_id)"
+        >
+          Delete Item
+        </button>
+        <button
+          class="btn btn--primary"
+          [class.btn--large]="isLargeScreen"
+          *ngIf="!item.menu_id"
+          (click)="assignToMenu(item)"
+        >
+          Assign to Menu
+        </button>
+        <button
+          class="btn btn--secondary"
+          [class.btn--large]="isLargeScreen"
+          *ngIf="item.menu_id"
+          (click)="removeFromMenu(item)"
+        >
+          Remove from Menu
+        </button>
+        <button
+          class="btn btn--primary btn--large"
+          [class.btn--large]=""
+          *ngIf="!item.restaurant_id"
+          (click)="assignToRestaurant(item)"
+        >
+          Assign to Restaurant
+        </button>
+        <button
+          class="btn btn--secondary"
+          [class.btn--large]="isLargeScreen"
+          *ngIf="item.restaurant_id"
+          (click)="removeFromRestaurant(item)"
+        >
+          Remove from Restaurant
+        </button>
+      </div>
     </div>
   </div>
+
   <div *ngIf="items.length === 0">
     <p>No items found.</p>
   </div>

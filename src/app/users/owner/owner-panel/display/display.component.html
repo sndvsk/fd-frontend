@@ -1,19 +1,26 @@
-<div>
-  <h2>Restaurants</h2>
-  <div *ngFor="let restaurant of restaurants">
-    <h3>{{ restaurant.name }}</h3>
-    <div *ngIf="restaurant.menus">
-      <h4>Menus</h4>
-      <div *ngFor="let menu of restaurant.menus">
-        <h5>{{ menu.name }}</h5>
-        <h6>visible to customers: {{ menu.visibility }}</h6>
-        <ul>
-          <li *ngFor="let item of menu.items">
-            <h4>{{ item.name }} - {{ item.price }}€</h4>
-            <!-- <h6>{{ item.description }}</h6> -->
-          </li>
-        </ul>
+<div class="restaurant-container">
+  <h1>Overview Restaurants</h1>
+  <ul class="flex-container">
+    <li
+      class="flex-item"
+      *ngFor="let restaurant of restaurants"
+    >
+      <h2>{{ restaurant.name }}</h2>
+      <div *ngIf="restaurant.menus">
+        <h3>Menus</h3>
+        <div *ngFor="let menu of restaurant.menus">
+          <h4>{{ menu.name }}</h4>
+          <p>
+            <i>visible: {{ menu.visibility }}</i>
+          </p>
+          <ul>
+            <li *ngFor="let item of menu.items">
+              <h4>{{ item.name }} - {{ item.price }}€</h4>
+              <!-- <h6>{{ item.description }}</h6> -->
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </div>

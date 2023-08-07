@@ -1,20 +1,22 @@
+h1 {
+    font-size: 3rem;
+}
+
 .container {
   width: 100%;
-}
-
-.table-container {
-  overflow-x: auto;
-}
-
-.full-width-table {
-  width: 100%;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .mat-elevation-z8 {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-container {
+  overflow-x: auto;
 }
 
 .mat-cell,

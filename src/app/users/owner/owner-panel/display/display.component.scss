@@ -1,0 +1,41 @@
+h1 {
+  font-size: 3rem;
+}
+
+.restaurant-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--white);
+}
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border: 1px solid silver;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.flex-item {
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  min-height: 200px;
+}
+
+@media screen and (max-width: 1000px) {
+  .restaurant-container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .restaurant-container {
+    width: 100%;
+  }
+}

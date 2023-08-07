@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from 'src/app/core/services/restaurant-items/menu.service';
 import { Menu } from 'src/app/models/restaurant-items/menu';
@@ -6,6 +6,7 @@ import { AssignRestaurantDialogComponent } from '../dialogs/assign-restaurant-di
 import { HotToastService } from '@ngneat/hot-toast';
 import { handleError } from 'src/app/core/handlers/error-toast';
 import { normalizeArray } from 'src/app/core/utils/utils';
+import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-manage-menus',
@@ -16,8 +17,13 @@ export class ManageMenusComponent implements OnInit {
   @Input() restaurantId?: number;
   menus: Menu[] = [];
   ownerId?: number;
-
   editMode = false;
+  isLargeScreen?: boolean;
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize();
+  }
 
   menu: Partial<Menu> = {
     menu_id: undefined,
@@ -30,6 +36,7 @@ export class ManageMenusComponent implements OnInit {
   constructor(private menuService: MenuService, public dialog: MatDialog, private toast: HotToastService) {}
 
   ngOnInit(): void {
+    this.checkScreenSize();
     const userRole = localStorage.getItem('user_role');
     const adminViewOwnerId = localStorage.getItem('admin_view_owner_id');
     const userId = localStorage.getItem('user_id');
@@ -39,6 +46,19 @@ export class ManageMenusComponent implements OnInit {
     if (storedOwnerId) {
       this.ownerId = Number(storedOwnerId);
     }
+    this.loadMenus();
+  }
+
+  private checkScreenSize() {
+    if (window.innerWidth < 768) {
+      // 768px is a common breakpoint
+      this.isLargeScreen = false;
+    } else {
+      this.isLargeScreen = true;
+    }
+  }
+
+  loadMenus() {
     if (this.ownerId) {
       this.menuService
         .getMenusByOwnerId(this.ownerId)
@@ -121,20 +141,29 @@ export class ManageMenusComponent implements OnInit {
         .subscribe(() => {
           // Update the menu's restaurant_id with null
           menu.restaurant_id = null;
+          this.loadMenus();
         });
     }
   }
 
   deleteMenu(menuId?: number) {
-    if (menuId && this.ownerId) {
-      this.menuService
-        .deleteMenu(menuId, this.ownerId)
-        .pipe(handleError(this.toast))
-        .subscribe(() => {
-          // Remove the menu from the list after the deletion is complete
-          this.menus = this.menus.filter((m) => m.menu_id !== menuId);
-        });
-    }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: { entityType: 'menu' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (menuId && this.ownerId) {
+          this.menuService
+            .deleteMenu(menuId, this.ownerId)
+            .pipe(handleError(this.toast))
+            .subscribe(() => {
+              // Remove the menu from the list after the deletion is complete
+              this.menus = this.menus.filter((m) => m.menu_id !== menuId);
+            });
+        }
+      }
+    });
   }
 
   openAssignRestaurantDialog(menu: Menu) {
@@ -151,6 +180,7 @@ export class ManageMenusComponent implements OnInit {
           // Update the menu's restaurant_id with the selected restaurant id
           menu.restaurant_id = result;
           menu.visibility = result.visibility;
+          this.loadMenus();
         }
       });
   }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { handleError } from 'src/app/core/handlers/error-toast';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { CustomerService } from 'src/app/core/services/user-items/customer.service';
 import { UsersService } from 'src/app/core/services/user-items/users.service';
+import { CustomValidators } from 'src/app/core/utils/custom-validators';
 import { Address } from 'src/app/models/user-items/address';
 import { Roles } from 'src/app/models/user-items/roles';
 import { User } from 'src/app/models/user-items/user';
@@ -22,6 +24,8 @@ export class UserDetailsComponent implements OnInit {
   public editModeUser = false;
   public editModeAddress = false;
   public hidePassword = true;
+  public userForm!: FormGroup;
+  public addressForm!: FormGroup;
 
   user: Partial<User> = {
     username: undefined,
@@ -50,6 +54,8 @@ export class UserDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.initForms();
+
     this.authService.getLoggedInName.pipe(handleError(this.toast)).subscribe((username) => {
       this.username = username;
     });
@@ -58,6 +64,7 @@ export class UserDetailsComponent implements OnInit {
       .getUser(this.username!)
       .pipe(handleError(this.toast))
       .subscribe((user) => {
+        this.userForm!.patchValue(user);
         this.user = user;
         this.id = user.user_id;
       });
@@ -68,11 +75,78 @@ export class UserDetailsComponent implements OnInit {
         .pipe(handleError(this.toast))
         .subscribe((address) => {
           if (Object.keys(address).length !== 0) {
+            this.addressForm!.patchValue(address);
             this.address = address;
             this.addressExists = true;
           }
         });
     }
+  }
+
+  initForms() {
+    this.userForm = new FormGroup({
+      firstname: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(255),
+        CustomValidators.unicodeLettersAndSpaces,
+      ]),
+      lastname: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(255),
+        CustomValidators.unicodeLettersAndSpaces,
+      ]),
+      username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+      email: new FormControl('', [Validators.required, Validators.maxLength(255), Validators.email, CustomValidators.customEmail]),
+      password: new FormControl('', [Validators.minLength(3), Validators.maxLength(255)]),
+      telephone: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(255),
+        CustomValidators.customTelephone,
+      ]),
+    });
+
+    this.addressForm = new FormGroup({
+      country: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(255),
+        CustomValidators.unicodeLettersAndSpaces,
+      ]),
+      county: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(255),
+        CustomValidators.unicodeLettersAndSpaces,
+      ]),
+      city: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(255),
+        CustomValidators.unicodeLettersAndSpaces,
+      ]),
+      zip_code: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(15),
+        CustomValidators.customZipcode,
+      ]),
+      street: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(255),
+        CustomValidators.unicodeLettersDigitsSpaces,
+      ]),
+      house_number: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(255),
+        CustomValidators.houseNumber,
+      ]),
+      apt_number: new FormControl('', [Validators.minLength(1), Validators.maxLength(255), CustomValidators.unicodeLettersDigits]),
+    });
   }
 
   onUserSubmit() {
@@ -83,6 +157,7 @@ export class UserDetailsComponent implements OnInit {
       .updateUser(this.username!, customerToSend)
       .pipe(handleError(this.toast))
       .subscribe((response) => {
+        this.toast.success('User details successfully updated!');
         const updatedUsername = customerToSend.username as string;
         this.authService.getLoggedInName.next(updatedUsername);
         localStorage.setItem('username', updatedUsername);
@@ -117,10 +192,16 @@ export class UserDetailsComponent implements OnInit {
 
   setEditModeUser(value: boolean) {
     this.editModeUser = value;
+    if (!this.editModeUser) {
+      this.userForm.patchValue(this.user);
+    }
   }
 
   setEditModeAddress(value: boolean) {
     this.editModeAddress = value;
+    if (!this.editModeAddress) {
+      this.addressForm.patchValue(this.address);
+    }
   }
 
   togglePassword() {

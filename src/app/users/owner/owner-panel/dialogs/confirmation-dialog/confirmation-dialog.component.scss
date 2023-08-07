@@ -1,0 +1,23 @@
+.dialog-content {
+    width: 100%;
+    min-width: 30rem;
+    min-height: 20rem;
+    padding: 2rem;
+    text-align: left;
+}
+
+.dialog-content h1 {
+    margin-bottom: 2rem;
+    font-size: 3rem;
+}
+
+.dialog-content p {
+    margin-bottom: 1.5rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}

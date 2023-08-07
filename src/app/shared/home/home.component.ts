@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
 import { handleError } from 'src/app/core/handlers/error-toast';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { CustomerService } from 'src/app/core/services/user-items/customer.service';
 import { Roles } from 'src/app/models/user-items/roles';
 
 @Component({
@@ -11,8 +12,14 @@ import { Roles } from 'src/app/models/user-items/roles';
 })
 export class HomeComponent implements OnInit {
   public userRole: Roles | undefined | string;
+  public userId?: number;
+  public isCustomerAddress?: boolean;
 
-  constructor(private authenticationService: AuthenticationService, private toast: HotToastService) {}
+  constructor(
+    private authenticationService: AuthenticationService,
+    private toast: HotToastService,
+    private customerService: CustomerService
+  ) {}
 
   ngOnInit(): void {
     this.refreshOnInit();
@@ -51,6 +58,52 @@ export class HomeComponent implements OnInit {
       .pipe(handleError(this.toast))
       .subscribe((role) => {
         this.userRole = (role as Roles) || 'none';
+        if (this.userRole === 'CUSTOMER') {
+          this.handleCustomerAddress();
+        }
       });
+  }
+
+  handleCustomerAddress() {
+    if (this.isAddressInLocalStorage()) {
+      this.checkAddressStatusAndWarn();
+    } else {
+      this.fetchAndStoreAddress();
+    }
+  }
+
+  isAddressInLocalStorage(): boolean {
+    const isCustomerAddress = localStorage.getItem('isCustomerAddress');
+    if (isCustomerAddress) {
+      this.isCustomerAddress = isCustomerAddress === 'true';
+      return true;
+    }
+    return false;
+  }
+
+  checkAddressStatusAndWarn() {
+    if (!this.isCustomerAddress) {
+      this.showAddressWarning();
+    }
+  }
+
+  fetchAndStoreAddress() {
+    this.userId = Number(localStorage.getItem('user_id'));
+    if (this.userId) {
+      this.customerService
+        .getAddress(this.userId)
+        .pipe(handleError(this.toast))
+        .subscribe((address) => {
+          const isNotAddress = Object.keys(address).length === 0;
+          localStorage.setItem('isCustomerAddress', !isNotAddress ? 'true' : 'false');
+          if (isNotAddress) {
+            this.showAddressWarning();
+          }
+        });
+    }
+  }
+
+  showAddressWarning() {
+    this.toast.warning(`You do not have an address.<br>Please add it in 'Profile Settings' to unlock ordering`);
   }
 }

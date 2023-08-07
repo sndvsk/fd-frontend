@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemService } from 'src/app/core/services/restaurant-items/item.service';
 import { Item } from 'src/app/models/restaurant-items/item';
@@ -6,6 +6,7 @@ import { AssignRestaurantDialogComponent } from '../dialogs/assign-restaurant-di
 import { AssignMenuDialogComponent } from '../dialogs/assing-menu-dialog/assign-menu-dialog.component';
 import { HotToastService } from '@ngneat/hot-toast';
 import { handleError } from 'src/app/core/handlers/error-toast';
+import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-manage-items',
@@ -17,6 +18,12 @@ export class ManageItemsComponent implements OnInit {
   items: Item[] = [];
   ownerId?: number;
   editMode = false;
+  isLargeScreen?: boolean;
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize();
+  }
 
   item: Partial<Item> = {
     item_id: undefined,
@@ -32,6 +39,7 @@ export class ManageItemsComponent implements OnInit {
   constructor(private itemService: ItemService, public dialog: MatDialog, private toast: HotToastService) {}
 
   ngOnInit(): void {
+    this.checkScreenSize();
     const userRole = localStorage.getItem('user_role');
     const adminViewOwnerId = localStorage.getItem('admin_view_owner_id');
     const userId = localStorage.getItem('user_id');
@@ -41,14 +49,15 @@ export class ManageItemsComponent implements OnInit {
     if (storedOwnerId) {
       this.ownerId = Number(storedOwnerId);
     }
-    if (this.ownerId) {
-      this.itemService
-        .getItemsByOwnerId(this.ownerId)
-        .pipe(handleError(this.toast))
-        .subscribe((items) => {
-          const _items = Array.isArray(items) ? items : [items];
-          this.items = _items.sort((a, b) => (a.item_id ? a.item_id : 0) - (b.item_id ? b.item_id : 0));
-        });
+
+    this.loadItems();
+  }
+
+  private checkScreenSize() {
+    if (window.innerWidth < 1000) {
+      this.isLargeScreen = false;
+    } else {
+      this.isLargeScreen = true;
     }
   }
 
@@ -70,6 +79,18 @@ export class ManageItemsComponent implements OnInit {
     } else {
       this.item = {};
     } */
+  }
+
+  loadItems() {
+    if (this.ownerId) {
+      this.itemService
+        .getItemsByOwnerId(this.ownerId)
+        .pipe(handleError(this.toast))
+        .subscribe((items) => {
+          const _items = Array.isArray(items) ? items : [items];
+          this.items = _items.sort((a, b) => (a.item_id ? a.item_id : 0) - (b.item_id ? b.item_id : 0));
+        });
+    }
   }
 
   saveItem() {
@@ -112,6 +133,7 @@ export class ManageItemsComponent implements OnInit {
         .pipe(handleError(this.toast))
         .subscribe(() => {
           item.menu_id = null;
+          this.loadItems();
         });
     }
   }
@@ -123,19 +145,28 @@ export class ManageItemsComponent implements OnInit {
         .pipe(handleError(this.toast))
         .subscribe(() => {
           item.restaurant_id = null;
+          this.loadItems();
         });
     }
   }
 
   deleteItem(itemId?: number) {
-    if (itemId && this.ownerId) {
-      this.itemService
-        .deleteItem(itemId, this.ownerId)
-        .pipe(handleError(this.toast))
-        .subscribe(() => {
-          this.items = this.items.filter((i) => i.item_id !== itemId);
-        });
-    }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: { entityType: 'item' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (itemId && this.ownerId) {
+          this.itemService
+            .deleteItem(itemId, this.ownerId)
+            .pipe(handleError(this.toast))
+            .subscribe(() => {
+              this.items = this.items.filter((i) => i.item_id !== itemId);
+            });
+        }
+      }
+    });
   }
 
   assignToMenu(item: Item) {
@@ -159,6 +190,7 @@ export class ManageItemsComponent implements OnInit {
           }
         }
       });
+    this.loadItems();
   }
 
   assignToRestaurant(item: Item) {
@@ -182,5 +214,6 @@ export class ManageItemsComponent implements OnInit {
           }
         }
       });
+    this.loadItems();
   }
 }

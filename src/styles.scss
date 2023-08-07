@@ -34,7 +34,6 @@ html {
 }
 
 body {
-  font-family: 'Ubuntu', sans-serif;
   font-size: 1.6rem;
   font-weight: 400;
   color: var(--black);
@@ -145,11 +144,14 @@ body {
   text-decoration: none;
 }
 
+.btn--gap {
+    margin-right: 1rem;
+}
+
 .btn:hover {
   transform: translateY(-3px);
   transform: scale(1.05);
   color: var(--white);
-  background-color: red;
   box-shadow: var(--box-shadow);
 }
 
@@ -157,12 +159,17 @@ body {
   background-color: var(--deep-pink);
 }
 
+.btn--primary:hover {
+  background-color: red;
+}
+
 .btn--secondary {
   background-color: var(--mid-pink);
 }
 
 .btn--secondary:hover {
-  color: var(--mid-pink);
+  color: var(--white);
+  background-color: var(--deep-pink);
 }
 
 .btn--large {

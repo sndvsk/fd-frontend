@@ -42,7 +42,7 @@ export class OwnerPanelComponent implements OnInit {
         .subscribe((owner) => {
           this.ownerApproved = owner.approved;
           if (!this.ownerApproved) {
-            this.toast.info(`You are not yet approved as an owner.<br>Please wait until you are or contact administration.`);
+            this.toast.warning(`Try later.`);
           }
         });
     }
