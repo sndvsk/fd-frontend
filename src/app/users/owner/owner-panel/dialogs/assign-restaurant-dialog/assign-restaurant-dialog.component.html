@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Assign a {{ data.menu ? 'Menu' : 'Item' }} to Restaurant</h1>
-<div mat-dialog-content>
-  <mat-form-field>
+<div style="padding: 2rem;">
+    <h1>Assign a {{ data.menu ? 'Menu' : 'Item' }} to Restaurant</h1>
+  <mat-form-field style="width: 100%;">
     <mat-select
       placeholder="Select Restaurant"
       [(ngModel)]="selectedRestaurant"
@@ -13,19 +13,19 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+    <button
+      class="btn btn--primary btn--large"
+      (click)="onOkClick()"
+      cdkFocusInitial
+    >
+      Submit
+    </button>
+    <button
+      class="btn btn--secondary btn--large"
+      (click)="onNoClick()"
+    >
+      Cancel
+    </button>
 </div>
-<div mat-dialog-actions>
-  <button
-    class="btn btn--primary btn--large"
-    (click)="onOkClick()"
-    cdkFocusInitial
-  >
-    Submit
-  </button>
-  <button
-    class="btn btn--secondary btn--large"
-    (click)="onNoClick()"
-  >
-    Cancel
-  </button>
 </div>

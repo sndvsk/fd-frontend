@@ -18,7 +18,7 @@ export class CustomValidators {
   }
 
   static houseNumber(control: AbstractControl): ValidationErrors | null {
-    const regex = /^\\d+[-\s/]*\\d*$/;
+    const regex = /^\d+[-\s/]*\d*[A-Za-z]?$/;
     return regex.test(control.value) ? null : { pattern: true };
   }
 
@@ -33,7 +33,7 @@ export class CustomValidators {
   }
 
   static customZipcode(control: AbstractControl): ValidationErrors | null {
-    const regex = /^\\d{5,15}$/;
+    const regex = /^\d{5,15}$/;
     return regex.test(control.value) ? null : { pattern: true };
   }
 }

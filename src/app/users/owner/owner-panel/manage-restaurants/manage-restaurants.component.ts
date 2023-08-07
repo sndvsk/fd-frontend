@@ -35,7 +35,7 @@ export class ManageRestaurantsComponent implements OnInit {
     description: undefined,
     theme: undefined,
     phone: undefined,
-    image: undefined,
+    image: 'none',
     address: this.restaurantAddress,
   };
 

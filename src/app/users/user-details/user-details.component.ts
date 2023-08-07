@@ -151,7 +151,8 @@ export class UserDetailsComponent implements OnInit {
 
   onUserSubmit() {
     // Only include fields that are not empty or undefined
-    const customerToSend = Object.fromEntries(Object.entries(this.user).filter(([value]) => value !== '' && value !== undefined)) as User;
+    const formData = this.userForm.value;
+    const customerToSend = Object.fromEntries(Object.entries(formData).filter(([value]) => value !== '' && value !== undefined)) as User;
 
     this.userService
       .updateUser(this.username!, customerToSend)
@@ -167,7 +168,8 @@ export class UserDetailsComponent implements OnInit {
 
   onAddressSubmit() {
     // Only include fields that are not empty or undefined
-    const addressToSend = Object.fromEntries(Object.entries(this.address).filter(([value]) => value !== '' && value !== undefined));
+    const formData = this.addressForm.value;
+    const addressToSend = Object.fromEntries(Object.entries(formData).filter(([value]) => value !== '' && value !== undefined));
 
     if (this.addressExists) {
       // Update address
@@ -175,6 +177,7 @@ export class UserDetailsComponent implements OnInit {
         .updateAddress(+this.userId!, addressToSend)
         .pipe(handleError(this.toast))
         .subscribe(() => {
+          this.toast.success('Address successfully updated!');
           this.address = addressToSend;
           this.editModeAddress = false;
         });
@@ -184,6 +187,7 @@ export class UserDetailsComponent implements OnInit {
         .addAddress(+this.userId!, addressToSend)
         .pipe(handleError(this.toast))
         .subscribe(() => {
+          this.toast.success('Address successfully set!');
           this.address = addressToSend;
           this.addressExists = true;
         });

@@ -30,7 +30,7 @@ export class ManageItemsComponent implements OnInit {
     name: undefined,
     description: undefined,
     price: undefined,
-    image: undefined,
+    image: 'none',
     ingredients: [],
     allergens: [],
     restaurant_id: undefined,
