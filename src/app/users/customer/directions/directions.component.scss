@@ -1,25 +1,25 @@
 .map-section {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    height: 60vh;
-    margin-top: 10rem;
-    padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 60vh;
+  margin-top: 10rem;
+  padding: 2rem;
 }
-  
+
 .map-container {
-    flex: 1;
-    height: auto;
-    width: auto;
-    margin-bottom: 1rem;
+  flex: 1;
+  height: auto;
+  width: auto;
+  margin-bottom: 1rem;
 }
 
 .text-container-wrapper {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
-  
+
 @media screen and (min-width: 768px) {
-    .map-section {
-      flex-direction: row;
-    }
+  .map-section {
+    flex-direction: row;
+  }
 }

@@ -28,17 +28,17 @@ h1 {
 }
 
 .item-actions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
 
 .add-item {
   margin-bottom: 2rem;
 }
 
 .btn-cont {
-    padding: 1.6rem;
+  padding: 1.6rem;
 }
 
 @media (max-width: 1000px) {

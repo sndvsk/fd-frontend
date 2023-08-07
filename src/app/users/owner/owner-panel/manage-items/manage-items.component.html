@@ -88,7 +88,7 @@
         Save
       </button>
       <button
-      class="btn btn--secondary btn--large"
+        class="btn btn--secondary btn--large"
         (click)="cancelEdit()"
       >
         Cancel
@@ -116,15 +116,15 @@
       *ngFor="let item of items"
     >
       <div class="item-info">
-        <h2>Restaurant: {{ item.restaurant_name }}<br>Menu: {{ item.menu_name }}<br>Item: {{ item.name }}</h2>
+        <h2>Restaurant: {{ item.restaurant_name }}<br />Menu: {{ item.menu_name }}<br />Item: {{ item.name }}</h2>
         <p>{{ item.description }}</p>
         <p>Price: {{ item.price }}</p>
       </div>
 
       <div class="item-actions">
         <button
-        class="btn btn--primary"
-        [class.btn--large]="isLargeScreen"
+          class="btn btn--primary"
+          [class.btn--large]="isLargeScreen"
           (click)="editItem(item)"
         >
           Edit Item
