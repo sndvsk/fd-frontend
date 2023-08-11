@@ -191,6 +191,7 @@ export class UserDetailsComponent implements OnInit {
           this.address = addressToSend;
           this.addressExists = true;
           this.editModeAddress = false;
+          localStorage.setItem('isCustomerAddress', 'true');
         });
     }
   }

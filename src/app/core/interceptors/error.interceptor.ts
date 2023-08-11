@@ -32,7 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             return EMPTY;
           } else {
             const errorMsg = `Error Code: ${errorCode}, Message: ${errorMessage}`;
-            console.log(errorMsg);
+            //console.log(errorMsg);
           }
         }
 
